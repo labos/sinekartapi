@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+<!-- The Italian langpack -->
+<!-- 
+/*
+ * Copyright (C) 2011 - 2012 T Logic.
+ *
+ * This file is part of SinekartaPI
+ *
+ * Sinekarta PI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Sinekarta PI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ */
+ -->
+
+<langpack>
+
+    <!-- Heading messages START -->
+    <str id="SinekartaTargetPanel.headline" txt="Percorso destinazione"/>
+    <str id="SinekartaTargetPanel.info" txt="Scegliere il percorso dove è installato Alfresco : "/>
+    <str id="SinekartaTargetPanel.browse" txt="Sfoglia..."/>
+    <str id="SinekartaTargetPanel.warn1"
+         txt="La cartella specificata non sembra contenere una installazione di Alfresco"/>
+    <str id="SinekartaTargetPanel.warn2"
+         txt="Prima di installare sinekarta PI e' necessario che Alfresco sia stato attivato almeno una volta. Dopo averlo attivato è importante eseguire una login utilizzando l'utente admin."/>
+    <str id="SinekartaTargetPanel.warn3"
+         txt="Sinekarta PI risulta essere gia' installato in questa directory, sovrascrivere la precedente installazione?"/>
+    <str id="SinekartaTargetPanel.createdir" txt="Verrà creata la cartella: "/>
+    <str id="SinekartaTargetPanel.nodir" txt="Questa non è una cartella! Selezionare una cartella!"/>
+    <str id="SinekartaTargetPanel.notwritable" txt="Quasta cartella non è scrivibile! Selezionare un'altra cartella!"/>
+
+    <str id="SinekartaFinishPanel.info1" txt="Installazione effettuata con successo."/>
+    <str id="SinekartaFinishPanel.info2" txt="Grazie per avere scelto sinekarta PI."/>
+
+</langpack>

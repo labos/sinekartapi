@@ -1,0 +1,18 @@
+# Form descriptions
+search.form.label.ggp_rdtype=R&D document
+search.form.desc.ggp_rdtype=R&D document
+
+label.customer=Customer
+label.business=Business
+label.projectName=ProjectName
+
+page.advsearch-protocollo.title=Advanced Search
+
+
+actions.document.caricaDocumentoMaster=Carica Documento Master
+actions.document.assegnaNumeroProtocollo=Assegna Num. Protocollo
+actions.document.registraProtocollo=Registra Protocollo
+actions.document.eliminaProtocollo=Elimina Protocollo
+actions.document.rifiutaProtocollo=Rifiuta Protocollo
+actions.document.stampaEtichetta=Stampa Etichetta
+actions.document.allega=Aggiungi Allegati

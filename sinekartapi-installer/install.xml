@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+<!-- 
+/*
+ * Copyright (C) 2011 - 2012 T Logic.
+ *
+ * This file is part of SinekartaPI
+ *
+ * Sinekarta PI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Sinekarta PI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ */
+ -->
+
+<installation version="1.0">
+
+    <info>
+        <appname>sinekartaPI</appname>
+        
+        <!--  in caso di nuove versioni è necessario modificare il campo -->
+        <appversion>community-4.0</appversion>
+        
+        <authors>
+            <author name="TLogic" email="info@tlogic.it"/>
+            <author name="Andrea Bozzetto" email="andrea.bozzetto@tlogic.it"/>
+        </authors>
+        <url>http://www.sinekartapi.org/</url>
+        <url>http://www.tlogic.it/</url>
+        <uninstaller name="uninstaller.jar" path="$INSTALL_PATH/sinekartapi/Uninstaller"/>
+        <javaversion>1.6</javaversion>
+        <requiresjdk>no</requiresjdk>
+        <writeinstallationinformation>no</writeinstallationinformation>
+    </info>
+
+	<variables>
+		<variable name="ShowCreateDirectoryMessage" value="false" />
+	</variables>
+
+    <guiprefs width="640" height="480" resizable="no"/>
+
+    <locale>
+        <langpack iso3="ita"/>
+    </locale>
+	
+	<jar src="lib/ant.jar" stage="both"/>
+	<jar src="lib/ant-contrib.jar" stage="both"/>
+	<jar src="lib/ant-launcher.jar" stage="both"/>
+	<jar src="lib/bsh-2.0b4.jar" stage="both"/>
+	<jar src="lib/sinekartaPIInstaller.jar" stage="both"/>
+
+    <resources>
+        <res id="HTMLLicencePanel.licence" src="html/LicencePanel_ita.html"/>
+        <res id="HTMLInfoPanel.info" src="html/InfoPanel_ita.html"/>
+        <res id="SinekartaTargetPanel.dir" src="resources/SinekartapiTargetPanel.txt"/>
+		<res id="CustomLangpack.xml_ita" src="resources/CustomLangpack_ita.xml"/>        
+ 		<res id="AntActionsSpec.xml" src="ant/AntActions.xml"/>
+		<res id="userInputSpec.xml" src="resources/userInputSpec.xml" />
+	</resources>
+
+    <panels>
+        <panel classname="HelloPanel">
+			<help iso3="ita" src="html/HelloPanel_help_ita.html" />
+        </panel>
+  		<panel classname="HTMLInfoPanel" id="info" />
+        <panel classname="HTMLLicencePanel" id="licence" />
+        
+        <panel classname="SinekartapiTargetPanel">
+			<help iso3="ita" src="html/SinekartapiTargetPanel_help_ita.html" />
+        </panel>
+		<panel classname="UserInputPanel" id="UserInputPanel.0" />
+		<!--  panel classname="UserInputPanel" id="UserInputPanel.1" / -->
+        <panel classname="PacksPanel" />
+		<panel classname="UserInputPanel" id="UserInputPanel.1" />
+        <panel classname="ExtendedInstallPanel"/>  
+		<panel classname="UserInputPanel" id="UserInputPanel.2" />
+		<panel classname="UserInputPanel" id="UserInputPanel.3" />
+        <panel classname="SinekartapiFinishPanel" />
+    </panels>
+
+	<listeners>
+		<listener installer="ProgressBarInstallerListener" />
+		<listener installer="AntActionInstallerListener" uninstaller="AntActionUninstallerListener" />
+	</listeners>
+
+    <packs>
+        <pack name="installazione sinekartaPI" id="installazione sinekartaPI" required="yes">
+            <description>configurazione sinekartaPI</description>
+            
+           
+            <file src="ant/unpack.xml" targetdir="$INSTALL_PATH/sinekartaPI"/>
+        </pack>
+
+        <pack name="arresto alfresco" id="arresto alfresco" required="yes" hidden="true">
+            <description>arresto alfresco</description>
+        </pack>
+        <pack name="verifica alfresco" id="verifica alfresco" required="yes" hidden="true">
+            <description>verifica alfresco</description>
+        </pack>
+        <!-- 
+        <pack name="openoffice plugin" id="openoffice plugin" required="yes" hidden="true">
+            <description>openoffice plugin</description>
+        </pack>
+        -->
+        <pack name="configurazione sinekartaPI" id="configurazione sinekartaPI" required="yes" hidden="true">
+            <description>File di installazione sinekarta PI</description>
+            <fileset dir="./db/" includes="**/*.*" targetdir="$INSTALL_PATH/sinekartaPI" override="true" />
+            <fileset dir="./install/tomcat/shared/" includes="**/*.*" targetdir="$INSTALL_PATH/tomcat/shared/" override="true" />
+            <fileset dir="./install/tomcat/webapps/alfresco/WEB-INF/lib/" includes="**/*.*" targetdir="$INSTALL_PATH/tomcat/webapps/alfresco/WEB-INF/lib/" override="true" />
+            <fileset dir="../sinekartapi-alfresco/source/config/" includes="**/*.*" targetdir="$INSTALL_PATH/tomcat/webapps/alfresco/WEB-INF/classes/" override="true" />
+            <fileset dir="../sinekartapi-share/source/config/" includes="**/*.*" targetdir="$INSTALL_PATH/tomcat/webapps/share/WEB-INF/classes/" override="true" />
+            <fileset dir="../sinekartapi-share/source/web/components/" includes="**/*.*" targetdir="$INSTALL_PATH/tomcat/webapps/share/components/" override="true" />
+        </pack>
+        
+
+        
+        <pack name="configurazione DB sinekartaPI" id="configurazione DB sinekartaPI" required="yes" hidden="true">
+            <description>configurazione DB sinekartaPI</description>
+        </pack>
+        
+        <pack name="avvio alfresco" id="avvio alfresco" required="yes" hidden="true">
+            <description>avvio alfresco</description>
+        </pack>
+    </packs>
+
+
+</installation>

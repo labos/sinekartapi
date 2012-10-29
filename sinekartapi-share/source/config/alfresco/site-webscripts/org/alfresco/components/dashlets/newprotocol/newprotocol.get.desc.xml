@@ -1,0 +1,6 @@
+<webscript>
+	<shortname>New Protocol</shortname>
+	<description>Dashlet di inserimento nuovo protocollo</description>
+	<family>site-dashlet</family>
+	<url>/components/dashlets/new-protocol</url>
+</webscript>

@@ -1,0 +1,159 @@
+<import resource="classpath:alfresco/extension/scripts/utils.js">
+
+/**
+ * ottiene la data dell'ultimo documento Registrazioni di Protocollo
+ * @returns
+ */
+function getDataUltimoDocumentoRegistrazioniProtocollo(){
+	var query = '+ASPECT:"skpi:registrazioniProtocollo" ';
+	var searchConstr = {
+			query: query,
+			sort: [
+			   {
+				  column: "skpi:dataRegistrazioni",
+				  ascending: false
+			   }
+			],
+			page: {
+				maxItems: 1
+			}
+		}
+	var res = search.luceneSearch(query),
+		doc = res[0],
+		date;
+	
+	if (doc){
+		date = doc.properties["skpi:dataRegistrazioni"];
+		date = new Date(Date.parse(date));
+	} 
+	return date;
+}
+
+/**
+ * Recupera i protocolli da registrare nei rispettivi documenti
+ * e li inserisce in una struttura dati opportuna
+ * @param dataInizio
+ * @returns
+ */
+function getProtocolliDaRegistrare(dataInizio){	
+	var yesterday,
+		beginDateRange = "MIN",
+		endDateRange;
+	
+	ieri = new Date();
+	ieri.setDate(ieri.getDate()-1);
+	if (dataInizio){
+		beginDateRange = toISO8601(dataInizio, "date");
+	}
+	endDateRange = toISO8601(ieri, "date");
+		
+	//beginDateRange = "MIN";
+	//endDateRange = "MAX";
+	
+	var query = '+ASPECT:"skpi:protocollabile" -@pi\\:statoProtocollo:"Incompleto" '+
+		'+@pi\\:dataProtocollo:['+beginDateRange+' TO '+endDateRange+']';
+	var searchConstr = {
+		query: query,
+		sort: [
+		   {
+			  column: "skpi:numeroProtocollo",
+			  ascending: true
+		   }
+		]		
+	};
+	var res = search.luceneSearch(query);
+	
+	var registrazioni = {},
+		doc, date, day, month, year;
+	
+	for (var i=0; i<res.length; i++){
+		doc = res[i];
+		date = new Date( Date.parse(doc.properties["skpi:dataProtocollo"]) );
+		day = date.getDate();
+		month = date.getMonth();
+		year = date.getFullYear();
+		
+		if (!registrazioni[year])
+			registrazioni[year] = {};
+		if (!registrazioni[year][month] )
+			registrazioni[year][month] = {};
+		if (!registrazioni[year][month][day] )
+			registrazioni[year][month][day] = [];
+		registrazioni[year][month][day].push(doc);
+	}
+		
+	return registrazioni;
+}
+
+/**
+ * Genera il documento contenente le registrazioni
+ * @param registrazioni
+ * 	{
+ * 		dataRegistrazioni,
+ * 		items: [ doc1..docN ]
+ * 	}
+ * @returns
+ */
+function creaDocumentoRegistrazioniProtocollo(registrazioni){
+	var text = ""+
+		"<h1>Registro Protocollo</h1>" +
+		"<h3>giorno "+formatDate(registrazioni.dataRegistrazioni)+"</h3>" +
+		"<table>" +
+		"<tr>" +
+		"	<th>N. Protocollo</th><th>Mitt/Dest</th><th>Oggetto</th><th>Titolo</th><th>Data Protocollo</th><th>Stato</th>" +
+		"</tr>",
+		textLine = "",
+		protocollo,
+		numeroProtocollo, mittDest, oggetto, titolo, dataProtocollo, statoProtocollo;	
+		
+	for (var i=0; i<registrazioni.items.length; i++){
+		protocollo = registrazioni.items[i];
+		textLine = "";
+		numeroProtocollo = protocollo.properties["skpi:numeroProtocollo"];
+		mittDest = protocollo.properties["skpi:mittDest"];
+		oggetto = protocollo.properties["skpi:oggetto"];
+		titolo = protocollo.properties["skpi:titolo"][0].name;
+		dataProtocollo = formatDate(protocollo.properties["skpi:dataProtocollo"]);			
+		statoProtocollo = protocollo.properties["skpi:statoProtocollo"];
+		
+		textLine = "" + 
+			"<tr>" +
+				"<td>"+numeroProtocollo+"</td><td>"+mittDest+"</td><td>"+oggetto+"</td><td>"+titolo+"</td><td>"+dataProtocollo+"</td><td>"+statoProtocollo+"</td>" +
+			"</tr>";
+		text = text+"\n"+textLine;
+	}
+	text = text + "</table>";
+	text = "<html>\n<body>\n"+text+"</body>\n</html>\n";
+	
+	var pRoot = getContainerProtocolli();
+	var fileName = "registrazioniProtocollo-<date>.html";
+	fileName = fileName.replace("<date>", toISO8601(registrazioni.dataRegistrazioni, "date") );
+	var docRegistrazioni = pRoot.createFile(fileName);
+	docRegistrazioni.content = text;
+	docRegistrazioni.addAspect("skpi:registrazioniProtocollo");
+	docRegistrazioni.properties["skpi:dataRegistrazioni"] = new Date();
+	docRegistrazioni.save();
+}
+
+
+
+
+var date = getDataUltimoDocumentoRegistrazioniProtocollo();
+var protocolli = getProtocolliDaRegistrare(date);
+
+for (var y in protocolli){
+	var protocolliAnno = protocolli[y];
+	for (var m in protocolliAnno){
+		var protocolliMese = protocolliAnno[m];
+		for (var d in protocolliMese){
+			var protocolliGiorno = protocolliMese[d];
+			var dataProtocolli = new Date(y, m, d);
+			creaDocumentoRegistrazioniProtocollo({
+				dataRegistrazioni: dataProtocolli,
+				items: protocolliGiorno
+			})
+		}
+	}
+}
+
+model.message = "";

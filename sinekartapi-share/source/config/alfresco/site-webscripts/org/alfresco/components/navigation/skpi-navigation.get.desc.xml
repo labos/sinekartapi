@@ -1,0 +1,5 @@
+<webscript>
+  <shortname>SinekartaPI Navigation</shortname>
+  <description>Navigation component used in the Sinekarta PI site</description>
+  <url>/components/navigation/skpi-navigation</url>
+</webscript>

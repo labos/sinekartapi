@@ -1,0 +1,34 @@
+==============================================================================
+  sinekarta PI  -  README
+==============================================================================
+
+Contents of this file:
+ - What is sinekarta PI?
+ - Legal Information
+ - Resources
+
+==============================================================================
+
+
+What is sinekarta PI ?
+------------------
+
+sinekarta PI provides a set of extensions to alfresco DMS to make it compliant 
+with italian laws on "Protocollo Informatico". 
+    
+    
+Legal Information
+-----------------
+
+sinekartaPI is published under the GPL V3 license. For the license
+text, please see the following files:
+- LICENSE
+- NOTICE
+
+Resources
+---------
+
+sinekartaPI is hosted by sourceforge : http://sinekartapi.sourceforge.net
+You can find any resources on sourceforge.
+
+

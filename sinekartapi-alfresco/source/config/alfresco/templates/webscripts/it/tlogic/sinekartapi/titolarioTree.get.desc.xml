@@ -1,0 +1,7 @@
+<webscript>
+   <shortname>Protocols Adress</shortname>
+   <description>Adress of the folder containing the protocols</description>
+   <url>/it/tlogic/titolario/{aoo}</url>
+   <format default="json" />
+   <authentication>user</authentication>
+</webscript>

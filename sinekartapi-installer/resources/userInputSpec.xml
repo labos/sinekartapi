@@ -1,0 +1,51 @@
+<!-- 
+/*
+ * Copyright (C) 2011 - 2012 T Logic.
+ *
+ * This file is part of Sinekarta PI
+ *
+ * Sinekarta PI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Sinekarta PI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ */
+ -->
+<userInput>
+	<panel order="0">
+		<field type="staticText" align="left" txt="Digita la password per accedere al database : " />
+		<field type="password" align="left" variable="db.password">
+			<spec>
+				<pwd txt="Digita la password:" size="25" set=""/>
+				<pwd txt="Ri-digita la password:" size="25" set=""/>
+			</spec>
+			<validator class="com.izforge.izpack.util.PasswordEqualityValidator"
+				txt="Le password digitate sono diverse." />
+		</field>
+	</panel>
+	<panel order="1">
+		<field type="staticText" align="left" txt="ATTENZIONE!!!" />
+		<field type="staticText" align="left" txt="Verrà ora arrestato il servizio di Alfresco, attenredere prego." />
+		<field type="staticText" align="left" txt="L'operazione potrebbe richiedere diversi minuti, un po' di pazienza..." />
+	</panel>
+	<panel order="2">
+		<field type="staticText" align="left" txt="ATTENZIONE!!!" />
+		<field type="staticText" align="left" txt="L'installazione è terminata! E' in corso l'avvio del servizio di Alfresco." />
+		<field type="staticText" align="left" txt="L'operazione potrebbe richiedere diversi minuti, è comunque possibile terminare l'installazione." />
+	</panel>
+	<panel order="3">
+		<field type="staticText" align="left" txt="Dopo avere terminato l'installazione di sinekarta PI è necessario effettuare delle operazioni di configurazione." />
+		<field type="staticText" align="left" txt="Queste operazioni saranno descritte nel manuale : ----" />
+		<field type="text" align="left" variable="checkSelection.manuale">
+			<spec txt="Scrivi ok nel campo qui a fianco se hai capito e vuoi proseguire" size="2" set=""/>
+			<validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="Leggi il contenuto di questo pannello!">
+			    <param name="pattern" value="ok" />
+			</validator>
+		</field>
+	</panel>
+</userInput>

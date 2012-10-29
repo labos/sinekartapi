@@ -1,0 +1,21 @@
+<items>
+	
+	<item>
+		<numProtocollo>123456</numProtocollo>
+		<dataRegistro>28/3/2012</dataRegistro>
+		<mittDest>Test ProcololloSogeetto</mittDest>
+		<oggetto>test Protocollo</oggetto>
+		<titolo>Tags</titolo>
+		<dataProtocollo>28/3/2012</dataProtocollo>
+		<statoProtocollo>Protocollato</statoProtocollo>
+	</item>
+	<item>
+		<numProtocollo>1234567</numProtocollo>
+		<dataRegistro>29/3/2012</dataRegistro>
+		<mittDest>Test ProcololloSogeetto2</mittDest>
+		<oggetto>test Protocollo2</oggetto>
+		<titolo>Tags</titolo>
+		<dataProtocollo>28/3/2012</dataProtocollo>
+		<statoProtocollo>Protocollato</statoProtocollo>
+	</item>
+</items>

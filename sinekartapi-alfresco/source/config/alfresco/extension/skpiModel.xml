@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Custom Model -->
+
+<!-- Note: This model is pre-configured to load at startup of the Repository. 
+	So, all custom -->
+<!-- types and aspects added here will automatically be registered -->
+
+<model name="skpi:protocolloModel" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+	<!-- Optional meta-data about the model -->
+	<description>Custom Model</description>
+	<author></author>
+	<version>1.0</version>
+
+	<imports>
+		<!-- Import Alfresco Dictionary Definitions -->
+		<import uri="http://www.alfresco.org/model/dictionary/1.0"
+			prefix="d" />
+		<!-- Import Alfresco Content Domain Model Definitions -->
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+	</imports>
+
+	<!-- Introduction of new namespaces defined by this model -->
+	<!-- NOTE: The following namespace custom.model should be changed to reflect 
+		your own namespace -->
+	<namespaces>
+		<namespace uri="it.tlogic.skpi" prefix="skpi" />
+	</namespaces>
+
+
+	<types>
+		<type name="skpi:protocollo">
+			<title>Protocollo</title>
+			<parent>cm:content</parent>
+			<mandatory-aspects>
+				<aspect>skpi:protocollabile</aspect>
+			</mandatory-aspects>
+		</type>
+	</types>
+
+	<aspects>
+		<aspect name="skpi:protocollabile">
+			<title>Documento Protocollato</title>
+			<properties>
+
+				<property name="skpi:aoo">
+					<title>Area Omogenea Organizzativa</title>
+					<type>d:text</type>
+					<protected>true</protected>
+				</property>
+
+				<property name="skpi:titolario">
+					<title>Voce del Titolario</title>
+					<type>d:text</type>
+					<protected>true</protected>
+					<mandatory>true</mandatory>
+				</property>
+
+				<property name="skpi:numero_protocollo">
+					<title>Numero del Protocollo</title>
+					
+					<type>d:text</type>
+					<protected>true</protected>
+				</property>
+
+				<property name="skpi:oggetto">
+					<title>Oggetto</title>
+					<type>d:text</type>
+					<mandatory>true</mandatory>
+				</property>
+
+				<property name="skpi:data_protocollazione">
+					<title>Data di Protocollazione</title>
+					<type>d:datetime</type>
+					<protected>true</protected>
+				</property>
+
+				<property name="skpi:mittente">
+					<title>Mittente</title>
+					<type>d:text</type>
+				</property>
+
+				<property name="skpi:destinatario">
+					<title>Destinatario</title>
+					<type>d:text</type>
+				</property>
+
+				<property name="skpi:stato">
+					<title>Stato del protocollo</title>
+					<type>d:text</type>
+
+					<constraints>
+						<constraint type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Protocollato</value>
+									<value>Annullato</value>
+									<value>Errore</value>
+								</list>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+
+				<property name="skpi:tipo">
+					<title>Entrata/Uscita</title>
+					<type>d:text</type>
+					<mandatory>true</mandatory>
+
+					<constraints>
+						<constraint type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Entrata</value>
+									<value>Uscita</value>
+									<value>Documento Interno</value>
+								</list>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+				
+				<!-- Metadati aggiuntivi -->
+				
+				<!-- protocollo precedente -->
+				<property name="skpi:protocollo_precedente">
+					<title>Protocollo precedente</title>
+					<type>d:text</type>
+				</property>
+				
+				<property name="skpi:data_protocollo_precedente">
+					<title>Data protocollo precedente</title>
+					<type>d:date</type>
+				</property>
+				
+				<!-- protocollo mittente -->
+				<property name="skpi:protocollo_mittente">
+					<title>Protocollo mittente</title>
+					<type>d:text</type>
+				</property>
+				
+				<property name="skpi:data_protocollo_mittente">
+					<title>Data protocollo mittente</title>
+					<type>d:date</type>
+				</property>
+
+				<!-- protocollo di emergenza -->
+				<property name="skpi:protocollo_emergenza">
+					<title>Protocollo di emergenza</title>
+					<type>d:text</type>
+				</property>
+				
+				<property name="skpi:data_protocollo_emergenza">
+					<title>Data protocollo di emergenza</title>
+					<type>d:date</type>
+				</property>
+
+				<property name="skpi:fascicolo">
+					<title>Fascicolo</title>
+					<type>d:text</type>
+				</property>
+				
+				<property name="skpi:note">
+					<title>Note</title>
+					<type>d:text</type>
+				</property>
+				
+
+			</properties>
+		</aspect>
+		
+		<aspect name="skpi:registrato">
+			<title>Protocollo Registrato nel Giornale di Protocollo</title>
+		</aspect>
+
+		<aspect name="skpi:annullato">
+			<title>Protocollo Annullato</title>
+			<properties>
+				<property name="skpi:motivo">
+					<title>Motivo annullamento</title>
+					<type>d:text</type>
+					<protected>true</protected>
+				</property>
+				<property name="skpi:dataAnnullamento">
+					<title>Data annullamento</title>
+					<type>d:date</type>
+					<protected>true</protected>
+				</property>
+				<property name="skpi:utenteAnnullante">
+					<title>Utente annullante</title>
+					<type>d:text</type>
+					<protected>true</protected>
+				</property>
+			</properties>
+		</aspect>
+		
+	</aspects>
+
+
+</model>

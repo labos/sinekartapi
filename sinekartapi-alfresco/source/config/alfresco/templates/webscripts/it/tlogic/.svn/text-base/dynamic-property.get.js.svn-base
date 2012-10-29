@@ -1,0 +1,55 @@
+<import resource="classpath:/alfresco/templates/webscripts/org/alfresco/slingshot/documentlibrary/parse-args.lib.js">
+
+var property = url.templateArgs.property;
+
+//Use helper function to get the arguments
+var parsedArgs = ParseArgs.getParsedArgs();
+
+var fileName = property+".list";
+if (property == "projectName" || property == "jobOrder")
+	fileName = "projectID.list";
+
+/*
+ * le properties sono associate a dei files con nome analogo
+ * tali files contengono i valori ammissibili per la proprieta
+ * i valori sono definiti uno per riga
+ */
+var file = parsedArgs.rootNode.childByNamePath("Datalists/"+fileName);
+
+var rows = file.content.split('\n');
+
+var propertyValues = [];
+for (var i=0; i<rows.length; i++){
+	var pVal = [rows[i], rows[i]];
+	propertyValues.push(pVal);
+}
+
+/*
+  il file projectID.list e` fatto cosi
+  
+  projNameProp0
+  jobOrderProp0
+  projNameProp1
+  jobOrderProp1
+  projNameProp2
+  jobOrderProp2
+  
+ */
+if (property == "projectName" || property == "jobOrder"){
+	var tmp = [];
+	for (var i=0; i<propertyValues.length; i++){
+		var even = i%2;
+		if (property == "projectName" && even)
+			continue;
+		else if (property == "jobOrder" && !even)
+			continue;
+		tmp.push(propertyValues[i]);
+	}
+	propertyValues = tmp;
+}
+	
+
+model.property = property;
+model.content = file.content;
+model.jsonString = jsonUtils.toJSONString(propertyValues);
+

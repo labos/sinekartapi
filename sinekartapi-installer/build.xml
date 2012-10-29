@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright (C) 2011 - 2012 T Logic.
+ *
+ * This file is part of SinekartaPI
+ *
+ * Sinekarta PI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Sinekarta PI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ */
+ -->
+<project name="SinekartaPI Alfresco Community Installer" default="build-version" basedir=".">
+
+	<property name="version" value="community-4.0" />
+	
+	<property name="sinekartapi.installer.dir" value="." />
+	<property name="sinekartapi.installer.src.dir" value="${sinekartapi.installer.dir}/src" />
+	<property name="sinekartapi.installer.build.dir" value="${sinekartapi.installer.dir}/bin" />
+	<property name="build.dir" value="${sinekartapi.installer.dir}/build" />
+
+	<path id="class.path">
+		<dirset dir="${sinekartapi.installer.build.dir}" />
+		<fileset dir="${sinekartapi.installer.dir}/IzPack/lib" includes="**/*.jar" />
+	</path>
+
+	<target name="build-version">
+		<!-- compilazione applet base -->
+		
+		<javac classpathref="class.path" srcdir="${sinekartapi.installer.src.dir}" 
+				destdir="${sinekartapi.installer.build.dir}" debug="on"
+	         	source="1.5" target="1.5" deprecation="false"/>
+		
+		<delete dir="${sinekartapi.installer.dir}/IzPack/bin/panels/SinekartaTargetPanel" includes="**/*.*"/>
+		<mkdir dir="${sinekartapi.installer.dir}/IzPack/bin/panels/SinekartaTargetPanel" />
+		<copy todir="${sinekartapi.installer.dir}/IzPack/bin/panels/SinekartaTargetPanel">
+			<fileset dir="${sinekartapi.installer.dir}/bin">
+				<include name="com/izforge/izpack/panels/SinekartaPIPathInputPanel.class"/>
+				<include name="com/izforge/izpack/panels/SinekartaPIPathSelectionPanel.class"/>
+				<include name="com/izforge/izpack/panels/SinekartaPITargetPanel.class"/>
+				<include name="com/izforge/izpack/panels/SinekartaPITargetPanelAutomationHelper.class"/>
+				<include name="com/izforge/izpack/panels/SinekartaPITargetPanelConsoleHelper.class"/>
+			</fileset>
+		</copy>
+
+		<delete dir="${sinekartapi.installer.dir}/IzPack/bin/panels/SinekartaPIFinishPanel" includes="**/*.*"/>
+		<mkdir dir="${sinekartapi.installer.dir}/IzPack/bin/panels/SinekartaPIFinishPanel" />
+		<copy todir="${sinekartapi.installer.dir}/IzPack/bin/panels/SinekartaPIFinishPanel">
+			<fileset dir="${sinekartapi.installer.dir}/bin">
+				<include name="com/izforge/izpack/panels/SinekartaPIFinishPanel.class"/>
+			</fileset>
+		</copy>
+
+		<jar destfile="${sinekartapi.installer.dir}/lib/sinekartaPIInstaller.jar" compress="true">
+			<fileset dir="${sinekartapi.installer.build.dir}" />
+		    <manifest>
+				<attribute name="Built-By" value="www.sinekartapi.org"/>
+				<attribute name="Sponsored-By" value="www.tlogic.it"/>
+				<section name="org/sinekarta/alfresco">
+					<attribute name="Comment" value="sinekarta PI installer"/>
+					<attribute name="Implementation-Title" value="org.sinekartapi.alfresco"/>
+					<attribute name="Implementation-Version" value="${version}"/>
+					<attribute name="Implementation-Vendor" value="sinekarta"/>
+					<attribute name="Implementation-URL" value="http://www.sinekartapi.org/"/>
+				</section>
+		    </manifest>
+		</jar>
+		
+		<delete dir="${build.dir}"/>
+		<mkdir dir="${build.dir}"/>
+		<exec executable="IzPack/bin/compile">
+		    <arg value="install.xml"/>
+		    <arg value="-b"/>
+		    <arg value="."/>
+		    <arg value="-o"/>
+		    <arg value="${build.dir}/sinekartaPIInstaller-${version}.jar"/>
+		    <arg value="-k"/>
+		    <arg value="standard"/>
+		</exec>
+		
+		<echo message="File produced : ${build.dir}/sinekartaPIInstaller-${version}.jar"/>
+		
+	</target>
+
+<!-- 
+	l'exe generato viene considerato un virus da norton, si sceglie di distibuire l'installer
+	solo in forma di jar, NON EXE
+	
+	in caso di riattivazione togliere i caratteri | (pipe) dagli argomenti del exec
+	 
+	<target name="generateExe" depends="generate">
+		<echo message="Genereting exe, this will take few minutes..."/>
+		
+		<exec executable="IzPack\utils\wrappers\izpack2exe\izpack2exe.exe">
+		    <arg value="-|-file=sinekartaInstaller-${version}.jar"/>
+		    <arg value="-|-output=sinekartaInstaller-${version}.exe"/>
+		    <arg value="-|-with-7z=IzPack\utils\wrappers\izpack2exe\7za.exe"/>
+		    <arg value="-|-with-upx=IzPack\utils\wrappers\izpack2exe\upx.exe"/>
+		</exec>
+		
+	</target>
+-->
+</project>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <bean id="SinekartaDatasource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+        <!--         <property name="driverClassName" value="com.mysql.jdbc.Driver"/> -->
+		<property name="driverClassName" value="org.postgresql.Driver" />
+        
+<!--         <property name="url" value="jdbc:mysql://localhost:3306/aoo"/> -->
+		<property name="url" value="jdbc:postgresql://localhost:5432/aoo"/>
+        <property name="username" value="aoo"/>
+<!--         <property name="password" value="xxx"/> -->
+		<property name="password" value="aoo"/>
+        <property name="defaultAutoCommit" value="false" /> 
+    </bean>
+    
+    
+    <bean id="sqlMap"
+          class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation" value="classpath:SinekartaSqlMapConfig_PG.xml" />
+        <property name="dataSource" ref="SinekartaDatasource" />
+    </bean>    
+    
+    <bean id="AooDAO" class="it.tlogic.aoo.dao.AooDAOImpl" >
+    	 <property name="sqlMapClient" ref="sqlMap" />
+    </bean>
+    <bean id="CounterDAO" class="it.tlogic.aoo.dao.CounterDAOImpl" >
+    	 <property name="sqlMapClient" ref="sqlMap" />
+    </bean>
+    <bean id="TitolarioDAO" class="it.tlogic.aoo.dao.TitolarioDAOImpl" >
+    	 <property name="sqlMapClient" ref="sqlMap" />
+    </bean>
+    <bean id="TitolarioTreeDAO" class="it.tlogic.aoo.dao.TitolarioTreeDAOImpl" >
+    	 <property name="sqlMapClient" ref="sqlMap" />
+    </bean>
+    
+    <bean id="managerTarget" class="it.tlogic.sinekartapi.manager.SinekartaManagerImpl" >
+    	<property name="aooDao" ref="AooDAO" />
+    	<property name="counterDao" ref="CounterDAO" />
+    	<property name="titolarioDao" ref="TitolarioDAO" />
+    	<property name="titolarioTreeDao" ref="TitolarioTreeDAO" />
+    </bean>
+
+
+    <context:component-scan base-package="*"/>
+    
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource"><ref local="SinekartaDatasource"/></property>
+	</bean>
+    
+     <bean id="manager" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref bean="transactionManager"/>
+        </property>
+        <property name="target">
+            <ref bean="managerTarget"/>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+                <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+                <prop key="update*">PROPAGATION_REQUIRED,-Throwable</prop>
+                <prop key="add*">PROPAGATION_REQUIRED,-Throwable</prop>
+                <prop key="getCounter">PROPAGATION_REQUIRED,-Throwable</prop>
+                
+            </props>
+        </property>
+    </bean>
+
+</beans>

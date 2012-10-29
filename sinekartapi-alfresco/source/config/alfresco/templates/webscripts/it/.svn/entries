@@ -1,0 +1,31 @@
+10
+
+dir
+23
+svn+ssh://svn.code.sf.net/p/sinekartapi/code-0/trunk/sinekartapi-alfresco/src/main/config/alfresco/templates/webscripts/it
+svn+ssh://svn.code.sf.net/p/sinekartapi/code-0
+
+
+
+2012-04-11T14:49:28.459157Z
+14
+abozzettotlogic
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+f1a41ffd-a5d0-4095-b37c-3081722fcca0
+
+tlogic
+dir
+

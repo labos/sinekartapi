@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright (C) 2011 - 2012 T Logic.
+ *
+ * This file is part of Sinekarta PI
+ *
+ * Sinekarta PI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Sinekarta PI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ */
+ -->
+<project name="sinekartapiInstall" basedir=".">
+
+	<!-- proprieta' di lavoro -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+	<property environment="env"/>
+	<property name="webappalfresco" value="${INSTALL_PATH}/tomcat/webapps/alfresco" />
+	<property name="webappshare" value="${INSTALL_PATH}/tomcat/webapps/share" />
+	<property name="shared" value="${INSTALL_PATH}/tomcat/shared" />
+
+	<target name="alfrescoStop">
+		<!-- spegnimento di alfresco, se i servizi sono attivi -->
+		<!-- tomcat... -->
+		<exec executable="servicerun.bat" failonerror="false" dir="${INSTALL_PATH}/tomcat/scripts/" vmlauncher="false">
+		    <arg value="STOP"/>
+		</exec>
+		<sleep seconds="2"/>
+
+<!--
+		<available file="${INSTALL_PATH}/mysql" type="dir" property="mysql"/>
+		<available file="${INSTALL_PATH}/postgresql" type="dir" property="postgresql"/>
+		<if>
+			<equals arg1="${mysql}" arg2="true" />
+			<then>
+				<exec executable="servicerun.bat" failonerror="false" dir="${INSTALL_PATH}/mysql/scripts/" vmlauncher="false">
+				    <arg value="STOP"/>
+				</exec>
+				<sleep seconds="2"/>		
+			</then>
+			<else>
+				<if> 
+					<equals arg1="${postgresql}" arg2="true" />
+						<then>
+							<exec executable="servicerun.bat" failonerror="false" dir="${INSTALL_PATH}/postgresql/scripts/" vmlauncher="false">
+							    <arg value="STOP"/>
+							</exec>
+							<sleep seconds="2"/>		
+						</then>
+						<else>
+							<fail message="Impossibile determinare il tipo di database su cui è installato Alfresco."/>
+						</else>
+				</if>
+			</else>
+		</if> -->
+	</target>
+
+	<target name="alfrescoVerify">
+		<!-- verifica che alfresco sia partito almeno una volta  -->
+		<condition property="alfresco_present">
+			<available file="${INSTALL_PATH}/tomcat/conf/Catalina/localhost/alfresco.xml"/>
+	    </condition>
+		<fail unless="alfresco_present" message="Il servizio di Alfresco non risulta essere mai stato avviato."/>
+
+
+	</target>
+
+
+<!--
+	<target name="sinekartapiConfig">
+	
+		<unzip src="${INSTALL_PATH}/sinekartapi/sinekarta-${APP_VER}.zip" dest="${INSTALL_PATH}" overwrite="true"/>
+		
+		
+	</target>
+	-->
+	<target name="sinekartaDBConfig">
+		<property file="${INSTALL_PATH}/tomcat/shared/classes/alfresco-global.properties"/>
+		<available file="${INSTALL_PATH}/mysql" type="dir" property="mysql" />
+		<available file="${INSTALL_PATH}/postgresql" type="dir" property="postgresql" />
+		<if>
+			<equals arg1="${mysql}" arg2="true" />
+			<then>
+				<!-- esecuzione script di configurazione DB -->
+				<!-- accendere mysql -->
+				<!--
+				<exec executable="servicerun.bat" failonerror="true" dir="${INSTALL_PATH}/mysql/scripts/" vmlauncher="false">
+				    <arg value="START"/>
+				</exec>
+				<sleep seconds="3"/>
+				-->
+				<property name="create" value="${INSTALL_PATH}/sinekartaPI/mysql/sinekartapi.sql" />
+			
+
+			</then>
+			<else>
+				<if> 
+					<equals arg1="${postgresql}" arg2="true" />
+						<then>
+							<!-- esecuzione script di configurazione DB -->
+							<!-- accendere postgresql -->
+							<exec executable="servicerun.bat" failonerror="true" dir="${INSTALL_PATH}/postgresql/scripts/" vmlauncher="false">
+							    <arg value="START"/>
+							</exec>
+							<sleep seconds="3"/>
+							<property name="create" value="${INSTALL_PATH}/sinekartaPI/postgres/sinekartapi.sql" />
+							
+						</then>
+						<else>
+							<fail message="Impossibile determinare il tipo di database su cui è installato Alfresco."/>
+						</else>
+				</if>
+			</else>
+		</if>
+		<echo message="driver: ${db.driver}" />
+		<sql driver="${db.driver}"
+		     url="${db.url}"
+		     userid="${db.username}"
+		     password="${db.password}"
+		     src="${create}">
+			<classpath>
+				<fileset dir="${INSTALL_PATH}/tomcat/lib" includes="**/*.jar" />
+			</classpath>
+		</sql>
+	</target>
+	
+	<target name="avvioAlfresco">
+
+		<!-- accendere Alfresco -->
+		<exec executable="servicerun.bat" failonerror="false" dir="${INSTALL_PATH}/" vmlauncher="false">
+		    <arg value="START"/>
+		</exec>
+
+	</target>
+
+
+
+	<target name="uninstallSinekartapi">
+		<!-- disinstallazione sinekarta -->
+		<replace file="${webapp}/WEB-INF/web.xml">
+			<replacetoken><![CDATA[,/WEB-INF/faces-config-sinekarta.xml]]></replacetoken>
+			<replacevalue></replacevalue>
+		</replace>
+		<delete file="${webapp}/WEB-INF/lib/sinekartaAlfresco.jar" />
+		<delete file="${webapp}/WEB-INF/lib/iText-5.0.2_patched.jar" />
+		<delete dir="${INSTALL_PATH}/sinekarta" includeemptydirs="true" failonerror="false" />
+		<delete dir="${webapp}/applet/extension/sinekarta" includeemptydirs="true" />
+		<delete dir="${webapp}/fonts/extension/sinekarta" includeemptydirs="true" />
+		<delete dir="${webapp}/jsp/extension/sinekarta" includeemptydirs="true" />
+		<delete dir="${webapp}/scripts/extension/sinekarta" includeemptydirs="true" />
+		<delete file="${webapp}/WEB-INF/faces-config-sinekarta.xml" />
+		<delete file="${webapp}/WEB-INF/web-sinekarta.xml" />
+		<delete file="${webapp}/WEB-INF/classes/alfresco/extension/sinekarta-repository.properties" />
+		<delete file="${webapp}/images/logo/AlfrescoFadedBG.png" />
+		<copy file="${webapp}/images/logo/AlfrescoFadedBGoriginale.png" tofile="${webapp}/images/logo/AlfrescoFadedBG.png"/>
+	</target>
+
+</project>

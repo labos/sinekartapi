@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+
+<project name="SinekartaPI Alfresco" default="fast-deploy" basedir=".">
+	<property file="build.properties" />
+
+	<property name="project.dir" value="." />
+	<property name="build.dir" value="${project.dir}/build" />
+	<property name="web.dir" value="${project.dir}/web" />
+	<property name="package.file.jar" value="${build.dir}/skpi-alfresco.jar" />
+	<property name="package.file.zip" value="${build.dir}/skpi-alfresco.zip" />
+	<property name="package.file.amp" value="${build.dir}/dist/skpi-alfresco.amp" />
+
+	<property name="alfresco.deploy" value="${tomcat.alfresco.dir}/webapps/alfresco" />
+	<property name="alfresco.war.file" value="${tomcat.alfresco.dir}/webapps/alfresco.war" />
+	
+	<property name="local.source" value="${project.dir}/source" />
+
+	<!-- packaging targets -->
+	<target name="package-jar">
+		<delete file="${package.file.jar}" />
+		<jar destfile="${package.file.jar}">
+			<fileset dir="${build.dir}" excludes="*.zip" />
+		</jar>
+	</target>
+
+	<target name="package-extension" depends="package-jar">
+		<delete file="${package.file.zip}" />
+		<zip destfile="${package.file.zip}">
+			<zipfileset file="${package.file.jar}" prefix="WEB-INF/lib" />
+			<zipfileset dir="${web.dir}" />
+		</zip>
+	</target>
+
+	<target name="integrate-extension" depends="package-extension">
+		<available file="alfresco.war" type="file" property="alfresco.war.present" />
+		<fail unless="alfresco.war.present" message="Could not find alfresco.war, please copy it to ${basedir}" />
+		<zip destfile="alfresco.war" update="true">
+			<zipfileset file="${package.file.jar}" prefix="WEB-INF/lib" />
+			<zipfileset dir="${web.dir}" />
+		</zip>
+	</target>
+
+
+	<!-- development targets -->
+    <target name="mkdirs">
+        <mkdir dir="${build.dir}/dist"/>
+        <mkdir dir="${build.dir}/lib"/>
+    </target>
+
+	<target name="build">
+		<echo>building Share customizations</echo>
+
+		<!-- Client side files -->
+		<!-- Nothing yet in web directory
+		<sync todir="${build.dir}" includeemptydirs="true" overwrite="true">
+			<fileset dir="${local.source}/web" />
+		</sync>
+		-->
+		
+		<!-- Server side files -->
+		<sync todir="${build.dir}/WEB-INF/classes" includeemptydirs="true" overwrite="true">
+			<fileset dir="${local.source}/config" />
+		</sync>
+
+		<!-- Additional libs -->
+		<sync todir="${build.dir}/WEB-INF/lib" includeemptydirs="true" overwrite="true">
+			<fileset dir="${local.source}/lib" />
+		</sync>
+		
+	</target>
+
+	<target name="fast-deploy" depends="build">
+		<echo>Fast deploy</echo>
+		<sync todir="${alfresco.deploy}" includeemptydirs="true" overwrite="true">
+			<fileset dir="${build.dir}" />
+			<preserveintarget>
+				<include name="**" />
+			</preserveintarget>
+		</sync>
+
+	</target>
+
+	<target name="clean">
+		<echo>Deleting Alfresco webapp directory</echo>
+		<delete quiet="yes" includeEmptyDirs="true" dir="${alfresco.deploy}" />
+		<unzip src="${alfresco.war.file}" dest="${alfresco.deploy}" />
+	</target>
+
+	<target name="package-amps">
+		<delete file="${package.file.amp}" />
+		<jar destfile="${package.file.amp}">
+			<zipfileset dir="${build.dir}" />
+		</jar>
+	</target>
+
+	
+</project>

@@ -1,0 +1,124 @@
+<alfresco-config>
+
+	<config evaluator="model-type" condition="cm:content" replace="true">
+
+ 		<forms>
+               <!-- Search form -->
+               <form id="search">
+                       <field-visibility>
+
+                               <show id="skpi:numero_protocollo" force="true" />
+                               <show id="skpi:oggetto" force="true" />
+                               <show id="skpi:titolario" force="true" />
+                               <show id="skpi:data_protocollazione" force="true" />
+
+                               <!-- <show id="skpi:tipo" force="true" /> -->
+                       </field-visibility>
+
+                       <appearance>
+                               <field id="skpi:numero_protocollo">
+                                       <control>
+                                           <control-param name="forceEditable">true</control-param>
+                                       </control>
+                               </field>
+
+                               <field id="skpi:titolario">
+                                       <control
+                                               template="/org/alfresco/components/form/controls/titolarioTree.ftl">
+                                       </control>
+                               </field>
+
+                               <field id="skpi:data_protocollazione">
+                                       <control template="/org/alfresco/components/form/controls/daterange.ftl">
+                                           <control-param name="forceEditable">true</control-param>
+                                       </control>
+                               </field>
+
+                       </appearance>
+               </form>
+
+       </forms>
+
+	</config>
+
+	<config evaluator="model-type" condition="skpi:protocollo" replace="true">
+		<forms>
+			<!-- Edit form -->
+			<form>
+<!--  				<create-form template="/org/alfresco/components/form/protocollo-create-form.ftl" /> -->
+<!--   				<create-form template="/org/alfresco/components/form/2-column-set.ftl" /> -->
+
+				<field-visibility>
+					<show id="cm:content" />
+
+					<show id="skpi:aoo" />
+					<show id="skpi:titolario" />
+					<show id="skpi:oggetto" />
+					<show id="skpi:tipo" />
+					<show id="skpi:mittente" />
+					<show id="skpi:destinatario" />
+
+					<show id="skpi:protocollo_precedente" />
+					<show id="skpi:data_protocollo_precedente" />
+					<show id="skpi:protocollo_mittente" />
+					<show id="skpi:data_protocollo_mittente" />
+					<show id="skpi:protocollo_emergenza" />
+					<show id="skpi:data_protocollo_emergenza" />
+					<show id="skpi:fascicolo" />
+					<show id="skpi:note" />
+
+				</field-visibility>
+				<appearance>
+				
+					<!-- Dati Obbligatori -->
+					<set id="mandatory" label="Dati Obbligatori" appearance="title"
+						template="/org/alfresco/components/form/2-column-set.ftl" />
+						
+					<set id="optional" label="Dati Opzionali" appearance="title"
+						template="/org/alfresco/components/form/2-column-set.ftl" />
+						
+					<field id="cm:content">
+						<control template="/org/alfresco/components/form/controls/hidden.ftl">
+						</control>
+					</field>
+
+					<field id="skpi:aoo" set="mandatory">
+						<control template="/org/alfresco/components/form/controls/selectone.ftl">
+							<control-param name="options">TestAOO</control-param>
+						</control>
+					</field>
+
+					<field id="skpi:titolario" set="mandatory">
+						<control template="/org/alfresco/components/form/controls/titolarioTree.ftl">
+						</control>
+					</field>
+
+					<field id="skpi:mittente" set="mandatory">
+						<control template="/org/alfresco/components/form/controls/textarea.ftl" /> 
+					</field>
+
+					<field id="skpi:destinatario" set="mandatory">
+						<control template="/org/alfresco/components/form/controls/textarea.ftl" /> 
+					</field>
+					<field id="skpi:fascicolo" label="Fascicolo/Dossier" />
+
+					<field id="skpi:oggetto" set="mandatory" />
+					<field id="skpi:tipo" set="mandatory" />
+					
+					<!-- Dati opzionali -->
+					
+					<field id="skpi:protocollo_precedente" set="optional" />
+					<field id="skpi:data_protocollo_precedente" set="optional" />
+					<field id="skpi:protocollo_mittente" set="optional" />
+					<field id="skpi:data_protocollo_mittente" set="optional" />
+					<field id="skpi:protocollo_emergenza" set="optional" />
+					<field id="skpi:data_protocollo_emergenza" set="optional" />
+					<field id="skpi:fascicolo" set="optional" />
+					<field id="skpi:note" set="optional" />
+				</appearance>
+			</form>
+
+		</forms>
+	</config>
+
+</alfresco-config>

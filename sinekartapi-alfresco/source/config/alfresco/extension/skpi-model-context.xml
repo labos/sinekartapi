@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+ 
+<beans>
+
+    <!-- Registration of new models -->	
+    <bean id="extension.dictionaryBootstrap" parent="dictionaryModelBootstrap" depends-on="dictionaryBootstrap">
+        <property name="models">
+            <list>
+                <value>alfresco/extension/skpiModel.xml</value>
+            </list>
+        </property>
+    </bean>
+    
+    <!-- Jasper Report declaration bean -->      
+	<bean id="jasperReportsHelper" class="it.tlogic.jasperreports.javascript.extenstions.JasperReportsHelper" parent="baseJavaScriptExtension">
+		<property name="extensionName" value="jasperReportsHelper" />
+		<property name="nodeService" ref="NodeService" />
+		<property name="contentService" ref="ContentService" />
+	</bean>
+	   <!--  Content Retrieval -->
+   <bean id="webscript.it.tlogic.sinekartapi.etichetta.get" class="it.tlogic.sinakeratapi.webscript.EtichettaGet" parent="webscript">
+      <property name="referenceFactory" ref="CMISReferenceFactory" /> 
+      <!--<property name="namespaceService" ref="NamespaceService" /> -->
+      <!--<property name="permissionService" ref="PermissionService" /> -->
+      <property name="nodeService" ref="NodeService" />
+      <!--<property name="contentService" ref="ContentService" /> -->
+      <property name="dictionaryService" ref="DictionaryService" />
+      <property name="mimetypeService" ref="MimetypeService" />
+      <property name="CMISRenditionService" ref="CMISRenditionService" />
+   </bean>
+                    
+</beans>

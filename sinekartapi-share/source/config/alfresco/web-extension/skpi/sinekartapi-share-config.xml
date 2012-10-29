@@ -1,0 +1,258 @@
+<alfresco-config>
+
+	<!-- Document Library config section -->
+	<config evaluator="string-compare" condition="DocumentLibrary">
+
+		<!-- Used by the "Manage Aspects" action For custom aspects, remember to 
+			also add the relevant i18n string(s) cm_myaspect=My Aspect -->
+		<aspects>
+			<!-- Aspects that a user can see -->
+			<visible>
+				<aspect name="skpi:protocollabile" />
+			</visible>
+
+			<!-- Aspects that a user can add. Same as "visible" if left empty -->
+			<addable>
+			</addable>
+
+			<!-- Aspects that a user can remove. Same as "visible" if left empty -->
+			<removeable>
+			</removeable>
+		</aspects>
+
+	</config>
+
+	<!-- cm:content type (existing nodes) -->
+
+
+	<!-- Global config section -->
+	<config replace="true">
+		<flags>
+			<!-- Developer debugging setting to turn on DEBUG mode for client scripts 
+				in the browser -->
+			<client-debug>true</client-debug>
+
+			<!-- LOGGING can always be toggled at runtime when in DEBUG mode (Ctrl, 
+				Ctrl, Shift, Shift). This flag automatically activates logging on page load. -->
+			<client-debug-autologging>false</client-debug-autologging>
+		</flags>
+	</config>
+
+
+	<!-- Form customization settings -->
+	<config evaluator="aspect" condition="skpi:protocollabile">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="skpi:aoo" />
+					<show id="skpi:titolario" />
+					<show id="skpi:numero_protocollo" />
+					<show id="skpi:oggetto" />
+					<show id="skpi:data_protocollazione" />
+					<show id="skpi:mittente" />
+					<show id="skpi:destinatario" />
+					<show id="skpi:stato" />
+					<show id="skpi:tipo" />
+					<show id="skpi:motivo" />
+					<show id="skpi:dataAnnullamento" />
+					<show id="skpi:utenteAnnullante" />
+				</field-visibility>
+			</form>
+			
+			
+
+			<form id="doclib-simple-metadata">
+				<field-visibility>
+					<show id="skpi:aoo" />
+					<show id="skpi:titolario" />
+					<show id="skpi:numero_protocollo" />
+					<show id="skpi:oggetto" />
+					<show id="skpi:data_protocollazione" />
+					<show id="skpi:mittente" />
+					<show id="skpi:destinatario" />
+					<show id="skpi:stato" />
+					<show id="skpi:tipo" />
+					<show id="skpi:motivo" />
+					<show id="skpi:dataAnnullamento" />
+					<show id="skpi:utenteAnnullante" />
+				</field-visibility>
+
+			</form>
+		</forms>
+
+	</config>
+
+
+	<!-- Document details actions -->
+	<config evaluator="string-compare" condition="DocLibCustom">
+		<dependencies>
+			<js src="/components/documentlibrary/skpiLibrary.js" />
+			<css src="/components/document-details/document-actions.css" />
+		</dependencies>
+	</config>
+
+	<!-- <action type="action-link" id="onActionAssegnaNumeroProtocollo" permission="assegna-numero-protocollo" 
+		label="actions.document.assegnaNumeroProtocollo" /> <action type="action-link" 
+		id="onActionRegistraProtocollo" permission="registra-protocollo" label="actions.document.registraProtocollo" 
+		/> <action type="action-link" id="onActionEliminaProtocollo" permission="elimina-protocollo" 
+		label="actions.document.eliminaProtocollo" /> <action type="action-link" 
+		id="onActionRifiutaProtocollo" permission="rifiuta-protocollo" label="actions.document.rifiutaProtocollo" 
+		/> <action type="action-link" id="onActionAllega" permission="edit" label="actions.document.allega" 
+		/> -->
+
+	<config evaluator="string-compare" condition="DocLibActions">
+		<actions>
+
+			<action id="document-sinekartapi-caricaDocumento" type="javascript"
+				label="actions.document.caricaDocumento">
+				<param name="function">onActionUploadNewVersion</param>
+				<permissions>
+					<permission allow="true">Write</permission>
+				</permissions>
+				<evaluator>evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+
+			<!-- <action id="document-sinekartapi-stampaetichetta" type="link" label="actions.document.stampaEtichetta"> 
+				<param name="href">{Alfresco.constants.PROXY_URI}/http://localhost:8080/share/proxy/alfresco/skpi/etichetta/{node.nodeRefUri}</param> 
+				<evaluator>evaluator.doclib.action.protocollabile</evaluator> </action> -->
+
+			<action id="document-sinekartapi-stampaetichetta" type="javascript"
+				label="actions.document.stampaEtichetta">
+				<param name="function">onActionStampaEtichetta</param>
+				<permissions>
+					<permission allow="true">Write</permission>
+				</permissions>
+				<evaluator>evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+
+<!-- 			<action id="document-sinekartapi-eliminaProtocollo" type="javascript" -->
+<!-- 				label="actions.document.eliminaProtocollo"> -->
+
+<!-- 				<param name="function">onActionEliminaProtocollo</param> -->
+<!-- 				<permissions> -->
+<!-- 					<permission allow="true">Write</permission> -->
+<!-- 				</permissions> -->
+
+<!-- 	            <param name="function">onActionDelete</param> -->
+<!-- 	            <permissions> -->
+<!-- 	               <permission allow="true">Delete</permission> -->
+<!-- 	            </permissions> -->
+<!-- 	            <evaluator negate="true">evaluator.doclib.action.isLocked</evaluator> -->
+
+<!-- 				<evaluator>evaluator.doclib.action.protocollabile -->
+<!-- 			</evaluator> -->
+
+<!--          <action id="document-delete" type="javascript" label="actions.document.delete"> -->
+<!--             <param name="function">onActionDelete</param> -->
+<!--             <permissions> -->
+<!--                <permission allow="true">Delete</permission> -->
+<!--             </permissions> -->
+<!--             <evaluator negate="true">evaluator.doclib.action.isLocked</evaluator> -->
+
+<!--          </action> -->
+
+
+<!-- 			</action> -->
+
+
+			<action id="document-sinekartapi-annullaProtocollo" type="javascript"
+				label="actions.document.annullaProtocollo">
+				<param name="function">onActionAnnullaProtocollo</param>
+				<permissions>
+					<permission allow="true">Write</permission>
+				</permissions>
+				<evaluator negate="true" >evaluator.doclib.action.protocolloAnnullabile</evaluator>
+			</action>
+
+			<action id="document-edit-metadata" type="javascript">
+				<evaluator negate="true">evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+
+			<action id="document-view-content" type="javascript">
+				<evaluator negate="true">evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+
+			<action id="document-copy-to" type="javascript">
+				<evaluator negate="true">evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+
+			<action id="document-move-to" type="javascript">
+				<evaluator negate="true">evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+
+			<action id="document-delete" type="javascript">
+				<evaluator negate="true">evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+
+			<action id="document-manage-site-permissions" type="javascript">
+				<evaluator negate="true">evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+
+			<action id="document-manage-repo-permissions" type="javascript">
+				<evaluator negate="true">evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+
+
+			<action id="document-manage-aspects" type="javascript">
+				<evaluator negate="true">evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+
+			<action id="document-publish" type="javascript">
+				<evaluator negate="true">evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+
+			<action id="document-inline-edit" type="javascript">
+				<evaluator negate="true">evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+			<action id="document-edit-online" type="javascript">
+				<evaluator negate="true">evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+			
+			<action id="document-edit-offline" type="javascript">
+				<evaluator negate="true">evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+			
+			<action id="document-upload-new-version" type="javascript">
+				<evaluator negate="true">evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+
+			<action id="document-change-type" type="javascript">
+				<evaluator negate="true">evaluator.doclib.action.protocollabile
+				</evaluator>
+			</action>
+
+		</actions>
+
+		<actionGroups>
+			<actionGroup id="document-details">
+				<action index="1000" id="document-sinekartapi-caricaDocumento" />
+				<action index="1010" id="document-sinekartapi-stampaetichetta" />
+<!-- 				<action index="1030" id="document-sinekartapi-eliminaProtocollo" /> -->
+				<action index="1040" id="document-sinekartapi-annullaProtocollo" />
+			</actionGroup>
+
+			<actionGroup id="document-browse">
+				<action index="1000" id="document-sinekartapi-caricaDocumento" />
+				<action index="1010" id="document-sinekartapi-stampaetichetta" />
+<!-- 				<action index="1030" id="document-sinekartapi-eliminaProtocollo" /> -->
+				<action index="1040" id="document-sinekartapi-annullaProtocollo" />
+			</actionGroup>
+		</actionGroups>
+	</config>
+
+</alfresco-config>

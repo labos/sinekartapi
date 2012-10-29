@@ -1,0 +1,37 @@
+.form-container select {
+	background-color: white;
+}
+
+.share-form .form-container .form-fields {
+/* 	width: 1000px; */
+}	
+
+.form-container input {
+	width: auto;
+}
+
+.form-fields .yui-u {
+	text-align: left !important;
+}
+
+.form-container .viewmode-field .current-values div {
+	display: block;
+}
+
+.skpi-row {
+
+	clear: both;
+}
+
+.skpi-cell {
+	width: 50%;
+	float: left;
+}
+
+.skpi-first- {
+
+}
+
+.skpi-block {
+	overflow: auto;
+}

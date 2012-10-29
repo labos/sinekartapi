@@ -1,0 +1,87 @@
+<!-- 
+/*
+ * Copyright (C) 2011 - 2012 T Logic.
+ *
+ * This file is part of Sinekarta PI
+ *
+ * Sinekarta PI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Sinekarta PI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ */
+ -->
+<antactions>
+	<pack name="arresto alfresco">
+		<antcall buildfile="$INSTALL_PATH/sinekartapi/unpack.xml"
+			order="afterpack" uninstall_order="beforedeletion"
+			verbose="yes"
+			logfile="$INSTALL_PATH/sinekartapi/unpack_alfrescoStop.log">
+			<property name="INSTALL_PATH" value="$INSTALL_PATH" />
+			<property name="APP_VER" value="$APP_VER" />
+			<property name="db.password" value="$db.password" />
+			<target name="alfrescoStop" />
+			<uninstall_target name="alfrescoStop" />
+		</antcall>
+	</pack>
+	<pack name="verifica alfresco">
+		<antcall buildfile="$INSTALL_PATH/sinekartapi/unpack.xml"
+			order="afterpack"
+			verbose="yes"
+			logfile="$INSTALL_PATH/sinekartapi/unpack_alfrescoVerify.log">
+			<property name="INSTALL_PATH" value="$INSTALL_PATH" />
+			<property name="APP_VER" value="$APP_VER" />
+			<property name="db.password" value="$db.password" />
+			
+			<target name="alfrescoVerify" />
+		</antcall>
+	</pack>
+<!-- 
+	<pack name="configurazione sinekartapi">
+		<antcall buildfile="$INSTALL_PATH/sinekarta/unpack.xml"
+			order="afterpack" uninstall_order="beforedeletion"
+			verbose="yes"
+			logfile="$INSTALL_PATH/sinekartapi/unpack_sinekartapiConfig.log">
+			<property name="INSTALL_PATH" value="$INSTALL_PATH" />
+			<property name="APP_VER" value="$APP_VER" />
+			<property name="db.password" value="$db.password" />
+
+			
+			<target name="sinekartapiConfig" />
+			<uninstall_target name="uninstallSinekartapi" />
+		</antcall>
+	</pack>
+ -->
+	<pack name="configurazione DB sinekartaPI">
+		<antcall buildfile="$INSTALL_PATH/sinekartapi/unpack.xml"
+			order="afterpack" 
+			verbose="yes"
+			logfile="$INSTALL_PATH/sinekartapi/unpack_sinekartapiDBConfig.log">
+			<property name="INSTALL_PATH" value="$INSTALL_PATH" />
+			<property name="APP_VER" value="$APP_VER" />
+			<!--  property name="db.password" value="$db.password" / -->
+			
+			<target name="sinekartaDBConfig" />
+		</antcall>
+	</pack>
+
+	<pack name="avvio alfresco">
+		<antcall buildfile="$INSTALL_PATH/sinekartapi/unpack.xml"
+			order="afterpack" uninstall_order="afterdeletion"
+			verbose="yes"
+			logfile="$INSTALL_PATH/sinekartapi/unpack_avvioAlfresco.log">
+			<property name="INSTALL_PATH" value="$INSTALL_PATH" />
+			<property name="APP_VER" value="$APP_VER" />
+			<property name="db.password" value="$db.password" />
+
+			
+			<target name="avvioAlfresco" />
+			<uninstall_target name="avvioAlfresco" />
+		</antcall>
+	</pack>
+</antactions>

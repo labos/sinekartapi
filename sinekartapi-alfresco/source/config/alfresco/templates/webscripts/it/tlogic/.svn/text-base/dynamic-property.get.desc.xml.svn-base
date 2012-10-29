@@ -1,0 +1,15 @@
+<webscript>
+  <shortname>Ritorna i valori ammissibili per la proprietà</shortname>
+  <description>
+  Ritorna i valori ammissibili per una particolare proprietà
+  </description>
+  <url>/it/tlogic/sinekartapi/valid-property-values</url>
+  <url>/it/tlogic/sinekartapi/valid-property-values/{property}/site/{site}/{container}</url>
+  <format default="json"/>
+  <authentication>user</authentication>
+</webscript>
+
+<!--
+	esempio di chiamata
+	http://localhost:8080/alfresco/service/it/tlogic/sinekartapi/valid-property-values/pippa/site/test/documentLibrary 
+ -->

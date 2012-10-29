@@ -1,0 +1,8 @@
+<webscript>
+  <shortname>stampa-registro-protocollo</shortname>
+  <description>Stampa Registro Protocollo</description>  
+  <url>/api/registroProtocollo</url>
+  <format default="json">argument</format>
+  <authentication>user</authentication>
+  <transaction>required</transaction>
+</webscript>
