@@ -31,6 +31,80 @@
    var $combine = Alfresco.util.combinePaths;
    var $siteURL = Alfresco.util.siteURL;
 
+var override = Alfresco.DocumentList || Alfresco.DocumentActions;
+var getActionUrls_override = override.prototype.getActionUrls;
+
+override.prototype.getActionUrls = function(recordData){
+ var jsNode = recordData.jsNode,
+            nodeRef = jsNode.isLink ? jsNode.linkedNode.nodeRef : jsNode.nodeRef,
+            strNodeRef = nodeRef.toString(),
+            nodeRefUri = nodeRef.uri,
+	    mimeType = jsNode.mimetype,
+            contentUrl = jsNode.contentURL,
+            extensionMap =
+            {
+               "application/vnd.ms-excel": "xls",
+               "application/vnd.ms-powerpoint": "ppt",
+               "application/msword" : "doc",
+               "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" : "xlsx",
+               "application/vnd.openxmlformats-officedocument.presentationml.presentation" : "pptx",
+               "application/vnd.openxmlformats-officedocument.wordprocessingml.document" : "docx",
+	       "application/pdf" : "pdf",
+	       "application/x-zip" : "zip",
+	       "application/zip" : "zip",
+            };
+var actionUrls = getActionUrls_override.apply(this,arguments);
+/* set extension for downloadable file attached to protocol */
+var extensionFileString = Alfresco.util.getFileExtension(recordData.location.file);
+     if (extensionFileString == null && extensionMap.hasOwnProperty(mimeType))
+         {
+		extensionFileString = "." + extensionMap[mimeType];
+	}
+	else{
+
+	   extensionFileString =  "";
+}
+var downloadLinkWhitExtension = $combine(Alfresco.constants.PROXY_URI, contentUrl) +  extensionFileString + "?a=true";
+actionUrls["downloadUrl"] = downloadLinkWhitExtension;
+return actionUrls;
+};
+
+
+
+
+override.prototype.getDownloadActionUrls = function(recordData){
+ var jsNode = recordData.jsNode,
+            nodeRef = jsNode.isLink ? jsNode.linkedNode.nodeRef : jsNode.nodeRef,
+            strNodeRef = nodeRef.toString(),
+            nodeRefUri = nodeRef.uri,
+	    mimeType = jsNode.mimetype,
+            contentUrl = jsNode.contentURL,
+            extensionMap =
+            {
+               "application/vnd.ms-excel": "xls",
+               "application/vnd.ms-powerpoint": "ppt",
+               "application/msword" : "doc",
+               "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" : "xlsx",
+               "application/vnd.openxmlformats-officedocument.presentationml.presentation" : "pptx",
+               "application/vnd.openxmlformats-officedocument.wordprocessingml.document" : "docx",
+	       "application/pdf" : "pdf",
+	       "application/x-zip" : "zip",
+	       "application/zip" : "zip",
+            };
+
+/* set extension for downloadable file attached to protocol */
+var extensionFileString = Alfresco.util.getFileExtension(recordData.location.file);
+     if (extensionFileString == null && extensionMap.hasOwnProperty(mimeType))
+         {
+		extensionFileString = "." + extensionMap[mimeType];
+	}
+	else{
+
+	   extensionFileString =  "";
+}
+var downloadLinkWhitExtension = $combine(Alfresco.constants.PROXY_URI, contentUrl) +  extensionFileString + "?a=true";
+return downloadLinkWhitExtension;
+};
 	
    YAHOO.Bubbling.fire("registerAction",  { 
 		actionName: "onActionStampaEtichetta", 
@@ -144,6 +218,58 @@ YAHOO.Bubbling.fire("registerAction",  {
 	    }   
 		
 	   });
+
+
+YAHOO.Bubbling.fire("registerAction",  { 
+		actionName: "onActionPrintProtocol", 
+		fn: function dlA_onActionStampaProtocollo(asset){
+        
+	        var nodeRef = new Alfresco.util.NodeRef(asset.nodeRef),
+		jsNode = asset.jsNode,
+	        //retrieve protocol number from asset aspect property
+		protocolNumberString = jsNode.properties['skpi:aoo'] + ' ' +jsNode.properties['skpi:numero_protocollo'] + ' ' + jsNode.properties['skpi:titolario'];
+	        this.modules.actions.genericAction(
+	        {
+	            success:
+	            {
+
+	                callback: {
+	                    fn: function(obj){
+				 if(obj.json.result && obj.json.result!='' && obj.json.result!='0'){
+				window.open(window.location.protocol + "//" + window.location.host + "/alfresco" + obj.json.response, "_blank");}
+else{  
+Alfresco.util.PopupManager.displayMessage(
+                     {
+                        text: this.msg("message.printWithWatermark.failure", asset.displayName)
+                     });
+
+}
+
+				YAHOO.Bubbling.fire("metadataRefresh")},
+	                    	scope: this
+	                }
+	            },
+	            failure:
+	            {
+	                message: this.msg("message.annullaProtocollo.failure", asset.displayName)
+	            },
+	            webscript:
+	            {
+	                method: Alfresco.util.Ajax.POST,
+	                stem: Alfresco.constants.PROXY_URI + "it/tlogic/sinekartapi/",
+	                name: "download-with-watermark?nodeRef={nodeRef}&watermarkText={watermarkText}",
+			                params:
+			                {
+			                    nodeRef: nodeRef.uri,
+					    watermarkText: protocolNumberString
+			                }
+	            }
+	        });
+	    }   
+		
+	   });
+
+
    
 })();
 

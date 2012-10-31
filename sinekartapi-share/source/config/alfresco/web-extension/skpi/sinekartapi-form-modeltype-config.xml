@@ -2,42 +2,35 @@
 
 	<config evaluator="model-type" condition="cm:content" replace="true">
 
- 		<forms>
-               <!-- Search form -->
-               <form id="search">
-                       <field-visibility>
+		<forms>
+			<!-- Search form -->
+			<form id="search">
+				<field-visibility>
 
-                               <show id="skpi:numero_protocollo" force="true" />
-                               <show id="skpi:oggetto" force="true" />
-                               <show id="skpi:titolario" force="true" />
-                               <show id="skpi:data_protocollazione" force="true" />
+					<show id="skpi:numero_protocollo" force="true" />
+					<show id="skpi:oggetto" force="true" />
+					<show id="skpi:titolario" force="true" />
+					<show id="skpi:data_protocollazione" force="true" />
 
-                               <!-- <show id="skpi:tipo" force="true" /> -->
-                       </field-visibility>
+					<!-- <show id="skpi:tipo" force="true" /> -->
+				</field-visibility>
 
-                       <appearance>
-                               <field id="skpi:numero_protocollo">
-                                       <control>
-                                           <control-param name="forceEditable">true</control-param>
-                                       </control>
-                               </field>
+				<appearance>
+					<field id="cm:content">
+						<control template="/org/alfresco/components/form/controls/hidden.ftl">
+						</control>
+					</field>
 
-                               <field id="skpi:titolario">
-                                       <control
-                                               template="/org/alfresco/components/form/controls/titolarioTree.ftl">
-                                       </control>
-                               </field>
+					<field id="skpi:titolario">
+						<control
+							template="/org/alfresco/components/form/controls/titolarioTree.ftl">
+						</control>
+					</field>
 
-                               <field id="skpi:data_protocollazione">
-                                       <control template="/org/alfresco/components/form/controls/daterange.ftl">
-                                           <control-param name="forceEditable">true</control-param>
-                                       </control>
-                               </field>
+				</appearance>
+			</form>
 
-                       </appearance>
-               </form>
-
-       </forms>
+		</forms>
 
 	</config>
 
@@ -72,10 +65,10 @@
 				
 					<!-- Dati Obbligatori -->
 					<set id="mandatory" label="Dati Obbligatori" appearance="title"
-						template="/org/alfresco/components/form/2-column-set.ftl" />
+						template="/org/alfresco/components/form/2-column-protocollo-set.ftl" />
 						
 					<set id="optional" label="Dati Opzionali" appearance="title"
-						template="/org/alfresco/components/form/2-column-set.ftl" />
+						template="/org/alfresco/components/form/2-column-protocollo-set.ftl" />
 						
 					<field id="cm:content">
 						<control template="/org/alfresco/components/form/controls/hidden.ftl">
@@ -84,7 +77,8 @@
 
 					<field id="skpi:aoo" set="mandatory">
 						<control template="/org/alfresco/components/form/controls/selectone.ftl">
-							<control-param name="options">TestAOO</control-param>
+							<control-param name="options">SR-AOO</control-param>
+							
 						</control>
 					</field>
 
@@ -95,6 +89,9 @@
 
 					<field id="skpi:mittente" set="mandatory">
 						<control template="/org/alfresco/components/form/controls/textarea.ftl" /> 
+ <constraint-handlers>
+                 <constraint type="MANDATORY" validation-handler="Alfresco.forms.validation.validateMandatory" event="keyup" />
+              </constraint-handlers>
 					</field>
 
 					<field id="skpi:destinatario" set="mandatory">
@@ -102,7 +99,7 @@
 					</field>
 					<field id="skpi:fascicolo" label="Fascicolo/Dossier" />
 
-					<field id="skpi:oggetto" set="mandatory" />
+					<field id="skpi:oggetto" set="mandatory" mandatory="true" />
 					<field id="skpi:tipo" set="mandatory" />
 					
 					<!-- Dati opzionali -->

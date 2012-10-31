@@ -163,7 +163,14 @@
 			formEl.innerHTML = response.serverResponse.responseText;
 
 			var protocolForm = new Alfresco.forms.Form(this.id + "protocol-create-form");
+protocolForm.addValidation(this.id + "protocol-create_prop_skpi_oggetto", Alfresco.forms.validation.mandatory, null,
+null,"Devi aggiungere l'oggetto");
+protocolForm.addValidation(this.id + "protocol-create_prop_skpi_mittente", Alfresco.forms.validation.mandatory, null,
+null,"Devi aggiungere il mittente");
+protocolForm.addValidation(this.id + "protocol-create_prop_skpi_destinatario", Alfresco.forms.validation.mandatory, null,
+null,"Devi aggiungere il destinatario");
 
+Alfresco.logger.debug("alberto " + protocolForm + 'èèèè' + this.id);
 			// the callbacks to be called on the form AJAX
 			// submission (see
 			// http://sharextras.org/jsdoc/share/community-4.0.d/symbols/Alfresco.forms.Form.html#setAJAXSubmit)
@@ -174,7 +181,7 @@
 					},
 					failureMessage : "Errore nella creazione del protocollo"
 			};
-
+			protocolForm.setValidateOnSubmit(true);
 			protocolForm.setAJAXSubmit(true, callbacks);
 			protocolForm.init();
 		},

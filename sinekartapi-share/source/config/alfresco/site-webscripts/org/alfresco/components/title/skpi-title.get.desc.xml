@@ -1,0 +1,5 @@
+<webscript>
+  <shortname>SinekartaPI Title</shortname>
+  <description>Title component used in the SinekartaPI site</description>
+  <url>/components/title/skpi-title</url>
+</webscript>

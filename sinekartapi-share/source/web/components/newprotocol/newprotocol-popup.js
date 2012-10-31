@@ -56,7 +56,7 @@
 
 		},
 //		{
-//			/**
+//		/**
 //		* Object container for initialization options
 //		*
 //		* @property options
@@ -166,14 +166,14 @@
 						actionUrl : null,
 						destroyOnHide : true,
 						doBeforeDialogShow : {
-						fn : doBeforeDialogShow,
-						scope : this
+							fn : doBeforeDialogShow,
+							scope : this
 						},
 						onSuccess : {
 							fn : this.onProtocolSent,
 							scope : this
 						},
-					onFailure : {
+						onFailure : {
 							fn : function dLA_onActionDetails_failure(response) {
 								Alfresco.util.PopupManager.displayMessage({
 									text : this.msg("message.details.failure" + adressProtocolli)
@@ -192,7 +192,7 @@
 			var protocolAddress = Alfresco.constants.PROXY_URI
 			+ "it/tlogic/sinekartapi/protocol-document?noderef="
 			+ response.json.persistedObject + "&aoo=" + aoo;
-			
+
 			Alfresco.util.PopupManager.displayMessage({
 				text : "Inserimento protocollo in corso",
 				spanClass : "wait",
@@ -222,7 +222,7 @@
 						// var protocolForm = new
 						// Alfresco.forms.Form("protocol-create-form");
 //						formEl.reset();
-						
+
 						var millis = 2000;
 						var date = new Date();
 						var curDate = null;

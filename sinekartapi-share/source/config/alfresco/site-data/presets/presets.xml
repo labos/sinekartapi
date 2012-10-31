@@ -327,7 +327,7 @@
 				<scope>page</scope>
 				<region-id>title</region-id>
 				<source-id>site/${siteid}/dashboard</source-id>
-				<url>/components/title/collaboration-title</url>
+				<url>/components/title/skpi-title</url>
 			</component>
 			<!-- navigation -->
 <!-- 			<component> -->

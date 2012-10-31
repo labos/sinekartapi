@@ -235,20 +235,29 @@
 				<evaluator negate="true">evaluator.doclib.action.protocollabile
 				</evaluator>
 			</action>
+		<!-- LABOPENSOURCE -->
+			<action id="document-sinekartapi-printwithwatermark"
+				type="javascript"
+				label="actions.document.printProtocol">				
+        		<param name="function">onActionPrintProtocol</param>		
+			</action>
+		<!-- END LABOPENSOURCE -->
 
 		</actions>
 
 		<actionGroups>
 			<actionGroup id="document-details">
 				<action index="1000" id="document-sinekartapi-caricaDocumento" />
-				<action index="1010" id="document-sinekartapi-stampaetichetta" />
+				<action index="1010" id="document-sinekartapi-printwithwatermark" />
+				<action index="1020" id="document-sinekartapi-stampaetichetta" />
 <!-- 				<action index="1030" id="document-sinekartapi-eliminaProtocollo" /> -->
 				<action index="1040" id="document-sinekartapi-annullaProtocollo" />
 			</actionGroup>
 
 			<actionGroup id="document-browse">
 				<action index="1000" id="document-sinekartapi-caricaDocumento" />
-				<action index="1010" id="document-sinekartapi-stampaetichetta" />
+				<action index="1010" id="document-sinekartapi-printwithwatermark" />
+				<action index="1020" id="document-sinekartapi-stampaetichetta" />
 <!-- 				<action index="1030" id="document-sinekartapi-eliminaProtocollo" /> -->
 				<action index="1040" id="document-sinekartapi-annullaProtocollo" />
 			</actionGroup>

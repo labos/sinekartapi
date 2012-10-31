@@ -110,7 +110,7 @@ var treeInit = function functiontreeInit() {
 			fn: onFailureTree,
 			scope: this
 		}
-	});		
+	});
 
 	try {
 		var label = new YAHOO.util.Element("${labelId}");
@@ -118,6 +118,10 @@ var treeInit = function functiontreeInit() {
 	} catch (e) {
 		alert(e);
 	}
+	
+//	tree.setStyle('display', 'none');
+//	label.setStyle('display', 'block');
+		
 };
 
 YUIEvent.onContentReady("${controlId}", treeInit);

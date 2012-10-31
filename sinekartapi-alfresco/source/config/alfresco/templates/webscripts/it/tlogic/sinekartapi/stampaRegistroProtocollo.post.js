@@ -199,40 +199,20 @@ function creaDocumentoRegistrazioniProtocollo(registrazioni){
 	var statoProtocollo;	
 
 	logger.log("1");
-	//  <?xml version="1.0" encoding="UTF-8"?><mdbc><rows><row><nome><![CDATA[test]]></nome><id>1</id></row></rows></mdbc>
-	var mitt = "";
-	var dest = "";
-	var xmlTmp = new XML();
+	
 	for (var i=0; i<registrazioni.items.length; i++){
 		logger.log("2");
 		protocollo = registrazioni.items[i];
 		logger.log("NumProt: " + protocollo.properties["skpi:numero_protocollo"]);
 		textLine = "<item>";
 		nprot =  protocollo.properties["skpi:numero_protocollo"];
-		textLine = textLine + "<dataRegistro><![CDATA[" + formatDate(registrazioni.dataRegistrazioni) +	"]]></dataRegistro>";
-		nprot = "<numProtocollo><![CDATA[" + nprot + "]]></numProtocollo>";
-		mitt = protocollo.properties["skpi:mittente"];
-		
-		//mitt = mitt.split('<![CDATA[').join('');
-		//mitt = mitt.split(']]>').join('');
-		logger.log(mitt);
-		
-		xmlTmp = new XML(mitt);
-		mitt = "";
-		for each (var xmlMitt in xmlTmp.rows.row)
-		{
-			mitt = mitt + "," + xmlMitt.nome;
-		}		
-		if (mitt.length > 0) {
-			mitt = mitt.substring(1);
-		
-		}
-		logger.log(mitt);
-		mittDest = "<mittDest><![CDATA[" + mitt + "]]></mittDest>";
-		oggetto = "<oggetto><![CDATA[" + protocollo.properties["skpi:oggetto"] + "]]></oggetto>";
-		titolo = "<titolo><![CDATA[" + protocollo.properties["skpi:titolario"] + "]]></titolo>";
-		dataProtocollo = "<dataProtocollo><![CDATA[" + formatDate(protocollo.properties["skpi:data_protocollazione"]) + "]]></dataProtocollo>";			
-		statoProtocollo = "<statoProtocollo><![CDATA[" + protocollo.properties["skpi:stato"] + "]]></statoProtocollo>";
+		textLine = textLine + "<dataRegistro>" + formatDate(registrazioni.dataRegistrazioni) +	"</dataRegistro>";
+		nprot = "<numProtocollo>" + nprot + "</numProtocollo>";
+		mittDest = "<mittDest>" + protocollo.properties["skpi:mittente"] + "</mittDest>";
+		oggetto = "<oggetto>" + protocollo.properties["skpi:oggetto"] + "</oggetto>";
+		titolo = "<titolo>" + protocollo.properties["skpi:titolario"] + "</titolo>";
+		dataProtocollo = "<dataProtocollo>" + formatDate(protocollo.properties["skpi:data_protocollazione"]) + "</dataProtocollo>";			
+		statoProtocollo = "<statoProtocollo>" + protocollo.properties["skpi:stato"] + "</statoProtocollo>";
 		logger.log("3");
 		textLine = textLine 
 			 + nprot

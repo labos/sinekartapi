@@ -35,6 +35,8 @@
 			<parent>cm:content</parent>
 			<mandatory-aspects>
 				<aspect>skpi:protocollabile</aspect>
+				<!-- <aspect>mdbc:destinatario</aspect>
+				<aspect>mdbc:mittente</aspect> -->
 			</mandatory-aspects>
 		</type>
 	</types>

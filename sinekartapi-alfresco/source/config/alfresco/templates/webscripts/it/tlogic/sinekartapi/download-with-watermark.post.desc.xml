@@ -1,0 +1,8 @@
+<webscript>
+   <shortname>Scarica Documento con Etichetta</shortname>
+   <description>Scarica un documento protocollato con etichetta</description>
+   <url>/it/tlogic/sinekartapi/download-with-watermark</url>
+  <format default="json">argument</format>
+   <authentication>user</authentication>
+   <transaction>required</transaction>
+</webscript>

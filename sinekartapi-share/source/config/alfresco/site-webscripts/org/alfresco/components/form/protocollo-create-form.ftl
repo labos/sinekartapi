@@ -21,6 +21,7 @@
 						</label>
 						<select id="protocol-select_aoo" tabindex="0" name="prop_skpi_tipo">
 							<option value="AO1">A01</option>
+							<option value="AO2">A02</option>
 						</select>
 					</div>
 				</div>
