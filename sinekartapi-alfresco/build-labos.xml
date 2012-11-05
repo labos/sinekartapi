@@ -1,0 +1,71 @@
+<!--
+   
+     Copyright 2011 - Sardegna Ricerche, Distretto ICT, Pula, Italy
+   
+    Licensed under the EUPL, Version 1.1.
+    You may not use this work except in compliance with the Licence.
+    You may obtain a copy of the Licence at:
+   
+     http://www.osor.eu/eupl
+   
+    Unless required by applicable law or agreed to in  writing, software distributed under the Licence is distributed on an "AS IS" basis,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the Licence for the specific language governing permissions and limitations under the Licence.
+    In case of controversy the competent court is the Court of Cagliari (Italy).
+ -->
+<project name="sinekartapi-labos-alfresco" default="buildAll" basedir="..">
+	<description>Sinekarta-protocollo build file for Localhost - alfresco</description>
+	
+	<import file="build-labos.properties"/>
+	
+	
+	<path id="ant-class.path">
+	  <fileset dir="${tomcat.home.path}/lib">
+	    <include name="catalina-ant.jar"/>
+	    <include name="tomcat-coyote.jar"/>
+	    <include name="tomcat-util.jar"/>
+	  </fileset>
+	  <fileset dir="${tomcat.home.path}/bin">
+	    <include name="tomcat-juli.jar"/>
+	  </fileset>
+	</path>
+
+	<target name="propertySetter">
+		<available property="deployed" file="${tomcat.application.path}" type="dir"/>
+	</target>
+	
+	
+	<target name="fast_deploy" description="Deploy on tomcat folder">
+		<copy todir="${tomcat.application.path}/WEB-INF/classes">
+			<fileset dir="sinekartapi-alfresco/${src.path}/config">
+				<include name="**"/>
+			</fileset>	
+		</copy>
+		<copy todir="${tomcat.application.path}/WEB-INF/lib">
+			<fileset dir="sinekartapi-alfresco/${src.path}/lib">
+				<include name="**"/>
+			</fileset>	
+		</copy>
+	</target>
+	
+	
+	<taskdef name="stop" classname="org.apache.catalina.ant.StopTask" classpathref="ant-class.path"/>
+	<target name="stop" depends="propertySetter" description="Stop Tomcat application" if="deployed">
+		<stop url="${tomcat.manager.url}"
+		      username="${tomcat.username}"
+		      password="${tomcat.password}"
+              path="/${webappname}"/>
+	</target>
+	
+	<taskdef name="start" classname="org.apache.catalina.ant.StartTask" classpathref="ant-class.path"/>
+	<target name="start" description="Start Tomcat application">
+		<start url="${tomcat.manager.url}"
+ 		       username="${tomcat.username}"
+               password="${tomcat.password}"
+               path="/${webappname}"/>
+	</target>
+	
+	
+	<target name="buildAll" depends="stop, fast_deploy, start"></target>
+	
+</project>
