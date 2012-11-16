@@ -44,13 +44,13 @@
 				<field-visibility>
 					<show id="cm:content" />
 
+					<show id="my-upload" />
 					<show id="skpi:aoo" />
-					<show id="skpi:titolario" />
 					<show id="skpi:oggetto" />
-					<show id="skpi:tipo" />
 					<show id="skpi:mittente" />
 					<show id="skpi:destinatario" />
-
+					<show id="skpi:titolario" />
+					<show id="skpi:tipo" />
 					<show id="skpi:protocollo_precedente" />
 					<show id="skpi:data_protocollo_precedente" />
 					<show id="skpi:protocollo_mittente" />
@@ -74,7 +74,11 @@
 						<control template="/org/alfresco/components/form/controls/hidden.ftl">
 						</control>
 					</field>
-
+						<field id="my-upload" set="mandatory" >
+						<control template="/org/alfresco/components/form/controls/uploadFileProtocol.ftl">
+						</control>
+               		 </field>
+					
 					<field id="skpi:aoo" set="mandatory">
 						<control template="/org/alfresco/components/form/controls/selectone.ftl">
 							<control-param name="options">SR-AOO</control-param>
@@ -87,14 +91,14 @@
 						</control>
 					</field>
 
-					<field id="skpi:mittente" set="mandatory">
+					<field id="skpi:mittente" set="mandatory" mandatory="true">
 						<control template="/org/alfresco/components/form/controls/textarea.ftl" /> 
- <constraint-handlers>
+ 				 <constraint-handlers>
                  <constraint type="MANDATORY" validation-handler="Alfresco.forms.validation.validateMandatory" event="keyup" />
               </constraint-handlers>
 					</field>
 
-					<field id="skpi:destinatario" set="mandatory">
+					<field id="skpi:destinatario" set="mandatory" mandatory="true">
 						<control template="/org/alfresco/components/form/controls/textarea.ftl" /> 
 					</field>
 					<field id="skpi:fascicolo" label="Fascicolo/Dossier" />
@@ -103,7 +107,6 @@
 					<field id="skpi:tipo" set="mandatory" />
 					
 					<!-- Dati opzionali -->
-					
 					<field id="skpi:protocollo_precedente" set="optional" />
 					<field id="skpi:data_protocollo_precedente" set="optional" />
 					<field id="skpi:protocollo_mittente" set="optional" />

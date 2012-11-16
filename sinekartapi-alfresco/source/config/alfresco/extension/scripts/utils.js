@@ -59,7 +59,7 @@ function getNumeroProtocollo(aoo){
 
 }
 
-function protocolDocument(node, aoo) {
+function protocolDocument(node, aoo, protocolFileNodeRef) {
 
 	if(node) {
 		try {
@@ -75,6 +75,12 @@ function protocolDocument(node, aoo) {
 		node.properties['skpi:data_protocollazione'] = new Date();
 		node.properties['skpi:stato'] = "Protocollato";
 		node.properties['skpi:aoo'] = aoo;
+		//update content file with uploaded content file
+		var docNode = search.findNode(protocolFileNodeRef);
+		if (docNode != null && docNode.isDocument) {
+			node.properties.content.write(docNode.properties.content);
+			docNode.remove();
+		}
 		node.save();
 	
 		return {

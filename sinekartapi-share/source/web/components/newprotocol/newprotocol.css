@@ -45,3 +45,10 @@
 .skpi-block {
 	overflow: auto;
 }
+.yui-button-protocol{
+min-height: 3em;
+font-weight:600;
+}
+.file-upload{
+	position:relative;
+}

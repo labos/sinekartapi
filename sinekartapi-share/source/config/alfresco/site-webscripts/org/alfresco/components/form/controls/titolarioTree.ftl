@@ -116,7 +116,7 @@ var treeInit = function functiontreeInit() {
 		var label = new YAHOO.util.Element("${labelId}");
 		YAHOO.util.Event.addListener("${labelId}", "click", onLabelTreeClicked); 
 	} catch (e) {
-		alert(e);
+		//-- alert(e);
 	}
 	
 //	tree.setStyle('display', 'none');
@@ -134,7 +134,7 @@ YUIEvent.onContentReady("${controlId}", treeInit);
 	<label for="${fieldHtmlId}">${field.label?html}:<#if field.endpointMandatory!false || field.mandatory!false><span class="mandatory-indicator">${msg("form.required.fields.marker")}</span></#if></label>
 	<input type="hidden" id="${fieldHtmlId}" name="${field.name}" value="${field.value?html}" />
 	<a href="#" id="${labelId}" ></a>
-	 <div id="${controlId}" style="width:300px !important; height:190px !important; overflow:auto; padding: 4px; border:1px solid #EEE; border-right: 0 solid;">&nbsp</div>
+	 <div id="${controlId}" style="width:300px !important; height:120px !important; overflow:auto; padding: 4px; border:1px solid #EEE; border-right: 0 solid;">&nbsp</div>
 </div>
 
 

@@ -29,7 +29,7 @@
 		<#if args.height??>style="height: ${args.height}px;"</#if> >
     
 		<div id="${el}-body" class="form-manager">
-			<h1>${msg("header")}</h1>
+			<#--<h1>${msg("header")}</h1>-->
 		<div>
 
         <#--<h1>sito: ${page.url.templateArgs.site}</h1>-->

@@ -50,7 +50,8 @@
 				Alfresco.component.NewProtocol.superclass.options);
 		// this.selectedItems = "";
 		this.destination = "";
-		
+		// file to protocol NodeRef
+		this.protocolFileNodeRef ="";
 		// this.workflowTypes = [];
 
 		// YAHOO.Bubbling.on("objectFinderReady", this.onObjectFinderReady,
@@ -133,7 +134,7 @@
 						mode : "create",
 						submitType : "json",
 						showCaption : true,
-						formUI : true,
+						formUI : false,
 						// showSubmitButton: false,
 						showCancelButton : true,
 						mimeType : "text/plain",
@@ -170,10 +171,24 @@ null,"Devi aggiungere il mittente");
 protocolForm.addValidation(this.id + "protocol-create_prop_skpi_destinatario", Alfresco.forms.validation.mandatory, null,
 null,"Devi aggiungere il destinatario");
 
-Alfresco.logger.debug("alberto " + protocolForm + 'èèèè' + this.id);
+//Alfresco.logger.debug("alberto " + protocolForm + 'èèèè' + this.id);
 			// the callbacks to be called on the form AJAX
 			// submission (see
 			// http://sharextras.org/jsdoc/share/community-4.0.d/symbols/Alfresco.forms.Form.html#setAJAXSubmit)
+//File Upload button: user needs  "create" access
+var rootNodeRef = "alfresco://company/home";
+var nodeRef = new Alfresco.util.NodeRef(rootNodeRef);
+this.fileUpload = Alfresco.getFileUploadInstance();
+
+this.widgets.fileUpload = Alfresco.util.createYUIButton(this, "", this.onClickUploadButton,
+{
+   disabled: false,
+   value: "create",
+   menuclassname: "yui-button-protocol"
+},
+this.id + "protocol-create_my-upload-cntrl");
+
+
 			var callbacks = {
 					successCallback : {
 						fn : this.onProtocolSent,
@@ -186,6 +201,69 @@ Alfresco.logger.debug("alberto " + protocolForm + 'èèèè' + this.id);
 			protocolForm.init();
 		},
 
+		  onClickUploadButton : function NewProtocol_onClickUploadButton(e, args){
+			   YAHOO.util.Event.stopEvent(e);
+			   var multiUploadConfig =
+			   {
+			   		// siteId: this.siteid,
+			         containerId: "documentLibrary",
+			            uploadDirectory: null,
+			            filter: [],
+			            siteId: this.options.siteId,
+			            destination: this.options.destination,
+			            updateNodeRef: null,
+			            uploadURL: "/api/upload",
+			            mode: this.fileUpload.MODE_MULTI_UPLOAD,
+			            thumbnails: "doclib",
+			            onFileUploadComplete:
+			            {
+			               fn: this.onProtocolUploadComplete,
+			               scope: this
+			            }
+			    }
+			   this.fileUpload.show(multiUploadConfig);
+			   
+			   },
+			   
+			  onProtocolUploadComplete: function NewProtocol_onProtocolUploadComplete( complete ){
+					
+					var success = complete.successful.length;
+			         // replace image URL with the updated one
+			           var iconProtocolledId = this.id + "protocol-create_my-upload" + "-uploadFinish";
+			           Dom.setStyle (iconProtocolledId, "visibility" , "hidden" );
+					       if (success != 0)
+					        {
+					         var noderef = complete.successful[0].nodeRef;
+					         this.protocolFileNodeRef = noderef;
+					         var mypreview = Alfresco.util.ComponentManager.findFirst("Alfresco.WebPreview"); 
+					         mypreview.setOptions(
+					        		 {
+					        		 nodeRef: this.protocolFileNodeRef,
+					        		 name: "my-name",
+					        		 //icon: "${node.icon}",
+					        		 //mimeType: "${node.mimeType}",
+					        		 //previews: [<#list node.previews as p>"${p}"<#if (p_has_next)>, </#if></#list>],
+					        		 //size: "${node.size}"
+					        		 }).setMessages("preview");
+					         mypreview.plugin.display();
+					         //mypreview.refresh("/components/preview/web-preview");
+					         var previewDocumentProtocol = new Alfresco.WebPreview("web-preview").setOptions(
+					        		 {
+					        		 nodeRef: this.protocolFileNodeRef,
+					        		 name: "my-name",
+					        		 //icon: "${node.icon}",
+					        		 //mimeType: "${node.mimeType}",
+					        		 //previews: [<#list node.previews as p>"${p}"<#if (p_has_next)>, </#if></#list>],
+					        		 //size: "${node.size}"
+					        		 }).setMessages("preview");
+					         // replace image URL with the updated one
+					           Dom.setStyle (iconProtocolledId, "visibility" , "visible" );
+					          //logoImg.src = Alfresco.constants.PROXY_URI + "api/node/" + noderef.replace("://", "/") + "/content";
+					            
+					            // set noderef value in hidden field ready for options form submit
+					           Dom.get("console-options-logo").value = noderef;
+					        }
+				},
 		/**
 		 * Called when a protocol request is being submitted
 		 * 
@@ -201,7 +279,7 @@ Alfresco.logger.debug("alberto " + protocolForm + 'èèèè' + this.id);
 			var protocolAddress = Alfresco.constants.PROXY_URI
 			+ "it/tlogic/sinekartapi/protocol-document?noderef="
 			+ response.json.persistedObject + "&aoo="
-			+ aoo;
+			+ aoo + "&uploadfile=" + this.protocolFileNodeRef;
 			Alfresco.util.PopupManager.displayMessage({
 				text : "Inserimento protocollo in corso",
 				spanClass : "wait",

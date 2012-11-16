@@ -355,7 +355,9 @@
 			</component -->
 			      <!-- WebPreview -->
       <component>
+	<scope>page</scope>
          <region-id>component-1-1</region-id>
+	<source-id>site/${siteid}/dashboard</source-id>
          <sub-components>
             <sub-component id="default">
                <evaluations>
@@ -421,7 +423,7 @@
 				<title-id>page.siteDashboard.title</title-id>
 				<description>Collaboration site's dashboard page</description>
 				<description-id>page.siteDashboard.description</description-id>
-				<template-instance>dashboard-2-columns-wide-right</template-instance>
+				<template-instance>customize-dashboard-2-columns-wide-left</template-instance>
 				<authentication>user</authentication>
 				<properties>
 					<sitePages>[{"pageId":"documentlibrary"}]</sitePages>
