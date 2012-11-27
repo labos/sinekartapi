@@ -71,6 +71,7 @@
       <#assign linkClass>class="theme-color-4"</#assign>
    </#if>
 <span class="navigation-item"><a href="${url.context}/page/site/${activeSite}/site-members" ${linkClass}>${msg("link.members")}</a></span>
+<span class="navigation-item"><a href="${url.context}/page/site/${activeSite}/advsearch" ${linkClass}>RICERCA PROTOCOLLO</a></span>
 </#if>
 </div>
 

@@ -154,6 +154,7 @@
 						itemId : "skpi:protocollo",
 						//itemId: "cm:content",
 						mode : "create",
+						formUI:false,
 						destination : this.options.destination,
 						submitType : "json",
 					});

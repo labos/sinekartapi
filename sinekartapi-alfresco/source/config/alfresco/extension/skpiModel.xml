@@ -87,7 +87,41 @@
 					<title>Destinatario</title>
 					<type>d:text</type>
 				</property>
-
+				<property name="skpi:address">
+					<title>Address</title>
+					<type>d:text</type>
+				</property>
+				<property name="skpi:city">
+					<title>City</title>
+					<type>d:text</type>
+				</property>
+				<property name="skpi:postalCode">
+					<title>Postal Code</title>
+					<type>d:text</type>
+				</property>
+				<property name="skpi:source">
+					<title>Mezzo di Avvio</title>
+					<type>d:text</type>
+					<constraints>
+						<constraint type="LIST">
+							<parameter name="allowedValues">
+								<list>
+									<value>Posta</value>
+									<value>Fax</value>
+									<value>Email</value>
+								</list>
+							</parameter>
+						</constraint>
+					</constraints>
+				</property>
+				<property name="skpi:arrival_date">
+					<title>Data di arrivo</title>
+					<type>d:date</type>
+				</property>
+				<property name="skpi:arrival_hour">
+					<title>Ora di arrivo</title>
+					<type>d:text</type>
+				</property>
 				<property name="skpi:stato">
 					<title>Stato del protocollo</title>
 					<type>d:text</type>

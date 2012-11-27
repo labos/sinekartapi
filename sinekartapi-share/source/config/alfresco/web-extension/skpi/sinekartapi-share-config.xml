@@ -2,6 +2,11 @@
 
 	<!-- Document Library config section -->
 	<config evaluator="string-compare" condition="DocumentLibrary">
+				        <metadata-templates>
+            <template id="customTemplate">
+                <line index="1" id="author">{author}</line>
+            </template>
+        </metadata-templates>
 
 		<!-- Used by the "Manage Aspects" action For custom aspects, remember to 
 			also add the relevant i18n string(s) cm_myaspect=My Aspect -->
@@ -44,6 +49,7 @@
 		<forms>
 			<form>
 				<field-visibility>
+					<show id ="cm:creator" for-mode ="view" label="label.employee"/>
 					<show id="skpi:aoo" />
 					<show id="skpi:titolario" />
 					<show id="skpi:numero_protocollo" />
@@ -53,6 +59,11 @@
 					<show id="skpi:destinatario" />
 					<show id="skpi:stato" />
 					<show id="skpi:tipo" />
+					<show id="skpi:address" />
+					<show id="skpi:city" />
+					<show id="skpi:postalCode" />
+					<show id="skpi:arrival_date" />
+					<show id="skpi:arrival_hour" />													
 					<show id="skpi:motivo" />
 					<show id="skpi:dataAnnullamento" />
 					<show id="skpi:utenteAnnullante" />

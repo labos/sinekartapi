@@ -10,6 +10,14 @@
 	width: auto;
 }
 
+.form-container input[type="submit"], .form-container input[type="button"]{
+    font-weight: 600;
+    height: 40px;
+    width: 100px !important;
+}
+.form-container .form-buttons {
+    text-align: center;
+}
 .form-fields .yui-u {
 	text-align: left !important;
 }
@@ -51,4 +59,8 @@ font-weight:600;
 }
 .file-upload{
 	position:relative;
+}
+
+.hour{
+font-weight:600 !important;
 }

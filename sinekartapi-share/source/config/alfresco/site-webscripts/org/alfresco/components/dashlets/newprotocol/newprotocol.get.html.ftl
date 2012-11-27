@@ -1,5 +1,8 @@
 <#include "../../documentlibrary/include/toolbar.lib.ftl" />
-
+<@markup id="js">
+   <#-- JavaScript Dependencies -->
+   <#include "../../form/form.js.ftl"/>
+</@>
 <#assign el=args.htmlid?html>
 <#assign jsid = args.htmlid?js_string>
 

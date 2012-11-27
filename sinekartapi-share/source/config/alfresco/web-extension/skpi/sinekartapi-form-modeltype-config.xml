@@ -3,14 +3,20 @@
 	<config evaluator="model-type" condition="cm:content" replace="true">
 
 		<forms>
+	 <dependencies>
+         <css src="/org/alfresco/components/form/custom-label-layout.css" />
+      </dependencies>
 			<!-- Search form -->
 			<form id="search">
+			<create-form template="/org/alfresco/components/form/2-column-protocollo-set.ftl" />
 				<field-visibility>
-
-					<show id="skpi:numero_protocollo" force="true" />
 					<show id="skpi:oggetto" force="true" />
-					<show id="skpi:titolario" force="true" />
+					<show id="skpi:mittente" force="true" />
+					<show id="skpi:destinatario" force="true" />
 					<show id="skpi:data_protocollazione" force="true" />
+					 <show id="skpi:tipo" force="true"/>
+					<show id="skpi:numero_protocollo" force="true" />
+					<show id="skpi:titolario" force="true" />
 
 					<!-- <show id="skpi:tipo" force="true" /> -->
 				</field-visibility>
@@ -26,6 +32,14 @@
 							template="/org/alfresco/components/form/controls/titolarioTree.ftl">
 						</control>
 					</field>
+					   <field id="skpi:data_protocollazione">
+      					<control template="/org/alfresco/components/form/controls/daterange.ftl" />
+  						 </field>
+  						<field id="skpi:numero_protocollo">
+      						<control>
+         						<control-param name="forceEditable">true</control-param>
+      						</control>
+  						 </field>
 
 				</appearance>
 			</form>
@@ -45,12 +59,18 @@
 					<show id="cm:content" />
 
 					<show id="my-upload" />
-					<show id="skpi:aoo" />
+					<show id="skpi:titolario" />
 					<show id="skpi:oggetto" />
+					<show id="skpi:aoo" />
 					<show id="skpi:mittente" />
 					<show id="skpi:destinatario" />
-					<show id="skpi:titolario" />
 					<show id="skpi:tipo" />
+					<show id="skpi:address" />
+					<show id="skpi:city" />
+					<show id="skpi:postalCode" />
+					<show id="skpi:source" />
+					<show id="skpi:arrival_date" />
+					<show id="skpi:arrival_hour" />
 					<show id="skpi:protocollo_precedente" />
 					<show id="skpi:data_protocollo_precedente" />
 					<show id="skpi:protocollo_mittente" />
@@ -103,10 +123,21 @@
 					</field>
 					<field id="skpi:fascicolo" label="Fascicolo/Dossier" />
 
-					<field id="skpi:oggetto" set="mandatory" mandatory="true" />
+					<field id="skpi:oggetto" set="mandatory" mandatory="true" >
+						<control template="/org/alfresco/components/form/controls/textarea.ftl" /> 
+				    </field>
 					<field id="skpi:tipo" set="mandatory" />
 					
 					<!-- Dati opzionali -->
+					<field id="skpi:address" set="optional" label-id="label.address"/>
+					<field id="skpi:city" set="optional" label-id="label.city" />
+					<field id="skpi:postalCode" set="optional" label-id="label.postalCode" />
+					<field id="skpi:source" set="optional"  label-id="label.source"/>
+					<field id="skpi:arrival_date" set="optional" label-id="label.arrival_date"/>
+					<field id="skpi:arrival_hour" set="optional" label-id="label.arrival_hour">
+						<control template="/org/alfresco/components/form/controls/hour.ftl">
+						</control>
+					</field>
 					<field id="skpi:protocollo_precedente" set="optional" />
 					<field id="skpi:data_protocollo_precedente" set="optional" />
 					<field id="skpi:protocollo_mittente" set="optional" />

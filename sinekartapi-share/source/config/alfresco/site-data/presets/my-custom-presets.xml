@@ -388,7 +388,7 @@
 				<source-id>site/${siteid}/dashboard</source-id>
 				<url>/components/dashlets/new-protocol</url>
 				<properties>
-					<height>620</height>
+					<height>809</height>
 				</properties>
 			</component>
 						     <!-- Uploaders -->

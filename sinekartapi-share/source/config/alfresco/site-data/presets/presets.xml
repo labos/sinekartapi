@@ -356,6 +356,7 @@
 			      <!-- WebPreview -->
       <component>
          <region-id>component-1-1</region-id>
+         <source-id>site/${siteid}/dashboard</source-id>
          <sub-components>
             <sub-component id="default">
                <evaluations>
