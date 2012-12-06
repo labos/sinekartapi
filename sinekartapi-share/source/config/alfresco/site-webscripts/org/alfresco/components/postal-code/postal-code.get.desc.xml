@@ -1,0 +1,6 @@
+<webscript>
+  <shortname>postal-code</shortname>
+  <description>Get postal code by address Component</description>
+  <url>/components/postal-code/postal-code</url>
+ <format default="json" />
+</webscript>

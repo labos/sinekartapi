@@ -65,8 +65,8 @@
 					<show id="skpi:mittente" />
 					<show id="skpi:destinatario" />
 					<show id="skpi:tipo" />
-					<show id="skpi:address" />
 					<show id="skpi:city" />
+					<show id="skpi:address" />
 					<show id="skpi:postalCode" />
 					<show id="skpi:source" />
 					<show id="skpi:arrival_date" />
@@ -129,7 +129,11 @@
 					<field id="skpi:tipo" set="mandatory" />
 					
 					<!-- Dati opzionali -->
-					<field id="skpi:address" set="optional" label-id="label.address"/>
+					<field id="skpi:address" set="optional" label-id="label.address">
+						<control
+							template="/org/alfresco/components/form/controls/addressPostalCode.ftl">
+						</control>
+					</field>
 					<field id="skpi:city" set="optional" label-id="label.city" />
 					<field id="skpi:postalCode" set="optional" label-id="label.postalCode" />
 					<field id="skpi:source" set="optional"  label-id="label.source"/>

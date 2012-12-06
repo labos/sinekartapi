@@ -46,10 +46,10 @@ if (docNode != null && docNode.isDocument) {
         WatermarkAction.parameters["watermark-type"] = "text";
         WatermarkAction.parameters["watermark-pages"] = "first";
         WatermarkAction.parameters["watermark-depth"] = "over";
-        WatermarkAction.parameters["watermark-font"] = "Courier";
-        WatermarkAction.parameters["watermark-size"] = "14";
+        WatermarkAction.parameters["watermark-font"] = "Helvetica";
+        WatermarkAction.parameters["watermark-size"] = "12";
         WatermarkAction.parameters["watermark-image"] = "workspace://SpacesStore/0154cb58-ce1f-4f0f-9b8c-5db8f9f19943";
-        WatermarkAction.parameters["position"] = "topleft";
+        WatermarkAction.parameters["position"] = "topright";
 
 
         logger.log("Watermark action to be executed with result : " + resultStringLog + '--' + conversionFormat + '....'  + WatermarkAction + "***  " + docNode.properties.content.mimetype + '.........' + tempSubfolder + '-----');

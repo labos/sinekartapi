@@ -225,9 +225,11 @@ YAHOO.Bubbling.fire("registerAction",  {
 		fn: function dlA_onActionStampaProtocollo(asset){
         
 	        var nodeRef = new Alfresco.util.NodeRef(asset.nodeRef),
-		jsNode = asset.jsNode,
+		jsNode = asset.jsNode;
+	      var  dateProtocolObj =  new Date(jsNode.properties['skpi:data_protocollazione'].iso8601); 
+	      var dateProtocolString = dateProtocolObj.getDate() + '/' + dateProtocolObj.getMonth() + '/' + dateProtocolObj.getFullYear();
 	        //retrieve protocol number from asset aspect property
-		protocolNumberString = jsNode.properties['skpi:aoo'] + ' ' +jsNode.properties['skpi:numero_protocollo'] + ' ' + jsNode.properties['skpi:titolario'];
+		var protocolNumberString = "SARDEGNA RICERCHE " + "\r\n" + dateProtocolString + ' PROT. N.' +jsNode.properties['skpi:numero_protocollo'] ;
 	        this.modules.actions.genericAction(
 	        {
 	            success:
