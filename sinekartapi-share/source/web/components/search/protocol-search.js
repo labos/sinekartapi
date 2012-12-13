@@ -411,21 +411,26 @@
       
             if (oRecord.getData("modifiedBy"))
             {
-               desc += ' ' + me.msg("message.employee");
-               desc += ' <a href="' + Alfresco.constants.URL_PAGECONTEXT + 'user/' + encodeURI(oRecord.getData("modifiedByUser")) + '/profile">' + $html(oRecord.getData("modifiedBy")) + '</a>';
+               desc += ' ' + me.msg("message.employee") + ': ';
+               desc += '<strong>' + ' <a href="' + Alfresco.constants.URL_PAGECONTEXT + 'user/' + encodeURI(oRecord.getData("modifiedByUser")) + '/profile">' + $html(oRecord.getData("modifiedBy")) + '</a>'+ '</strong>';
             }
             if (oRecord.getData("skpi_mittente"))
             {
-               desc += ' | ' + me.msg("message.mittente") + ' ';
-               desc += $html(oRecord.getData("skpi_mittente"));
+               desc += ' | ' + me.msg("message.mittente") + ': ';
+               desc += '<strong>' + $html(oRecord.getData("skpi_mittente")) + '</strong>';
+            }
+            if (oRecord.getData("skpi_destinatario"))
+            {
+               desc += ' | ' + me.msg("message.destinatario") + ': ';
+               desc += '<strong>' + $html(oRecord.getData("skpi_destinatario")) + '</strong>';
             }
     
             if (oRecord.getData("skpi_arrival_date"))
             {
-               desc += ' | ' + me.msg("message.arrivalDate") + ' ';
-               desc += $html(oRecord.getData("skpi_arrival_date"));
+               desc += ' | ' + me.msg("message.arrivalDate") + ': ';
+               desc += '<strong>' + $html(oRecord.getData("skpi_arrival_date"))  + '</strong>';
             }
-            desc += ' ' + me.msg("message.modifiedon") + ' <span class="meta">' + Alfresco.util.formatDate(oRecord.getData("modifiedOn")) + '</span>';
+            desc += ' | ' + me.msg("message.modifiedon") + ' <span class="meta">' + Alfresco.util.formatDate(oRecord.getData("modifiedOn")) + '</span>';
             desc += '</div>';
             
             
@@ -813,6 +818,50 @@
             
             // update the results info text
             this._updateResultsInfo();
+            //create a "distinta"
+            var protocolsFound = [];
+
+            	for (var i = 0; i < oResponse.results.length; i++) {
+            	
+            	protocolsFound.push(oResponse.results[i].nodeRef);
+            }
+        	Alfresco.util.Ajax.request(
+        			{
+        				url: Alfresco.constants.PROXY_URI + "it/tlogic/sinekartapi/schedule-journal",
+        				method: "post",
+        				requestContentType: Alfresco.util.Ajax.JSON,
+    					dataObj : {"protocolsFound" : protocolsFound },
+        				successCallback: {
+        	                   fn: function dlA_onActionDetails_success(response) {
+        	                	   //lnk-download-schedule localhost:8080/share/proxy/alfresco/api/node/content/workspace/
+        	                	   Dom.setAttribute("lnk-download-schedule","href", Alfresco.constants.PROXY_URI + 'api/node/content/' + response.json.response.replace(":/", "") )
+        	                			// Display success message
+        	                			var msgResult = response.json.message;
+        				                Alfresco.util.PopupManager.displayMessage(
+        	                                {
+        	                                        text: msgResult
+        	                                });
+        						},
+        	        			scope: this
+        				},
+        				
+        				failureCallback:
+        					{
+        						fn: function dlA_onActionDetails_failure(response) {
+        	                		var msgResult = response.json.message;
+        	                		Alfresco.util.PopupManager.displayMessage(
+        	                        	{
+        	                            	text: msgResult
+        	                            });
+        	        		},
+        	        	scope: this
+        			}
+
+        		});
+        	
+            var a = document.createElement('a');
+            //a.appendChild("Scarica");
+            Dom.insertAfter(a , Dom.get(this.id + '-search-info'));
             
             // set focus to search input textbox
             Dom.get(this.id + "-search-text").focus();

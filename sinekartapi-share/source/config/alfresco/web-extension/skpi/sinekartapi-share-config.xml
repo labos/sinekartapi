@@ -62,6 +62,7 @@
 					<show id="skpi:address" />
 					<show id="skpi:city" />
 					<show id="skpi:postalCode" />
+					<show id="skpi:province" />
 					<show id="skpi:arrival_date" />
 					<show id="skpi:arrival_hour" />													
 					<show id="skpi:motivo" />

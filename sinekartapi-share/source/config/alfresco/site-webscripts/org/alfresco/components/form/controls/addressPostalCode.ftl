@@ -1,5 +1,6 @@
 <#assign controlId = fieldHtmlId + "-cntrl">
 <#assign fieldPostalCodeId = args.htmlid + "_prop_skpi_postalCode">
+<#assign fieldProvinceId = args.htmlid + "_prop_skpi_province">
 <#assign fieldCityId = args.htmlid + "_prop_skpi_city">
 <script type="text/javascript">//<![CDATA[
 (function()
@@ -27,7 +28,7 @@ cityField = YAHOO.util.Dom.get("${fieldCityId}");
 //YAHOO.util.Dom.setAttribute("${fieldHtmlId}" , "value", "00:00" );
 oDS.responseType = YAHOO.util.XHRDataSource.TYPE_JSON; 
  oDS.responseSchema = {resultsList : "result", 
- fields : ["suggestedAddress", "zipCode", "route"]};
+ fields : ["suggestedAddress", "zipCode", "route", "province"]};
 var oAC = new YAHOO.widget.AutoComplete("${fieldHtmlId}", "${fieldHtmlId}-Container", oDS);
 oAC.generateRequest = function(sQuery) {
     return "?query=" + sQuery + "&city=" + cityField.value;
@@ -36,11 +37,14 @@ oAC.questionMark = false; // Removes the question mark on the query string (this
 oAC.applyLocalFilter = true; // Filter the results on the client
 oAC.queryDelay = 0.1 // Throttle requests sent
 oAC.animSpeed = 0.08;
+oAC.queryMatchContains = true;
 
 
     // Define an event handler to populate a hidden form field 
 	    // when an item gets selected 
-    var postalCodeField = YAHOO.util.Dom.get("${fieldPostalCodeId}"); 
+    var postalCodeField = YAHOO.util.Dom.get("${fieldPostalCodeId}"),
+     	provinceField = YAHOO.util.Dom.get("${fieldProvinceId}");
+    
     var myHandler = function(sType, aArgs) { 
         var myAC = aArgs[0]; // reference back to the AC instance 
         var elLI = aArgs[1]; // reference to the selected LI element 
@@ -48,6 +52,7 @@ oAC.animSpeed = 0.08;
       // update hidden form field with the selected item's ID 
 	        postalCodeField.value = oData[1]; 
 	        addressField.value = oData[2];
+	        provinceField.value = oData[3];
 	        
 	    }; 
 	    oAC.itemSelectEvent.subscribe(myHandler); 

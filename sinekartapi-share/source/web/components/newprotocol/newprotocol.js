@@ -309,6 +309,14 @@ this.id + "protocol-create_my-upload-cntrl");
 						// var protocolForm = new
 						// Alfresco.forms.Form("protocol-create-form");
 						formEl.reset();
+						// reset preview
+						var mypreview = Alfresco.util.ComponentManager.findFirst("Alfresco.WebPreview"); 
+				         mypreview.setOptions(
+				        		 {
+				        		 nodeRef: "workspace://SpacesStore/316440c1-38c4-45be-88f3-d7b84b9fd72f",
+				        		 }).setMessages("preview");
+				         mypreview.plugin.display();
+				         
 						var millis = 2000;
 						var date = new Date();
 						var curDate = null;

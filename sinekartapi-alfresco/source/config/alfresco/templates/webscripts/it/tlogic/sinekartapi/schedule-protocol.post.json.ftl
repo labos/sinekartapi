@@ -1,0 +1,4 @@
+{
+    "result" : "${resultCode}",
+    "response" : "${response}"
+}

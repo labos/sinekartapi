@@ -27,40 +27,7 @@
    </#if>
 -->
 
-   <#if siteValid>
-      <span class="navigation-separator">&nbsp;</span>
-      <#list pages as p>
-         <#assign linkPage=p.pageUrl!p.title/>
-         <#if linkPage?index_of(pageFamily) != -1>
-            <#assign linkClass>class="active-page theme-color-4"</#assign>      
-         <#else>
-            <#assign linkClass>class="theme-color-4"</#assign>
-         </#if>
-	  <#--<span class="navigation-item"><a href="${url.context}/page/site/${activeSite}/${linkPage}" ${linkClass}>${msg("link.newProtocol")}</a></span>-->
-	  <span class="navigation-item"><a id="${args.htmlid}-newProtocolLink" href="#" ${linkClass}>${msg("link.newProtocol")}</a></span>
-         <#if p_has_next>
-      <span class="navigation-gap">&nbsp;</span>
-         </#if>
-      </#list>
-   </#if>
 
-
-   <#if siteValid>
-      <span class="navigation-separator">&nbsp;</span>
-      <#list pages as p>
-         <#assign linkPage=p.pageUrl!p.title/>
-         <#if linkPage?index_of(pageFamily) != -1>
-            <#assign linkClass>class="active-page theme-color-4"</#assign>      
-         <#else>
-            <#assign linkClass>class="theme-color-4"</#assign>
-         </#if>
-	  <#--<span class="navigation-item"><a href="${url.context}/page/site/${activeSite}/${linkPage}" ${linkClass}>${msg("link.printJurnal")}</a></span>-->
-	  <span class="navigation-item"><a id="${args.htmlid}-journalLink" href="#" ${linkClass}>${msg("link.printJurnal")}</a></span>
-         <#if p_has_next>
-      <span class="navigation-gap">&nbsp;</span>
-         </#if>
-      </#list>
-   </#if>
 
 
 
@@ -70,7 +37,6 @@
    <#else>
       <#assign linkClass>class="theme-color-4"</#assign>
    </#if>
-<span class="navigation-item"><a href="${url.context}/page/site/${activeSite}/site-members" ${linkClass}>${msg("link.members")}</a></span>
 <span class="navigation-item"><a href="${url.context}/page/site/${activeSite}/advsearch" ${linkClass}>RICERCA PROTOCOLLO</a></span>
 </#if>
 </div>

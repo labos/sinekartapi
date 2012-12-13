@@ -1,8 +1,8 @@
 <webscript>
   <shortname>print-schedule-protocol</shortname>
   <description>Print protocol schedule from a list of protocols</description>  
-  <url>/it/tlogic/sinekartapi/schedule-journal/{aoo}</url>
-  <format default="json">argument</format>
+  <url>/it/tlogic/sinekartapi/schedule-journal</url>
+  <format default="json" />
   <authentication>user</authentication>
   <transaction>required</transaction>
 </webscript>

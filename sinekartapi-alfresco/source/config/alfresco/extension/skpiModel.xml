@@ -99,6 +99,10 @@
 					<title>Postal Code</title>
 					<type>d:text</type>
 				</property>
+				<property name="skpi:province">
+					<title>Province</title>
+					<type>d:text</type>
+				</property>
 				<property name="skpi:source">
 					<title>Mezzo di Avvio</title>
 					<type>d:text</type>
@@ -106,9 +110,12 @@
 						<constraint type="LIST">
 							<parameter name="allowedValues">
 								<list>
-									<value>Posta</value>
-									<value>Fax</value>
+									<value>Email</value>									
+									<value>PEC</value>
 									<value>Email</value>
+									<value>Fax</value>
+									<value>Raccomandata</value>
+									<value>Posta</value>
 								</list>
 							</parameter>
 						</constraint>
@@ -166,7 +173,7 @@
 				</property>
 				
 				<property name="skpi:data_protocollo_precedente">
-					<title>Data protocollo precedente</title>
+					<title>Data prot. precedente</title>
 					<type>d:date</type>
 				</property>
 				
@@ -177,7 +184,7 @@
 				</property>
 				
 				<property name="skpi:data_protocollo_mittente">
-					<title>Data protocollo mittente</title>
+					<title>Data prot. mittente</title>
 					<type>d:date</type>
 				</property>
 
@@ -188,7 +195,7 @@
 				</property>
 				
 				<property name="skpi:data_protocollo_emergenza">
-					<title>Data protocollo di emergenza</title>
+					<title>Data prot. di emergenza</title>
 					<type>d:date</type>
 				</property>
 

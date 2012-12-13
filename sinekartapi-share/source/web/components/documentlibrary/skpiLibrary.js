@@ -238,7 +238,8 @@ YAHOO.Bubbling.fire("registerAction",  {
 	                callback: {
 	                    fn: function(obj){
 				 if(obj.json.result && obj.json.result!='' && obj.json.result!='0'){
-				window.open(window.location.protocol + "//" + window.location.host + "/alfresco" + obj.json.response, "_blank");}
+					 
+				window.open(Alfresco.constants.PROXY_URI + "api/node/content" + noderef.replace("/d/a/", "/") + obj.json.response + '.pdf', "_blank");}
 else{  
 Alfresco.util.PopupManager.displayMessage(
                      {

@@ -176,14 +176,16 @@ function getDocumentItem(siteId, containerId, pathParts, node)
             mimetype: node.mimetype,
             path: pathParts.join("/"),
 	    mittente: ((mitt = node.properties["skpi:mittente"]) !== null) ? mitt : "",
+	    destinatario: ((dest = node.properties["skpi:destinatario"]) !== null) ? dest : "",
 	    oggetto: ((ogg = node.properties["skpi:oggetto"]) !== null) ? ogg : "",
 	    address: ((addr = node.properties["skpi:address"]) !== null) ? addr : "",
 	    city: ((cit = node.properties["skpi:city"]) !== null) ? cit : "",
 	    postalCode: ((postal = node.properties["skpi:postalCode"]) !== null) ? postal : "",
-	    arrival_date: ((arr_date = node.properties["skpi:arrival_date"]) !== null) ? arr_date : "",
-	    arrival_hour: ((arr_hour = node.properties["skpi:arrival_hour"]) !== null) ? arr_hour : "",
+	    arrival_date: ((arr_date = node.properties["skpi:arrival_date"]) !== null) ? arr_date : null,
+	    arrival_hour: ((arr_hour = node.properties["skpi:arrival_hour"]) !== null) ? arr_hour : null,
 	    		
          };
+         
          item.modifiedBy = getPersonDisplayName(item.modifiedByUser);
          item.createdBy = getPersonDisplayName(item.createdByUser);
       }

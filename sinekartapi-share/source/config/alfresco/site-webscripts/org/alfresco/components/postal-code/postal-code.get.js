@@ -20,6 +20,7 @@ function getZipCode (results, status) {
     		   var address = results[i].address_components;
     		   var postalCode = "";
     		   var route = "";
+    		   var province = "";
     	        for (p = address.length-1; p >= 0; p--) {
     	            if (address[p].types.indexOf("postal_code") != -1) {
     	                //console.log(address[p].long_name);
@@ -28,12 +29,17 @@ function getZipCode (results, status) {
     	            if (address[p].types.indexOf("route") != -1) {
     	            	route = address[p].long_name;
     	            }
+    	            if (address[p].types.indexOf("administrative_area_level_2") != -1) {
+    	            	province = address[p].short_name;
+    	            }
+    	            
     	        }
     	        
     	        returnArray.push({
     	    	    "zipCode" : postalCode,
     	    	    "suggestedAddress" : results[i].formatted_address,
-    	    	    "route" : route
+    	    	    "route" : route,
+    	    	    "province" : province
     	    	});
            }
     	   return returnArray;

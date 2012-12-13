@@ -373,6 +373,9 @@
                </evaluations>
             </sub-component>
          </sub-components>
+         		<properties>
+					<height>620</height>
+				</properties>
       </component>
 			
 			<component>

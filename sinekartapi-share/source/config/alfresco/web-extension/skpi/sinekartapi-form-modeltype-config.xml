@@ -10,15 +10,13 @@
 			<form id="search">
 			<create-form template="/org/alfresco/components/form/2-column-protocollo-set.ftl" />
 				<field-visibility>
-					<show id="skpi:oggetto" force="true" />
 					<show id="skpi:mittente" force="true" />
 					<show id="skpi:destinatario" force="true" />
+					<show id="skpi:oggetto" force="true" />
 					<show id="skpi:data_protocollazione" force="true" />
 					 <show id="skpi:tipo" force="true"/>
 					<show id="skpi:numero_protocollo" force="true" />
 					<show id="skpi:titolario" force="true" />
-
-					<!-- <show id="skpi:tipo" force="true" /> -->
 				</field-visibility>
 
 				<appearance>
@@ -60,14 +58,15 @@
 
 					<show id="my-upload" />
 					<show id="skpi:titolario" />
-					<show id="skpi:oggetto" />
-					<show id="skpi:aoo" />
 					<show id="skpi:mittente" />
 					<show id="skpi:destinatario" />
+					<show id="skpi:oggetto" />
+					<show id="skpi:aoo" />
 					<show id="skpi:tipo" />
 					<show id="skpi:city" />
 					<show id="skpi:address" />
 					<show id="skpi:postalCode" />
+					<show id="skpi:province" />
 					<show id="skpi:source" />
 					<show id="skpi:arrival_date" />
 					<show id="skpi:arrival_hour" />
@@ -87,7 +86,7 @@
 					<set id="mandatory" label="Dati Obbligatori" appearance="title"
 						template="/org/alfresco/components/form/2-column-protocollo-set.ftl" />
 						
-					<set id="optional" label="Dati Opzionali" appearance="title"
+					<set id="optional" label="Dati Opzionali" appearance="accordion"
 						template="/org/alfresco/components/form/2-column-protocollo-set.ftl" />
 						
 					<field id="cm:content">
@@ -136,6 +135,7 @@
 					</field>
 					<field id="skpi:city" set="optional" label-id="label.city" />
 					<field id="skpi:postalCode" set="optional" label-id="label.postalCode" />
+					<field id="skpi:province" set="optional" label-id="label.province" />
 					<field id="skpi:source" set="optional"  label-id="label.source"/>
 					<field id="skpi:arrival_date" set="optional" label-id="label.arrival_date"/>
 					<field id="skpi:arrival_hour" set="optional" label-id="label.arrival_hour">

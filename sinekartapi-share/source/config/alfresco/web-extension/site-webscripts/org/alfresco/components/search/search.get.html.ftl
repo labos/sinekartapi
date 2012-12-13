@@ -29,7 +29,7 @@
             <div>
                <input type="text" class="terms" name="${el}-search-text" id="${el}-search-text" value="" maxlength="1024" />
             </div>
-            <div>
+            <div style="text-align:left">
                <span id="${el}-search-button" class="yui-button yui-push-button search-icon">
                   <span class="first-child">
                      <button type="button">${msg('button.search')}</button>
@@ -42,6 +42,8 @@
             <div class="yui-u first">
                <div id="${el}-search-info" class="search-info">${msg("search.info.searching")}</div>
                <div id="${el}-paginator-top" class="paginator hidden"></div>
+               <div class="download-schedule" style="float:left;padding:0.5em 0 0.6em 1em;"><a href="#" id="lnk-download-schedule" target="_blank"><strong>${msg("search.info.download.schedule")}</strong><img src="/share/res/components/images/email_2.png"/></a>
+               </div>
             </div>
             <div class="yui-u align-right">
                <span class="yui-button yui-push-button" id="${el}-sort-menubutton">

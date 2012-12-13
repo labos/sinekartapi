@@ -31,6 +31,9 @@
 			<#if item.mittente??>
 			"skpi_mittente": "${item.mittente}",
 			</#if>
+			<#if item.destinatario??>
+			"skpi_destinatario": "${item.destinatario}",
+			</#if>
 			<#if item.oggetto??>
 			"skpi_oggetto": "${item.oggetto}",
 			</#if>
@@ -47,7 +50,7 @@
 			"skpi_arrival_hour": "${item.arrival_hour}",
 			</#if>
 			<#if item.arrival_date??>
-			"skpi_arrival_date": "${item.arrival_date}",
+			"skpi_arrival_date": "${item.arrival_date?string("dd MMM yyyy")}",
 			</#if>
 			"tags": [<#list item.tags as tag>"${tag}"<#if tag_has_next>,</#if></#list>]
 		}<#if item_has_next>,</#if>

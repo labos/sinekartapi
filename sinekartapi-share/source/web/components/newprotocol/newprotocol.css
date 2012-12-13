@@ -42,6 +42,13 @@
 .form-field input[type="text"] {
     width: 80% !important;
 }
+input[type="text"].date-entry  {
+    width: 74% !important;
+}
+input[name="prop_skpi_province"].date-entry  {
+    width: 20% !important;
+}
+
 .form-container textarea {
     width: 80% !important;
 }
@@ -63,4 +70,7 @@ font-weight:600;
 
 .hour{
 font-weight:600 !important;
+}
+.web-preview.real{
+	height:600px !important;
 }
