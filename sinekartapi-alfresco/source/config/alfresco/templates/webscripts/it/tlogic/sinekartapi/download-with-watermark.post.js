@@ -23,13 +23,13 @@ if (docNode != null && docNode.isDocument) {
                 resultStringLog = "Could not convert document";
                 // create temporary subfolder
                 var tempSubfolderTransf = tempSubfolder.createFolder('_' + new Date().getTime());
-		var conversionFormat ="application/pdf";
+                var conversionFormat ="application/pdf";
                 var nodeTransf = docNode.transformDocument(conversionFormat, tempSubfolderTransf);
                 if (nodeTransf != null) {
                     nodeTransf.properties.content.mimetype = "application/pdf";
+                    //overwrite source pdf file to watermark
                     first_pdf = nodeTransf;
                     resultStringLog = "Document converted";
-                    //resultCode = 1;
                 }
             } catch (e) {
                 resultStringLog = "Convertion failed due to exception";
@@ -37,8 +37,9 @@ if (docNode != null && docNode.isDocument) {
             }
 
         }
+        first_pdf.addAspect("sys:temporary");
         var dest_folder = tempSubfolder;
-	// set watermarkaction object and execute
+        // set watermarkaction object and execute
         var WatermarkAction = actions.create("pdf-watermark");
 
         WatermarkAction.parameters["destination-folder"] = dest_folder;

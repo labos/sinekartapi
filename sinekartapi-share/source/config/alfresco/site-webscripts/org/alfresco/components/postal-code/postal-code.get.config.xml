@@ -1,7 +1,7 @@
 <postal-code>
    <!--<forecastURL>http://where.yahooapis.com/geocode?address=via+poerio&amp;city=pirri&amp;country=italy&amp;flags=J&amp;appid=iWf1EB_V34FmEbzznQCTTC8.rIMEd1EosNXYRmtmWtwZ5WsO24idL26z5sI5MZ_ntm6CAI8zupLcGBIM_Nos4OlvfYBaIwc-</forecastURL>
    -->
-   <forecastURL>http://maps.googleapis.com/maps/api/geocode/json?address={addr},+{loc},+CA&amp;sensor=true</forecastURL>
+   <forecastURL>http://maps.googleapis.com/maps/api/geocode/json?address={addr},+{loc}&amp;sensor=true</forecastURL>
  <observationsURL>http://newsrss.bbc.co.uk/weather/forecast/{loc}/ObservationsRSS.xml</observationsURL>
    <defaultLoc>cagliari</defaultLoc> <!-- Default to London -->
 </postal-code>

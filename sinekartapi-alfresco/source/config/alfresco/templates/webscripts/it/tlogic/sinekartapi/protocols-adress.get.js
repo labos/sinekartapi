@@ -12,10 +12,13 @@ function main()
 	}
 	
 	var rootProtocolli = site.node.childByNamePath("documentLibrary/Protocolli");
+	var rootTempProtocol= site.node.childByNamePath("documentLibrary/_temp_protocol_");
 	if(!rootProtocolli) {
 		rootProtocolli = site.node.childByNamePath("documentLibrary").createFolder("Protocolli");
 	}
-	
+	if(!rootTempProtocol) {
+		rootTempProtocol = site.node.childByNamePath("documentLibrary").createFolder("_temp_protocol_");
+	}
 	var nodeId = rootProtocolli.id;
 	return "workspace://SpacesStore/" + nodeId;
 }

@@ -39,7 +39,7 @@ override.prototype.getActionUrls = function(recordData){
             nodeRef = jsNode.isLink ? jsNode.linkedNode.nodeRef : jsNode.nodeRef,
             strNodeRef = nodeRef.toString(),
             nodeRefUri = nodeRef.uri,
-	    mimeType = jsNode.mimetype,
+            mimeType = jsNode.mimetype,
             contentUrl = jsNode.contentURL,
             extensionMap =
             {
@@ -49,9 +49,9 @@ override.prototype.getActionUrls = function(recordData){
                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" : "xlsx",
                "application/vnd.openxmlformats-officedocument.presentationml.presentation" : "pptx",
                "application/vnd.openxmlformats-officedocument.wordprocessingml.document" : "docx",
-	       "application/pdf" : "pdf",
-	       "application/x-zip" : "zip",
-	       "application/zip" : "zip",
+               "application/pdf" : "pdf",
+               "application/x-zip" : "zip",
+               "application/zip" : "zip",
             };
 var actionUrls = getActionUrls_override.apply(this,arguments);
 /* set extension for downloadable file attached to protocol */
@@ -77,7 +77,7 @@ override.prototype.getDownloadActionUrls = function(recordData){
             nodeRef = jsNode.isLink ? jsNode.linkedNode.nodeRef : jsNode.nodeRef,
             strNodeRef = nodeRef.toString(),
             nodeRefUri = nodeRef.uri,
-	    mimeType = jsNode.mimetype,
+            mimeType = jsNode.mimetype,
             contentUrl = jsNode.contentURL,
             extensionMap =
             {
@@ -87,9 +87,9 @@ override.prototype.getDownloadActionUrls = function(recordData){
                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" : "xlsx",
                "application/vnd.openxmlformats-officedocument.presentationml.presentation" : "pptx",
                "application/vnd.openxmlformats-officedocument.wordprocessingml.document" : "docx",
-	       "application/pdf" : "pdf",
-	       "application/x-zip" : "zip",
-	       "application/zip" : "zip",
+               "application/pdf" : "pdf",
+               "application/x-zip" : "zip",
+               "application/zip" : "zip",
             };
 
 /* set extension for downloadable file attached to protocol */
@@ -110,8 +110,7 @@ return downloadLinkWhitExtension;
 		actionName: "onActionStampaEtichetta", 
 		fn: function dlA_onActionUploadStampaEtichetta(asset){    	
 			
-	        var nodeRef = new Alfresco.util.NodeRef(asset.nodeRef);
-	        
+	        var nodeRef = new Alfresco.util.NodeRef(asset.nodeRef);       
 	        window.open(Alfresco.constants.PROXY_URI + '/skpi/etichetta/' + nodeRef.uri, 'Etichetta + ' +asset.displayName);
 	        
 	        }   
@@ -179,11 +178,9 @@ return downloadLinkWhitExtension;
    
 YAHOO.Bubbling.fire("registerAction",  { 
 		actionName: "onActionAnnullaProtocollo", 
-		fn: function dlA_onActionAnnullaProtocollo(asset){
-	    	
-	    	
-	        
-	        var reason = prompt("Perche' vuoi annullare il protocollo ?", "")
+		fn: function dlA_onActionAnnullaProtocollo(asset){   	
+	    		        
+	        var reason = prompt(this.msg("message.annullaProtocollo.question", asset.displayName));
 	        if (reason == null)
 				return;
 	        
@@ -224,12 +221,20 @@ YAHOO.Bubbling.fire("registerAction",  {
 		actionName: "onActionPrintProtocol", 
 		fn: function dlA_onActionStampaProtocollo(asset){
         
-	        var nodeRef = new Alfresco.util.NodeRef(asset.nodeRef),
+	    var nodeRef = new Alfresco.util.NodeRef(asset.nodeRef),
 		jsNode = asset.jsNode;
-	      var  dateProtocolObj =  new Date(jsNode.properties['skpi:data_protocollazione'].iso8601); 
-	      var dateProtocolString = dateProtocolObj.getDate() + '/' + dateProtocolObj.getMonth() + '/' + dateProtocolObj.getFullYear();
-	        //retrieve protocol number from asset aspect property
-		var protocolNumberString = "SARDEGNA RICERCHE " + "\r\n" + dateProtocolString + ' PROT. N.' +jsNode.properties['skpi:numero_protocollo'] ;
+	    var  dateProtocolObj =  new Date(jsNode.properties['skpi:data_protocollazione'].iso8601); 
+	    if(isNaN(dateProtocolObj)){
+		    Alfresco.util.PopupManager.displayMessage(
+	                {
+	                   text: this.msg("message.dateProblem", asset.displayName)
+	                });
+		    return;
+	    }
+
+	    var dateProtocolString = dateProtocolObj.getDate() + '/' + dateProtocolObj.getMonth() + '/' + dateProtocolObj.getFullYear();
+	    //retrieve protocol number from asset aspect property
+		var protocolNumberString = this.msg("message.company", asset.displayName) + " " + "\r\n" + dateProtocolString + ' PROT. N.' +jsNode.properties['skpi:numero_protocollo'] ;
 	        this.modules.actions.genericAction(
 	        {
 	            success:
@@ -237,11 +242,11 @@ YAHOO.Bubbling.fire("registerAction",  {
 
 	                callback: {
 	                    fn: function(obj){
-				 if(obj.json.result && obj.json.result!='' && obj.json.result!='0'){
+				 if(obj.json.result && obj.json.result!='' && obj.json.result!='0' && obj.json.response!=''){
 					 
-				window.open(Alfresco.constants.PROXY_URI + "api/node/content" + noderef.replace("/d/a/", "/") + obj.json.response + '.pdf', "_blank");}
-else{  
-Alfresco.util.PopupManager.displayMessage(
+				window.open(Alfresco.constants.PROXY_URI + "api/node/content" + obj.json.response.replace("/d/a/", "/")  + '.pdf');}
+				 else{  
+					 Alfresco.util.PopupManager.displayMessage(
                      {
                         text: this.msg("message.printWithWatermark.failure", asset.displayName)
                      });
@@ -264,7 +269,7 @@ Alfresco.util.PopupManager.displayMessage(
 			                params:
 			                {
 			                    nodeRef: nodeRef.uri,
-					    watermarkText: protocolNumberString
+			                    watermarkText: protocolNumberString
 			                }
 	            }
 	        });

@@ -52,6 +52,7 @@ function createSchedulePdf(xml,fileName){
 				var generatedReport = search.findNode(generatedReportNodeRef);
 				logger.log("AlfrescoJasperReports - report generated. " + generatedReport.displayPath + "/" + generatedReport.name );
 				model.message = "";
+				generatedReport.addAspect("sys:temporary");
 				return generatedReport;
 			} catch(err) { 
 				logger.log("AlfrescoJasperReports - error while generating report... :( " + err);
@@ -60,7 +61,7 @@ function createSchedulePdf(xml,fileName){
 		} else {
 			logger.log("reportRegistroProtocollo mancante aggiungerlo in companyHome/Report");
 			model.message = "reportRegistroProtocollo mancante aggiungerlo in companyHome/Reports";
-		}p
+		}
 	} catch(err) { 
 		logger.log("AlfrescoJasperReports - error while generating report... :( " + err);
 		model.message = "" + err;
@@ -87,8 +88,7 @@ try {
     		    		province = docNode.properties['skpi:province'],
     		    		entryNumber = index +1;
     		    	
-    		    	//html+='<tr valign="top"><td>' + entryNumber + '&nbsp;'  + destinatario + '</td><td>' + address.toUpperCase() + '</td></tr>' + '<tr><td>' + 'Localit&agrave; ' + city.toUpperCase() + '</td><td>' +zipCode.toUpperCase() + '</td></tr>'; 
-    				textLine = "<item><entryNumber>"+entryNumber+"</entryNumber><destinatario>"+destinatario+"</destinatario><address>"+address+"</address><city>"+city+"</city><postalCode>"+postalCode+"</postalCode><province>" + province + "</province></item>";	
+    		    		textLine = "<item><entryNumber>"+entryNumber+"</entryNumber><destinatario>"+destinatario+"</destinatario><address>"+address+"</address><city>"+city+"</city><postalCode>"+postalCode+"</postalCode><province>" + province + "</province></item>";	
     		    }
     		
     		text+= textLine;
@@ -99,40 +99,6 @@ try {
         
         var uuidFile = new Date().getTime(),
         fileSchedule = createSchedulePdf(text,uuidFile);
-        /*
-        var tempPath = companyhome.childByNamePath("_temp_folder_");
-        if (tempPath == null) {
-            tempPath = companyhome.createFolder("_temp_folder_");
-	    tempPath.setPermission("Contributor", "GROUP_EVERYONE");
-        }
-        // create temporary subfolderresultStringLog
-        var tempSubfolder = tempPath.createFolder(new Date().getTime());
-        var content = "Questo è il contenuto del file.";
-        var fileSchedule = tempSubfolder.createFile("schedule.html") ;
-        
-        fileSchedule.mimetype = "text/html";
-        var args = new Array()
-        args["id"] = "01234-56789";
-        var result = fileSchedule.processTemplate(html, args);
-        
-        fileSchedule.content = result;
-        var trans2 = fileSchedule.transformDocument("application/pdf");
-        
-        */
-        /*
-        fileSchedule.content = content;
-        fileSchedule.properties.content.setEncoding("UTF-8");
-        //fileSchedule.properties.content.guessMimetype(filename);
-        fileSchedule.properties.content.mimetype = "application/pdf";
-        
-        fileSchedule.properties.title = "distinta";
-        fileSchedule.properties.description = "distinta sardegna ricerche";
-        
-       
-        fileSchedule.save();
-         */
-        //var nodeTransf = docNode.transformDocument(conversionFormat, tempSubfolder);
-        //+ '&ticket=' + session.getTicket()
 	    model.response = fileSchedule.nodeRef.toString() ;
 	    model.resultCode = 1;
 	    

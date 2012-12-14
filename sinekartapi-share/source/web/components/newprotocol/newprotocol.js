@@ -206,11 +206,11 @@ this.id + "protocol-create_my-upload-cntrl");
 			   var multiUploadConfig =
 			   {
 			   		// siteId: this.siteid,
-			         containerId: "documentLibrary",
-			            uploadDirectory: null,
+			            containerId: "documentLibrary",
+			            uploadDirectory: "/_temp_protocol_",
 			            filter: [],
 			            siteId: this.options.siteId,
-			            destination: this.options.destination,
+			            //destination: this.options.destination,
 			            updateNodeRef: null,
 			            uploadURL: "/api/upload",
 			            mode: this.fileUpload.MODE_MULTI_UPLOAD,

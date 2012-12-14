@@ -61,7 +61,7 @@
        */
       getWebscriptUrl: function SimpleDocList_getWebscriptUrl()
       {
-         return Alfresco.constants.PROXY_URI + "slingshot/doclib/doclist/documents/site/protocollo/documentLibrary?max=50";
+         return Alfresco.constants.PROXY_URI + "slingshot/doclib/doclist/documents/site/protocollo/documentLibrary/Protocolli?max=50&filter=path";
       },
 
       /**

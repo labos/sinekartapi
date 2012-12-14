@@ -78,7 +78,7 @@
          <div class="yui-gc form-row">
             <div class="yui-u first"></div>
             <#-- search button -->
-            <div class="yui-u align-left">
+            <div class="yui-g align-left">
                <span id="${el}-search-button-2" class="yui-button yui-push-button search-icon">
                   <span class="first-child">
                      <button type="button">${msg('button.searchProtocol')}</button>
