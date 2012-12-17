@@ -16,27 +16,16 @@
       <h1 class="theme-color-3">${msg("header.site", "<span>${siteTitle?html}</span>")}</h1>
    </div>
    <div class="links title-button">
-   <#if userIsSiteManager>
+   <#if userIsAdmin>
       <#assign linkClass><#if "invite" == activePage>class="active-page"</#if></#assign>
       <span class="yui-button yui-link-button">
          <span class="first-child">
             <a href="${url.context}/page/site/${page.url.templateArgs.site!}/invite" ${linkClass}>${msg("link.invite")}</a>
          </span>
       </span>
-   </#if>
-   <#if !userIsMember>
-      <span class="yui-button yui-link-button">
-         <span class="first-child">
-      <#if profile.visibility == "PUBLIC">
-            <a id="${args.htmlid}-join-link" href="#">${msg("link.join")}</a>
-      <#else>
-            <a id="${args.htmlid}-requestJoin-link" href="#">${msg("link.request-join")}</a>
-      </#if>
-         </span>
-      </span>
-   </#if>   
+   </#if>  
    <#assign siteDashboardUrl = page.url.context + "/page/site/" + page.url.templateArgs.site + "/dashboard">
-   <#if userIsSiteManager && (page.url.uri == siteDashboardUrl || "customise-site-dashboard" == activePage) >
+   <#if userIsAdmin && (page.url.uri == siteDashboardUrl || "customise-site-dashboard" == activePage) >
       <#assign linkClass><#if "customise-site-dashboard" == activePage>class="active-page"</#if></#assign>
       <span class="yui-button yui-link-button">
          <span class="first-child">
@@ -44,18 +33,13 @@
          </span>
       </span>
    </#if>
-   <#if userIsSiteManager>
+   <#if userIsAdmin>
       <input type="button" id="${args.htmlid}-more" name="${args.htmlid}-more" value="${msg("link.more")}"/>
       <select id="${args.htmlid}-more-menu">
          <option value="editSite">${msg("link.editSite")}</option>
          <option value="customiseSite">${msg("link.customiseSite")}</option>
          <option value="leaveSite">${msg("link.leave")}</option>         
-      </select> 
-   <#elseif userIsMember>
-      <input type="button" id="${args.htmlid}-more" name="${args.htmlid}-more" value="${msg("link.actions")}"/>    
-      <select id="${args.htmlid}-more-menu">
-         <option value="leaveSite">${msg("link.leave")}</option>
-      </select> 
+      </select>
    </#if>   
    </div>
    

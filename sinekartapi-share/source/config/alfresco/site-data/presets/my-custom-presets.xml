@@ -364,7 +364,7 @@
                   <evaluation>
                      <url>/components/preview/web-preview</url>
                      <properties>
-                        <nodeRef>workspace://SpacesStore/61448e23-c53c-41f4-9341-3f526c9ef6ff</nodeRef>
+                        <nodeRef>workspace://SpacesStore/0efca97c-95cd-4e4b-a934-1b04df38f915</nodeRef>
                         <api>api</api>
                         <proxy>alfresco</proxy>
                         <dependencyGroup>document-details</dependencyGroup>

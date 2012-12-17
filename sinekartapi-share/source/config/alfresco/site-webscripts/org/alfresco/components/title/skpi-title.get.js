@@ -42,6 +42,8 @@ function main()
    model.profile = profile;
    model.userIsSiteManager = userIsSiteManager;
    model.userIsMember = userIsMember;
+   model.userIsAdmin = user.isAdmin;
+
 }
 
 main();

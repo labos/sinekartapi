@@ -61,7 +61,7 @@
        */
       getWebscriptUrl: function SimpleDocList_getWebscriptUrl()
       {
-         return Alfresco.constants.PROXY_URI + "slingshot/doclib/doclist/documents/site/protocollo/documentLibrary/Protocolli?max=50&filter=path";
+         return Alfresco.constants.PROXY_URI + "slingshot/doclib/doclist/documents/site/protocollo/documentLibrary/Protocolli?max=50";
       },
 
       /**
@@ -72,7 +72,8 @@
        */
       getParameters: function ProtocolliList_getParameters()
       {
-         return "filter=recentlyModified";
+         //return "filter=recentlyModified";
+         	return "filter=path&sortField=cm:created&sortAsc=false";
       },
         onRefreshProtocollo: function ProtocolliList_Refresh()
       {

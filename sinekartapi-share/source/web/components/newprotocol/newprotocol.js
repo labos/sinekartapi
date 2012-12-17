@@ -313,7 +313,7 @@ this.id + "protocol-create_my-upload-cntrl");
 						var mypreview = Alfresco.util.ComponentManager.findFirst("Alfresco.WebPreview"); 
 				         mypreview.setOptions(
 				        		 {
-				        		 nodeRef: "workspace://SpacesStore/316440c1-38c4-45be-88f3-d7b84b9fd72f",
+				        		 nodeRef: "workspace://SpacesStore/0efca97c-95cd-4e4b-a934-1b04df38f915",
 				        		 }).setMessages("preview");
 				         mypreview.plugin.display();
 				         
