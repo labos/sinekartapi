@@ -37,7 +37,8 @@ if (docNode != null && docNode.isDocument) {
             }
 
         }
-        first_pdf.addAspect("sys:temporary");
+
+
         var dest_folder = tempSubfolder;
         // set watermarkaction object and execute
         var WatermarkAction = actions.create("pdf-watermark");

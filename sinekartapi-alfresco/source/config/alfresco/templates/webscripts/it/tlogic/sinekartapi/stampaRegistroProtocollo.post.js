@@ -246,7 +246,7 @@ function creaDocumentoRegistrazioniProtocollo(registrazioni){
 		docRegistrazioni.addAspect("skpi:protocollabile");
 				
 		docRegistrazioni.properties["skpi:aoo"] = registrazioni.aoo;
-                var manager = Packages.it.tlogic.sinekartapi.protocolloManager.ProtocolManager;
+        var manager = Packages.it.tlogic.sinekartapi.protocolloManager.ProtocolManager;
 		docRegistrazioni.properties["skpi:titolario"] = manager.getTitolarioJournal(registrazioni.aoo);
 		docRegistrazioni.properties["skpi:oggetto"] = "REGISTRAZIONE";
 		docRegistrazioni.properties["skpi:tipo"] = "Documento Interno";

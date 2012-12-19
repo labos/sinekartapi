@@ -73,29 +73,37 @@
 			</line>
 			<textField isBlankWhenNull="true" hyperlinkType="None">
 				<reportElement x="341" y="21" width="52" height="21"/>
-				<textElement/>
+				<textElement markup="html">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{postalCode}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true" hyperlinkType="None">
 				<reportElement isPrintRepeatedValues="false" x="394" y="21" width="51" height="21" isPrintInFirstWholeBand="true"/>
 				<textElement>
-					<font fontName="Verdana"/>
+					<font fontName="DejaVu Sans"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{province}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true" hyperlinkType="None">
 				<reportElement x="342" y="0" width="183" height="17"/>
-				<textElement/>
+				<textElement markup="none">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{address}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true" hyperlinkType="None">
 				<reportElement x="47" y="20" width="176" height="23"/>
-				<textElement/>
+				<textElement markup="html">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{city}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true" hyperlinkType="None">
 				<reportElement x="18" y="0" width="217" height="20"/>
-				<textElement/>
+				<textElement markup="html">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{destinatario}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField hyperlinkType="None">

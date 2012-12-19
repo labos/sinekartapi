@@ -162,7 +162,7 @@
 		<actions>
 
 			<action id="document-sinekartapi-caricaDocumento" type="javascript"
-				label="actions.document.caricaDocumento">
+				label="actions.document.caricaDocumento" permission="delete">
 				<param name="function">onActionUploadNewVersion</param>
 				<permissions>
 					<permission allow="true">Write</permission>
