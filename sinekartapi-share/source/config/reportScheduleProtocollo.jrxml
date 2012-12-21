@@ -88,7 +88,7 @@
 			<textField isBlankWhenNull="true" hyperlinkType="None">
 				<reportElement x="342" y="0" width="183" height="17"/>
 				<textElement markup="none">
-					<font fontName="DejaVu Sans"/>
+					<font fontName="DejaVu Sans" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{address}.toUpperCase()]]></textFieldExpression>
 			</textField>

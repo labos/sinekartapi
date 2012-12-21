@@ -231,8 +231,9 @@ YAHOO.Bubbling.fire("registerAction",  {
 	                });
 		    return;
 	    }
-
-	    var dateProtocolString = dateProtocolObj.getDate() + '/' + dateProtocolObj.getMonth() + '/' + dateProtocolObj.getFullYear();
+	    //add 1 month due to 0 index
+	    var month = dateProtocolObj.getMonth() + 1;
+	    var dateProtocolString = dateProtocolObj.getDate() + '/' + month + '/' + dateProtocolObj.getFullYear();
 	    //retrieve protocol number from asset aspect property
 		var protocolNumberString = this.msg("message.company", asset.displayName) + " " + "\r\n" + dateProtocolString + ' PROT. N.' +jsNode.properties['skpi:numero_protocollo'] ;
 	        this.modules.actions.genericAction(
