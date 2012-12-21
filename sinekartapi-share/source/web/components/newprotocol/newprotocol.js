@@ -171,10 +171,7 @@ null,"Devi aggiungere il mittente");
 protocolForm.addValidation(this.id + "protocol-create_prop_skpi_destinatario", Alfresco.forms.validation.mandatory, null,
 null,"Devi aggiungere il destinatario");
 
-//Alfresco.logger.debug("alberto " + protocolForm + 'èèèè' + this.id);
-			// the callbacks to be called on the form AJAX
-			// submission (see
-			// http://sharextras.org/jsdoc/share/community-4.0.d/symbols/Alfresco.forms.Form.html#setAJAXSubmit)
+
 //File Upload button: user needs  "create" access
 var rootNodeRef = "alfresco://company/home";
 var nodeRef = new Alfresco.util.NodeRef(rootNodeRef);
@@ -296,8 +293,7 @@ this.id + "protocol-create_my-upload-cntrl");
 							text : "Inserito protocollo " + response.json.numero_protocollo
 						});
 						var formEl = Dom.get(this.id + "protocol-create-form");
-						// var titolario =
-						// Dom.get("protocol-create_prop_skpi_titolario-label");
+						this.protocolFileNodeRef ="";
 
 						var tree = new YAHOO.util.Element(
 						"protocol-create_prop_skpi_titolario-cntrl");

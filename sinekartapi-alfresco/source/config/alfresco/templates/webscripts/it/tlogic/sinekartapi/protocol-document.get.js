@@ -3,7 +3,7 @@
 
 var node = search.findNode(args.noderef);
 var aoo = args.aoo;
-var protocolFileNodeRef = args.uploadfile? args.uploadfile : "";
+var protocolFileNodeRef = args.uploadfile? args.uploadfile : false;
 
 var result = protocolDocument(node, aoo, protocolFileNodeRef);
 
