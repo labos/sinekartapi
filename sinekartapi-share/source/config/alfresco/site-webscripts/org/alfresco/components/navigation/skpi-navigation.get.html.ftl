@@ -26,11 +26,6 @@
       </#list>
    </#if>
 -->
-
-
-
-
-
    <span class="navigation-separator">&nbsp;</span>
    <#if pageFamily = "site-members">
       <#assign linkClass>class="active-page theme-color-4"</#assign>      
@@ -40,13 +35,9 @@
 <span class="navigation-item"><a href="${url.context}/page/site/${activeSite}/advsearch" ${linkClass}>RICERCA PROTOCOLLO</a></span>
 </#if>
 </div>
-
-
-
 <script type="text/javascript">//<![CDATA[
 
 // nota: usare questo per identificare il sito di protocollazione parametrico
-//alert("${activeSite}");
 
 var journalLink = document.getElementById("${args.htmlid}-journalLink");
 var newProtocolLink = document.getElementById("${args.htmlid}-newProtocolLink");

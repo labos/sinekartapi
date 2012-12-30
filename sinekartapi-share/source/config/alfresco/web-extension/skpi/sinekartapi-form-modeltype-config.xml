@@ -83,10 +83,10 @@
 				<appearance>
 				
 					<!-- Dati Obbligatori -->
-					<set id="mandatory" label="Dati Obbligatori" appearance="title"
+					<set id="mandatory" label="Dati Obbligatori" appearance=""
 						template="/org/alfresco/components/form/2-column-protocollo-set.ftl" />
 						
-					<set id="optional" label="Dati Opzionali" appearance="accordion"
+					<set id="optional" label="Dati Opzionali" 
 						template="/org/alfresco/components/form/2-column-protocollo-set.ftl" />
 						
 					<field id="cm:content">

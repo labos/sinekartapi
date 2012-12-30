@@ -294,7 +294,8 @@ this.id + "protocol-create_my-upload-cntrl");
 						});
 						var formEl = Dom.get(this.id + "protocol-create-form");
 						this.protocolFileNodeRef ="";
-
+						var iconProtocolledId = this.id + "protocol-create_my-upload" + "-uploadFinish";
+						Dom.setStyle (iconProtocolledId, "visibility" , "hidden" );
 						var tree = new YAHOO.util.Element(
 						"protocol-create_prop_skpi_titolario-cntrl");
 						var label = new YAHOO.util.Element(

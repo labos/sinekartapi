@@ -3,8 +3,6 @@
 <#assign prefSimpleView = preferences.simpleView!true>
 <script type="text/javascript">//<![CDATA[
 
-
-
 (function()
 {
    /**

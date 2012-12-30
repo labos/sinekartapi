@@ -40,7 +40,3 @@
 	
 	<div id="${el}-protocolFormContainer"></div>
 </div>
-  	
-    
-<#--  </div>
-</div>-->

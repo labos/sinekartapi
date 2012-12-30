@@ -9,11 +9,9 @@
 <#if form.mode == "view" || (field.disabled && !(field.control.params.forceEditable?? && field.control.params.forceEditable == "true"))>
    <#else>
 var onSuccessAddressPostal = function(response) {
-	
 	var zipCode = response.json.zipCode;
 
 };
-
 
 var onFailureAddressPostal = function(response) {
 	alert("Impossibile ottenere i CAP!");
@@ -25,10 +23,11 @@ var addressField = YAHOO.util.Dom.get("${fieldHtmlId}"),
 cityField = YAHOO.util.Dom.get("${fieldCityId}");
    // Use an XHRDataSource 
     var oDS = new YAHOO.util.XHRDataSource(Alfresco.constants.URL_SERVICECONTEXT +  "components/postal-code/postal-code"); 
-//YAHOO.util.Dom.setAttribute("${fieldHtmlId}" , "value", "00:00" );
+
 oDS.responseType = YAHOO.util.XHRDataSource.TYPE_JSON; 
- oDS.responseSchema = {resultsList : "result", 
- fields : ["suggestedAddress", "zipCode", "route", "province"]};
+oDS.responseSchema = {resultsList : "result", 
+fields : ["suggestedAddress", "zipCode", "route", "province"]};
+
 var oAC = new YAHOO.widget.AutoComplete("${fieldHtmlId}", "${fieldHtmlId}-Container", oDS);
 oAC.generateRequest = function(sQuery) {
     return "?query=" + sQuery + "&city=" + cityField.value;
@@ -79,13 +78,6 @@ oAC: oAC
 		}
 	});
 
-/*
-YUIEvent.addListener("${fieldHtmlId}", "keyup",function (e, obj) {
-  // the execution context is the custom object
-  var isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(e.target.value);
-       
-});
-*/
 });
    </#if>
 

@@ -60,9 +60,32 @@ input[name="prop_skpi_province"].date-entry  {
 .skpi-block {
 	overflow: auto;
 }
-.yui-button-protocol{
-min-height: 3em;
+.file-upload .yui-push-button{
 font-weight:600;
+}
+
+.file-upload  .yui-button button{
+	/*background-image: url("../images/email_2.png");
+	background-repeat:no-repeat;
+	background-position: right top;*/
+	border:none;
+min-height: 4em;
+padding: 5px 10px 6px;
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+	line-height: 3;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	background-color:#2daebf;
+}
+
+.file-upload  .yui-button button:hover{
+background-color:#007D9A;
 }
 .file-upload{
 	position:relative;

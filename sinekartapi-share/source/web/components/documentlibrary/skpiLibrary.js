@@ -117,64 +117,6 @@ return downloadLinkWhitExtension;
 	        
 	   });
    
-
-   
-   YAHOO.Bubbling.fire("registerAction",  { 
-		actionName: "onActionEliminaProtocollo", 
-		fn: function dlA_onActionEliminaProtocollo(asset){    	
-	        var nodeRef = new Alfresco.util.NodeRef(asset.nodeRef);
-	        
-	        var callbackEliminaProtocollo = function(reason){
-		        this.modules.actions.genericAction(
-		        {
-		            success:
-		            {
-		                message: this.msg("message.eliminaProtocollo.success", asset.displayName),
-		                callback: {
-		                    fn: function(obj){YAHOO.Bubbling.fire("metadataRefresh")},
-		                    scope: this
-		                }
-		            },
-		            failure:
-		            {
-		                message: this.msg("message.eliminaProtocollo.failure", asset.displayName)
-		            },
-		            webscript:
-		            {
-		                method: Alfresco.util.Ajax.POST,
-		                name: "eliminaProtocollo/node/{nodeRef}",
-		                params:
-		                {
-		                    nodeRef: nodeRef.uri	                    
-		                }
-		            },
-		            config:
-	                {
-	                    dataObj:
-	                    {
-	                    	reason: reason,
-	                    	userName: Alfresco.constants.USERNAME
-	                    }
-	                }
-		        });
-	        };
-	        var userInput = Alfresco.util.PopupManager.getUserInput(
-	                {
-	                   title: this.msg("message.confirm.delete.title"),
-	                   text: this.msg("message.confirm.delete", asset.protocollabile.numeroProtocollo),               
-	                   input: "text",
-	                   callback: {
-	                	   fn: callbackEliminaProtocollo,
-	                	   scope: this
-	                   }
-	                });
-	            
-	            var i=0;
-	            
-	            
-	        }   
-		
-	   });
    
 YAHOO.Bubbling.fire("registerAction",  { 
 		actionName: "onActionAnnullaProtocollo", 
@@ -183,8 +125,7 @@ YAHOO.Bubbling.fire("registerAction",  {
 	        var reason = prompt(this.msg("message.annullaProtocollo.question", asset.displayName));
 	        if (reason == null)
 				return;
-	        
-	        
+      
 	        var nodeRef = new Alfresco.util.NodeRef(asset.nodeRef);
 	        this.modules.actions.genericAction(
 	        {
@@ -277,8 +218,6 @@ YAHOO.Bubbling.fire("registerAction",  {
 	    }   
 		
 	   });
-
-
-   
+  
 })();
 
