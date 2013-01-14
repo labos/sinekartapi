@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `COUNTER` (
 --
 
 INSERT INTO `COUNTER` (`ID`, `LASTVALUE`) VALUES
-(1, 27);
+(1, 0);
 
 -- --------------------------------------------------------
 

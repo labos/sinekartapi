@@ -99,9 +99,8 @@
                		 </field>
 					
 					<field id="skpi:aoo" set="mandatory">
-						<control template="/org/alfresco/components/form/controls/selectone.ftl">
-							<control-param name="options">SR-AOO</control-param>
-							
+						<control template="/org/alfresco/components/form/controls/hidden.ftl">
+							<control-param name="value">SR-AOO</control-param>						
 						</control>
 					</field>
 
@@ -111,7 +110,8 @@
 					</field>
 
 					<field id="skpi:mittente" set="mandatory" mandatory="true">
-						<control template="/org/alfresco/components/form/controls/textarea.ftl" /> 
+						<control template="/org/alfresco/components/form/controls/textarea.ftl" />
+						<control-param name="style">font-weight: 600</control-param>	
  				 <constraint-handlers>
                  <constraint type="MANDATORY" validation-handler="Alfresco.forms.validation.validateMandatory" event="keyup" />
               </constraint-handlers>

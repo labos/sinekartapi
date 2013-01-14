@@ -164,7 +164,7 @@ INSERT INTO aoo VALUES (1, 'A01', 'Area di test', 'Registro');
 -- Data for Name: counter; Type: TABLE DATA; Schema: public; Owner: aoo
 --
 
-INSERT INTO counter VALUES (1, 53);
+INSERT INTO counter VALUES (1, 0);
 
 
 --

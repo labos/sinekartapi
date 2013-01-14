@@ -164,14 +164,14 @@ INSERT INTO aoo VALUES (1, 'A01', 'Area di test', 'Registro');
 -- Data for Name: counter; Type: TABLE DATA; Schema: public; Owner: aoo
 --
 
-INSERT INTO counter VALUES (1, 53);
+INSERT INTO counter VALUES (1, 0);
 
 
 --
 -- Data for Name: counter_has_aoo; Type: TABLE DATA; Schema: public; Owner: aoo
 --
 
-INSERT INTO counter_has_aoo VALUES (1, 1, '2012-04-06 12:17:57', '2013-01-01 00:00:00', 3);
+INSERT INTO counter_has_aoo VALUES (1, 1, '2013-01-01 00:00:00', '2014-01-01 00:00:00', 3);
 
 
 --

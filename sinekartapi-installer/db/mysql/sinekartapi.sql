@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `COUNTER` (
 --
 
 INSERT INTO `COUNTER` (`ID`, `LASTVALUE`) VALUES
-(1, 27);
+(1, 0);
 
 -- --------------------------------------------------------
 
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `COUNTER_HAS_AOO` (
 --
 
 INSERT INTO `COUNTER_HAS_AOO` (`COUNTER_ID`, `AOO_ID`, `DT_INI_VAL`, `DT_END_VAL`, `ID_TITOLARIO`) VALUES
-(1, 1, '2012-04-06 12:17:57', '2013-01-01 00:00:00', 3);
+(1, 1, '2013-01-01 00:00:00', '2014-01-01 00:00:00', 3);
 
 -- --------------------------------------------------------
 

@@ -255,12 +255,21 @@
         		<param name="function">onActionPrintProtocol</param>		
 			</action>
 		<!-- END LABOPENSOURCE -->
-
+		 <action id="document-sinekartapi-backToProtocol" type="link" label="actions.document.registerNewProtocol">
+			<param name="href">dashboard</param>
+            <permissions>
+				<permission allow="true">Write</permission>
+			</permissions>
+            <evaluator>evaluator.doclib.action.protocollabile</evaluator>
+         </action>
+		
 		</actions>
 
 		<actionGroups>
 			<actionGroup id="document-details">
-				<action index="1000" id="document-sinekartapi-caricaDocumento" />
+				<action index="1000" id="document-sinekartapi-backToProtocol" />
+				<action index="1005" id="document-download" />
+				<action index="1008" id="document-sinekartapi-caricaDocumento" />
 				<action index="1010" id="document-sinekartapi-printwithwatermark" />
 				<action index="1020" id="document-sinekartapi-stampaetichetta" />
 				<action index="1040" id="document-sinekartapi-annullaProtocollo" />

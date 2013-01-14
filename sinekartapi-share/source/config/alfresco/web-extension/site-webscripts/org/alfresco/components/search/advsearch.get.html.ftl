@@ -7,9 +7,9 @@
 <@markup id="js">
    <#-- JavaScript Dependencies -->
    <#include "../form/form.js.ftl"/>
-   <@script src="${url.context}/res/components/form/date-range.js" group="search"/>
+   <@script src="${url.context}/res/components/form/protocol-date-range.js" group="search"/>
    <@script src="${url.context}/res/components/form/number-range.js" group="search"/>
-   <@script src="${url.context}/res/components/search/advsearch.js" group="search"/>
+   <@script src="${url.context}/res/components/search/protocol-advsearch.js" group="search"/>
    
 </@>
 
@@ -59,7 +59,8 @@
          </div>
          
          <#-- keywords entry box - DIV structure mirrors a generated Form to collect the correct styles -->
-         <div class="forms-container keywords-box">
+         <#-- hide keywords entry box  -->
+         <!--<div class="forms-container keywords-box">
             <div class="share-form">
                <div class="form-container">
                   <div class="form-fields">
@@ -71,7 +72,7 @@
                </div>
             </div>
          </div>
-         
+         -->
          <#-- container for forms retrieved via ajax -->
          <div id="${el}-forms" class="forms-container form-fields"></div>
          

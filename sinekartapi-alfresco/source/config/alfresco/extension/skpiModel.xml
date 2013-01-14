@@ -50,6 +50,7 @@
 					<title>Area Omogenea Organizzativa</title>
 					<type>d:text</type>
 					<protected>true</protected>
+					<default>SR-AOO</default>
 				</property>
 
 				<property name="skpi:titolario">
@@ -110,12 +111,13 @@
 						<constraint type="LIST">
 							<parameter name="allowedValues">
 								<list>
+								    <value>Raccomandata</value>
+									<value>Posta</value>
+									<value>Fax</value>
+									<value>Consegna a mano</value>
+									<value>Corriere</value>
 									<value>Email</value>									
 									<value>PEC</value>
-									<value>Email</value>
-									<value>Fax</value>
-									<value>Raccomandata</value>
-									<value>Posta</value>
 								</list>
 							</parameter>
 						</constraint>
