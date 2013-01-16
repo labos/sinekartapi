@@ -49,10 +49,6 @@ input[name="prop_skpi_province"].date-entry  {
     width: 20% !important;
 }
 
-.form-container textarea {
-    width: 90% !important;
-    font-weight:600 !important;
-}
 
 .form-container .form-fields {
     padding-left: 5px;

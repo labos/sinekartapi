@@ -26,7 +26,6 @@
          </div>
          </#if>
        <#-- hide generic search form -->
-       <!-- 
          <div class="search-box">
             <div>
                <input type="text" class="terms" name="${el}-search-text" id="${el}-search-text" value="" maxlength="1024" />
@@ -39,7 +38,6 @@
                </span>
             </div>
          </div>
-         -->
          <div class="yui-gc search-bar theme-bg-color-3">
             <div class="yui-u first">
                <div id="${el}-search-info" class="search-info">${msg("search.info.searching")}</div>

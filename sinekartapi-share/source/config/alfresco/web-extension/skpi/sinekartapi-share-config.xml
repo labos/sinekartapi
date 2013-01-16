@@ -96,15 +96,15 @@
 			<form>
 				<field-visibility>
 					<show id ="cm:creator" for-mode ="view" label="label.employee"/>
-					<show id="skpi:aoo" />
 					<show id="skpi:titolario" />
 					<show id="skpi:numero_protocollo" />
 					<show id="skpi:oggetto" />
 					<show id="skpi:data_protocollazione" />
 					<show id="skpi:mittente" />
 					<show id="skpi:destinatario" />
-					<show id="skpi:stato" />
 					<show id="skpi:tipo" />
+					<show id="skpi:stato" />
+					<show id="skpi:aoo" />
 					<show id="skpi:address" />
 					<show id="skpi:city" />
 					<show id="skpi:postalCode" />
@@ -115,6 +115,23 @@
 					<show id="skpi:dataAnnullamento" />
 					<show id="skpi:utenteAnnullante" />
 				</field-visibility>
+				<appearance>
+				<field id="skpi:mittente">
+				       <control template="/org/alfresco/components/form/controls/readonlyProtocol.ftl">
+						<control-param name="styleClass">protocol-prop-evidence</control-param>	
+					   </control>
+				</field>
+				<field id="skpi:destinatario">
+				       <control template="/org/alfresco/components/form/controls/readonlyProtocol.ftl">
+						<control-param name="styleClass">protocol-prop-evidence</control-param>	
+					   </control>
+				</field>
+				<field id="skpi:oggetto">
+				       <control template="/org/alfresco/components/form/controls/readonlyProtocol.ftl">
+						<control-param name="styleClass">protocol-prop-evidence</control-param>	
+					   </control>
+				</field>
+				</appearance>
 			</form>
 			
 			
@@ -146,6 +163,7 @@
 		<dependencies>
 			<js src="/components/documentlibrary/skpiLibrary.js" />
 			<css src="/components/document-details/document-actions.css" />
+			<css src="/components/document-details/document-details-panel-protocol.css" />
 		</dependencies>
 	</config>
 

@@ -196,7 +196,35 @@ this.id + "protocol-create_my-upload-cntrl");
 			protocolForm.setValidateOnSubmit(true);
 			protocolForm.setAJAXSubmit(true, callbacks);
 			protocolForm.init();
+			//add event listener for change of select protocol
+			Event.addListener(this.id + "protocol-create_prop_skpi_tipo", "change", this.onSelectTypeChange,this, true); 
 		},
+		
+		/**
+	       * Handles changes on protocol type select html .
+	       *
+	       * @method onSelectTypeChange
+	       * @param event
+	       * @param args
+	       * @param obj
+	       * @private
+	       */
+	      onSelectTypeChange: function NewProtocol__onSelectTypeChange(event, args, obj)
+	      {
+	         // save the current contents of the editor to the underlying textarea
+	    	 var selectedType = event.target.value,
+	             defaultRecipientSenderMap =
+	            {"Entrata": "destinatario",
+	             "Uscita": "mittente"};
+
+	            if (selectedType && defaultRecipientSenderMap.hasOwnProperty(selectedType))
+	            {
+	            	Dom.get(this.id + "protocol-create_prop_skpi_" + defaultRecipientSenderMap[selectedType]).value = this.msg("message.company");
+	            	
+	            }
+	         
+	      },
+
 
 		  onClickUploadButton : function NewProtocol_onClickUploadButton(e, args){
 			   YAHOO.util.Event.stopEvent(e);
