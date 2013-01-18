@@ -213,13 +213,48 @@ this.id + "protocol-create_my-upload-cntrl");
 	      {
 	         // save the current contents of the editor to the underlying textarea
 	    	 var selectedType = event.target.value,
+	    	 	 confirmOverwrite  = true,
+	    	 	 me = this,
 	             defaultRecipientSenderMap =
 	            {"Entrata": "destinatario",
 	             "Uscita": "mittente"};
 
 	            if (selectedType && defaultRecipientSenderMap.hasOwnProperty(selectedType))
 	            {
-	            	Dom.get(this.id + "protocol-create_prop_skpi_" + defaultRecipientSenderMap[selectedType]).value = this.msg("message.company");
+	            	var recipientSender = Dom.get(this.id + "protocol-create_prop_skpi_" + defaultRecipientSenderMap[selectedType]);
+	            	if( recipientSender.value  !==''  && recipientSender.value !== this.msg("message.company") ) { 
+	            		Alfresco.util.PopupManager.displayPrompt({
+		    				text : this.msg("message.defaultRecipientSenderOverwrite"),
+		    				effect : null,
+		    				 buttons: [
+										{
+									    title: Alfresco.util.message("label.titleRecipientSenderOverwrite"),
+										text: Alfresco.util.message("button.ok"),
+										handler: function error_onOk(e, p_obj)
+										{
+										this.destroy();
+										recipientSender.value = me.msg("message.company");	
+										//YAHOO.util.Dom.get("").focus();
+										//YAHOO.util.Dom.get("").select();
+										},
+										isDefault: true
+										},
+										{
+											text: Alfresco.util.message("button.cancel"),
+											handler: function error_onCancel()
+											{
+												confirmOverwrite  = false;
+												this.destroy();
+											
+											}
+											}]
+	            		
+		    			});
+	            	}
+	            	else{
+		            	recipientSender.value = this.msg("message.company");	
+	            	}
+
 	            	
 	            }
 	         

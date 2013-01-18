@@ -22,23 +22,26 @@
      YUIEvent.onContentReady("${fieldHtmlId}", function(){   
      
      var subjectField = YAHOO.util.Dom.get("${fieldHtmlId}"),
-
-   // Use an XHRDataSource 
-    var oDS = new YAHOO.util.XHRDataSource(Alfresco.constants.URL_SERVICECONTEXT +  "components/subject/subject-suggest"); 
-
-	oDS.responseType = YAHOO.util.XHRDataSource.TYPE_JSON; 
-	oDS.responseSchema = {resultsList : "result", 
-	fields : ["suggestedSubject"]};
+	 subjectSuggest = [
+  {name:'Fattura ', extra:' '},
+  {name:'Contratto ', extra:' '},
+  {name:'Domanda ', extra:' '},
+  {name:'Report mensile ', extra:' '},
+  {name:'Durc ', extra:' '}];
+	// Create a YUI datasource object from our raw address book
+	var oDS = new YAHOO.util.LocalDataSource(subjectSuggest);
+	oDS.responseSchema = {fields : ["name","extra"]};
 
 	var oAC = new YAHOO.widget.AutoComplete("${fieldHtmlId}", "${fieldHtmlId}-Container", oDS);
-	oAC.generateRequest = function(sQuery) {
-    return "?query=" + sQuery;
-	};
+
 	oAC.questionMark = false; // Removes the question mark on the query string (this will be ignored anyway)
 	oAC.applyLocalFilter = true; // Filter the results on the client
 	oAC.queryDelay = 0.1 // Throttle requests sent
 	oAC.animSpeed = 0.08;
-	oAC.queryMatchContains = true;
+	 oAC.formatResult = function (entry, q, match) {
+    return entry[0];
+	};
+	//oAC.queryMatchContains = true;
      });
      
    })();
@@ -50,6 +53,8 @@
       <#if field.control.params.styleClass??>class="${field.control.params.styleClass}"</#if>
       <#if field.control.params.style??>style="${field.control.params.style}"</#if>
       <#if field.disabled && !(field.control.params.forceEditable?? && field.control.params.forceEditable == "true")>disabled="true"</#if>>${field.value?html}</textarea>
+      <!-- An empty <div> to contain the autocomplete -->
+      <div id="${fieldHtmlId}-Container"></div> 
    <@formLib.renderFieldHelp field=field />
    </#if>
 </div>
