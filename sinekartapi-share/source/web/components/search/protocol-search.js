@@ -818,50 +818,128 @@
             
             // update the results info text
             this._updateResultsInfo();
-            //create a "distinta"
-            var protocolsFound = [];
-
-            	for (var i = 0; i < oResponse.results.length; i++) {
-            	
-            	protocolsFound.push(oResponse.results[i].nodeRef);
+            var me = this;
+            var protocolsFound = [],
+            	menuButtonSchedule = Dom.get(this.id + "-schedule-menubutton");
+            // if schedule button is present then setup a schedule request
+           if ( !menuButtonSchedule ) {
+        	   return;
+           }
+           
+            // menu button for sort options
+            this.widgets.scheduleButton = new YAHOO.widget.Button(this.id + "-schedule-menubutton",
+            {
+               type: "menu", 
+               menu: this.id + "-schedule-menu",
+               menualignment: ["tr", "br"],
+               lazyloadmenu: false
+            });
+            // set initially selected sort button label
+            var menuItems = this.widgets.scheduleButton.getMenu().getItems();
+            for (var m in menuItems)
+            {
+               if (menuItems[m].value === "schedule")
+               {
+            	   this.widgets.scheduleButton.set("label", this.msg("label.schedule", menuItems[m].cfg.getProperty("text")));
+                  break;
+               }
             }
-        	Alfresco.util.Ajax.request(
-        			{
-        				url: Alfresco.constants.PROXY_URI + "it/tlogic/sinekartapi/schedule-journal",
-        				method: "post",
-        				requestContentType: Alfresco.util.Ajax.JSON,
-    					dataObj : {"protocolsFound" : protocolsFound },
-        				successCallback: {
-        	                   fn: function dlA_onActionDetails_success(response) {
-        	                	   //lnk-download-schedule localhost:8080/share/proxy/alfresco/api/node/content/workspace/
-        	                	   Dom.setAttribute("lnk-download-schedule","href", Alfresco.constants.PROXY_URI + 'api/node/content/' + response.json.response.replace(":/", "") )
-        	                			// Display success message
-        	                			var msgResult = response.json.message;
-        				                Alfresco.util.PopupManager.displayMessage(
-        	                                {
-        	                                        text: msgResult
-        	                                });
-        						},
-        	        			scope: this
-        				},
-        				
-        				failureCallback:
-        					{
-        						fn: function dlA_onActionDetails_failure(response) {
-        	                		var msgResult = response.json.message;
-        	                		Alfresco.util.PopupManager.displayMessage(
-        	                        	{
-        	                            	text: msgResult
-        	                            });
-        	        		},
-        	        	scope: this
-        			}
+            // event handler for sort menu
+            this.widgets.scheduleButton.getMenu().subscribe("click", function(p_sType, p_aArgs)
+            {
+               var menuItem = p_aArgs[1];
+               if (menuItem)
+               {
+                if(menuItem.value === "schedule"){
+                	
+                	
+                	for (var i = 0; i < oResponse.results.length; i++) {          	
+                    	protocolsFound.push(oResponse.results[i].nodeRef);
+                    }
+                	
+ 
 
-        		});
-        	
-            var a = document.createElement('a');
-            //a.appendChild("Scarica");
-            Dom.insertAfter(a , Dom.get(this.id + '-search-info'));
+               	//pop up a dialog to filter protocols to print
+                	/*
+                	this.widgets.filterProtocolDialog = new Alfresco.module.SimpleDialog(this.id + "-configDialog").setOptions(
+                	        {
+                	        	width: "40em",
+                	           actionUrl: Alfresco.constants.URL_SERVICECONTEXT + "modules/wiki/config/",
+                	          destroyOnHide: true,
+                	          
+                	             onSuccess:
+                	           {
+                	            	 fn: function filterProtocolDialog_callback(e)
+                                 {
+                	            	    	// Update the content via the parser
+                                         Dom.get(me.id + "-configDialog").innerHTML = "prova";
+                                 }
+                             
+                	        
+                	           },
+                	           onFailure:
+                	        	 {
+                	        	    fn: function filterProtocolDialog_failure(response)
+                	        	     {
+                	        	       Alfresco.util.PopupManager.displayMessage(
+                	        	         {
+                	        	           text: me.msg("message.details.failure")
+                	        	         });
+                	        	         },
+                	        	        scope: this
+                	        	      }
+                	        	    }).show();
+   
+                	*/
+                	Alfresco.util.Ajax.request(
+                			{
+                				url: Alfresco.constants.PROXY_URI + "it/tlogic/sinekartapi/schedule-journal",
+                				method: "post",
+                				requestContentType: Alfresco.util.Ajax.JSON,
+            					dataObj : {"protocolsFound" : protocolsFound },
+                				successCallback: {
+                	                   fn: function dlA_onActionDetails_success(response) {
+                	       				window.open(Alfresco.constants.PROXY_URI + 'api/node/content/' + response.json.response.replace(":/", ""));
+	
+                	                	   		/*
+                	                			var msgResult = response.json.message;
+                				                Alfresco.util.PopupManager.displayMessage(
+                	                                {
+                	                                        text: msgResult
+                	                                });
+                				                */
+                						},
+                	        			scope: this
+                				},
+                				
+                				failureCallback:
+                					{
+                						fn: function dlA_onActionDetails_failure(response) {
+                	                		var msgResult = response.json.message;
+                	                		Alfresco.util.PopupManager.displayMessage(
+                	                        	{
+                	                            	text: me.msg("message.scheduleError")
+                	                            });
+                	        		},
+                	        	scope: this
+                			}
+
+                		});
+                	
+                	
+                	
+                	
+                	            	                  
+                }   
+                }
+                	         });
+                	
+                	
+
+                	
+                    var a = document.createElement('a');
+                    Dom.insertAfter(a , Dom.get(this.id + '-search-info'));
+                	
             
             // set focus to search input textbox
             Dom.get(this.id + "-search-text").focus();

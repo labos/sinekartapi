@@ -5,6 +5,7 @@
 
 <@markup id="js">
    <#-- JavaScript Dependencies -->
+   <@script type="text/javascript" src="${url.context}/res/modules/simple-dialog.js"></@script>
    <@script src="${url.context}/res/components/search/search-lib.js" group="search"/>
    <@script src="${url.context}/res/components/search/protocol-search.js" group="search"/>
 </@>
@@ -42,8 +43,23 @@
             <div class="yui-u first">
                <div id="${el}-search-info" class="search-info">${msg("search.info.searching")}</div>
                <div id="${el}-paginator-top" class="paginator hidden"></div>
-               <div class="download-schedule" style="float:left;padding:0.5em 0 0.6em 1em;"><a href="#" id="lnk-download-schedule" target="_blank"><strong>${msg("search.info.download.schedule")}</strong><img src="/share/res/components/images/email_2.png"/></a>
-               </div>
+               <!-- Download schedule button -->
+                  <#if isAuthorized>
+              <!-- <div class="download-schedule" style="float:left;padding:0.5em 0 0.6em 1em;">
+               		<a href="#" id="lnk-download-schedule" target="_blank"><strong>${msg("search.info.download.schedule")}</strong><img src="/share/res/components/images/email_2.png"/></a>
+               </div>-->
+            <div class="yui-u align-left">
+               <span class="yui-button yui-push-button" id="${el}-schedule-menubutton">
+                  <span class="first-child"><button></button></span>
+               </span>
+               <select id="${el}-schedule-menu" class="yuimenu hidden">
+                  <option value="schedule">${msg("search.info.download.schedule")}</option>
+                  <option value="report">${msg("search.info.download.report")}</option>
+               </select>
+            </div>
+               
+                  </#if>   
+                <!-- End Download schedule button -->
             </div>
             <div class="yui-u align-right">
                <span class="yui-button yui-push-button" id="${el}-sort-menubutton">
