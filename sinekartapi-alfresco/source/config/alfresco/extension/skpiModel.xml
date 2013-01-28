@@ -166,6 +166,12 @@
 					</constraints>
 				</property>
 				
+				<property name="skpi:doc_hidden">
+				   <title>Embargo</title>
+				   <type>d:boolean</type>
+				   <default>false</default>
+				 </property>
+			
 				<!-- Metadati aggiuntivi -->
 				
 				<!-- protocollo precedente -->

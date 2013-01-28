@@ -113,12 +113,6 @@
                </div>
                <div class="node-action">
                    <!-- New Protocol Button -->
-                  <!-- <span class="yui-button yui-link-button onDownloadDocumentClick">
-                     <span class="first-child">
-                        <a href="${url.context}/page/site/${page.url.templateArgs.site!}/dashboard" tabindex="0">${msg("actions.document.registraProtocollo")}</a>
-                     </span>
-                  </span>
-                  -->
                </div>
                <div class="clear"></div>
             </div>

@@ -53,6 +53,7 @@
                   <span class="first-child"><button></button></span>
                </span>
                <select id="${el}-schedule-menu" class="yuimenu hidden">
+                  <option value="daily">${msg("search.info.download.daily")}</option>
                   <option value="schedule">${msg("search.info.download.schedule")}</option>
                   <option value="report">${msg("search.info.download.report")}</option>
                </select>

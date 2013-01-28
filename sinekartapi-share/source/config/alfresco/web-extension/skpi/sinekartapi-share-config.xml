@@ -103,6 +103,7 @@
 					<show id="skpi:mittente" />
 					<show id="skpi:destinatario" />
 					<show id="skpi:tipo" />
+					<show id="skpi:source" />
 					<show id="skpi:stato" />
 					<show id="skpi:aoo" />
 					<show id="skpi:address" />
@@ -114,6 +115,7 @@
 					<show id="skpi:motivo" />
 					<show id="skpi:dataAnnullamento" />
 					<show id="skpi:utenteAnnullante" />
+					<show id="skpi:note" />
 				</field-visibility>
 				<appearance>
 				<field id="skpi:mittente">
@@ -194,7 +196,7 @@
 				<permissions>
 					<permission allow="true">Write</permission>
 				</permissions>
-				<evaluator negate="true" >evaluator.doclib.action.protocolloAnnullabile</evaluator>
+				<evaluator >evaluator.doclib.action.isProtocolAndNulled</evaluator>
 			</action>
 
 			<action id="document-edit-metadata" type="javascript">
@@ -270,9 +272,15 @@
 			<action id="document-sinekartapi-printwithwatermark"
 				type="javascript"
 				label="actions.document.printProtocol">				
-        		<param name="function">onActionPrintProtocol</param>		
+        		<param name="function">onActionPrintProtocol</param>	
+        		<evaluator>evaluator.doclib.action.protocollabile
+				</evaluator>	
 			</action>
-		<!-- END LABOPENSOURCE -->
+		<!-- Assign workflow -->
+         <action id="document-assign-workflow" type="javascript" label="actions.document.assignWorkflowProtocol">
+            <param name="function">onActionAssignWorkflow</param>
+         </action>
+			
 		 <action id="document-sinekartapi-backToProtocol" type="link" label="actions.document.registerNewProtocol">
 			<param name="href">dashboard</param>
             <permissions>
@@ -280,7 +288,7 @@
 			</permissions>
             <evaluator>evaluator.doclib.action.protocollabile</evaluator>
          </action>
-		
+			<!-- END LABOPENSOURCE -->	
 		</actions>
 
 		<actionGroups>

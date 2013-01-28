@@ -333,6 +333,21 @@
          // add DD type to form data structure
          formData.datatype = this.currentForm.type;
          
+         /*
+          * var pad = "000000";
+			var n = '5';
+			var result = (pad+n).slice(-pad.length);
+          */
+         //add wildcard * for protocol number
+         if (formData.prop_skpi_numero_protocollo){
+        	 formData.prop_skpi_numero_protocollo = '*' +formData.prop_skpi_numero_protocollo;
+         }
+         //add wildcard * for protocol number
+         if (formData.prop_skpi_oggetto){
+        	 formData.prop_skpi_oggetto = '*' +formData.prop_skpi_oggetto +'*';
+         }
+         
+         
          // build and execute url for search page
          var url = YAHOO.lang.substitute(Alfresco.constants.URL_PAGECONTEXT + "{site}search?t={terms}&q={query}&r={repo}",
          {

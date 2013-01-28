@@ -195,8 +195,38 @@ this.id + "protocol-create_my-upload-cntrl");
 			};
 			protocolForm.setValidateOnSubmit(true);
 			protocolForm.setAJAXSubmit(true, callbacks);
+			
 			protocolForm.init();
+			
+			 /*  Event.removeListener(formEl, "submit");
+	         formEl.setAttribute("onsubmit", "return false;");
+	         */
+			/*
+	      var enterListener = new YAHOO.util.KeyListener(formEl,
+	        	      {
+	        	         keys: YAHOO.util.KeyListener.KEY.ENTER
+	        	      }, function(e, args){
+	        	    	  
+	        	    	  Event.stopEvent(e);
+	        	      }, "keydown");
+	        	      enterListener.enable();
+	          */
+			
+			
+			
+	         protocolForm.doBeforeAjaxRequest =
+	        	         {
+	        	            fn: function(config, obj)
+	        	            {
+	        	                // Return false so the form isn't submitted
+	        	            	return false;
+	        	             },
+	        	            obj: null,
+	        	            scope: this
+	        	         }
+	        
 			//add event listener for change of select protocol
+			Dom.get(this.id + "protocol-create_prop_skpi_" + "destinatario").value = this.msg("message.company");
 			Event.addListener(this.id + "protocol-create_prop_skpi_tipo", "change", this.onSelectTypeChange,this, true); 
 		},
 		
@@ -369,6 +399,8 @@ this.id + "protocol-create_my-upload-cntrl");
 						// var protocolForm = new
 						// Alfresco.forms.Form("protocol-create-form");
 						formEl.reset();
+						Dom.get(this.id + "protocol-create_prop_skpi_" + "destinatario").value = this.msg("message.company");
+						
 						// reset preview
 						var mypreview = Alfresco.util.ComponentManager.findFirst("Alfresco.WebPreview"); 
 				         mypreview.setOptions(
@@ -423,6 +455,7 @@ this.id + "protocol-create_my-upload-cntrl");
 				text : "contentReady"
 			});
 		},
+	 
 
 		/**
 		 * Tries to get a common parent nodeRef for an action that

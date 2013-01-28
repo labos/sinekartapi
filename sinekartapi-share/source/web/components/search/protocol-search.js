@@ -851,8 +851,7 @@
                if (menuItem)
                {
                 if(menuItem.value === "schedule"){
-                	
-                	
+
                 	for (var i = 0; i < oResponse.results.length; i++) {          	
                     	protocolsFound.push(oResponse.results[i].nodeRef);
                     }
@@ -930,7 +929,43 @@
                 	
                 	
                 	            	                  
-                }   
+                }
+                else if(menuItem.value === "daily"){
+                	Alfresco.util.Ajax.request(
+                			{
+                				url: Alfresco.constants.PROXY_URI + "it/tlogic/sinekartapi/protocol-journal/A01",
+                				method: "post",
+                				successCallback: {
+                	                   fn: function dlA_onActionDetails_success(response) {
+                	                         
+
+                				                // Display success message
+                	                			var msgResult = response.json.message;
+                				                Alfresco.util.PopupManager.displayMessage(
+                	                                {
+                	                                        text: msgResult
+                	                                });
+                						},
+                	        			scope: this
+                				},
+                				
+                				failureCallback:
+                					{
+                						fn: function dlA_onActionDetails_failure(response) {
+                	                		var msgResult = response.json.message;
+                	                		Alfresco.util.PopupManager.displayMessage(
+                	                        	{
+                	                            	text: msgResult
+                	                            });
+                	        		},
+                	        	scope: this
+                			}
+
+                		});       	
+                	
+                	
+                }// end else if
+
                 }
                 	         });
                 	
