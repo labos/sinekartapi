@@ -1,0 +1,10 @@
+.search .itemname a {
+    color: red !important;
+    font-weight: bold !important;
+}
+
+.search .itemname a span.meta {
+	 color: #333333;
+	font-size: 70%;
+	font-weight: normal !important;
+}

@@ -250,6 +250,9 @@
          
          // set initial value and register the "enter" event on the search text field
          var queryInput = Dom.get(this.id + "-search-text");
+         
+         if( queryInput)
+         {
          queryInput.value = this.options.initialSearchTerm;
          
          this.widgets.enterListener = new YAHOO.util.KeyListener(queryInput, 
@@ -262,6 +265,20 @@
             correctScope: true
          }, "keydown").enable();
          
+    
+         
+         // search YUI button
+         this.widgets.searchButton = Alfresco.util.createYUIButton(this, "search-button", this.onSearchClick);
+         
+         // toggle site scope links
+         var toggleLink = Dom.get(this.id + "-site-link");
+         Event.addListener(toggleLink, "click", this.onSiteSearch, this, true);
+         toggleLink = Dom.get(this.id + "-all-sites-link");
+         Event.addListener(toggleLink, "click", this.onAllSiteSearch, this, true);
+         toggleLink = Dom.get(this.id + "-repo-link");
+         Event.addListener(toggleLink, "click", this.onRepositorySearch, this, true);
+      }
+         
          // trigger the initial search
          YAHOO.Bubbling.fire("onSearch",
          {
@@ -272,16 +289,9 @@
             searchRepository: this.options.initialSearchRepository
          });
          
-         // toggle site scope links
-         var toggleLink = Dom.get(this.id + "-site-link");
-         Event.addListener(toggleLink, "click", this.onSiteSearch, this, true);
-         toggleLink = Dom.get(this.id + "-all-sites-link");
-         Event.addListener(toggleLink, "click", this.onAllSiteSearch, this, true);
-         toggleLink = Dom.get(this.id + "-repo-link");
-         Event.addListener(toggleLink, "click", this.onRepositorySearch, this, true);
+
          
-         // search YUI button
-         this.widgets.searchButton = Alfresco.util.createYUIButton(this, "search-button", this.onSearchClick);
+         
          
          // menu button for sort options
          this.widgets.sortButton = new YAHOO.widget.Button(this.id + "-sort-menubutton",
@@ -387,16 +397,16 @@
             var url = me._getBrowseUrlForRecord(oRecord);
             
             // displayname and link to details page
-            var displayName = oRecord.getData("displayName");
-            var desc = '<h3 class="itemname"><a href="' + url + '" class="theme-color-1">' + $html(displayName) + '</a>';
+            var subjectName = oRecord.getData("skpi_oggetto");
+            var desc = '<h3 class="itemname"><a href="' + url + '" class="theme-color-1">' + $html(subjectName) + '';
    
             if (oRecord.getData("skpi_oggetto"))
             {
-               desc += ' <span class="meta">(' + me.msg("message.oggetto") + '):</span> ';
-               desc += $html(oRecord.getData("skpi_oggetto"));
+               desc += ' <span class="meta">' + '- ';
+               desc += $html(oRecord.getData("displayName"))  + '</span> ';
             }
             
-            desc += '</h3>';
+            desc += '</a></h3>';
             
             // description (if any)
             var txt = oRecord.getData("description");
@@ -409,11 +419,7 @@
             desc += '<div class="details">';
             
       
-            if (oRecord.getData("modifiedBy"))
-            {
-               desc += ' ' + me.msg("message.employee") + ': ';
-               desc += '<strong>' + ' <a href="' + Alfresco.constants.URL_PAGECONTEXT + 'user/' + encodeURI(oRecord.getData("modifiedByUser")) + '/profile">' + $html(oRecord.getData("modifiedBy")) + '</a>'+ '</strong>';
-            }
+
             if (oRecord.getData("skpi_mittente"))
             {
                desc += ' | ' + me.msg("message.mittente") + ': ';
@@ -431,6 +437,13 @@
                desc += '<strong>' + $html(oRecord.getData("skpi_arrival_date"))  + '</strong>';
             }
             desc += ' | ' + me.msg("message.modifiedon") + ' <span class="meta">' + Alfresco.util.formatDate(oRecord.getData("modifiedOn")) + '</span>';
+           
+            if (oRecord.getData("modifiedBy"))
+            {
+               desc += ' ' + me.msg("message.employee") + ': ';
+               desc += '<strong>' + ' <a href="' + Alfresco.constants.URL_PAGECONTEXT + 'user/' + encodeURI(oRecord.getData("modifiedByUser")) + '/profile">' + $html(oRecord.getData("modifiedBy")) + '</a>'+ '</strong>';
+            }
+            
             desc += '</div>';
             
             
@@ -972,12 +985,12 @@
                 	
 
                 	
-                    var a = document.createElement('a');
-                    Dom.insertAfter(a , Dom.get(this.id + '-search-info'));
+                 //   var a = document.createElement('a');
+               //     Dom.insertAfter(a , Dom.get(this.id + '-search-info'));
                 	
             
             // set focus to search input textbox
-            Dom.get(this.id + "-search-text").focus();
+           // Dom.get(this.id + "-search-text").focus();
          }
          
          // Failure handler

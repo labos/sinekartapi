@@ -53,7 +53,7 @@
 		// file to protocol NodeRef
 		this.protocolFileNodeRef ="";
 		// this.workflowTypes = [];
-
+		this.isEnterPressed = false;
 		// YAHOO.Bubbling.on("objectFinderReady", this.onObjectFinderReady,
 		// this);
 		// YAHOO.Bubbling.on("formContentReady",
@@ -201,16 +201,19 @@ this.id + "protocol-create_my-upload-cntrl");
 			 /*  Event.removeListener(formEl, "submit");
 	         formEl.setAttribute("onsubmit", "return false;");
 	         */
-			/*
+		  var me = this;	
 	      var enterListener = new YAHOO.util.KeyListener(formEl,
 	        	      {
 	        	         keys: YAHOO.util.KeyListener.KEY.ENTER
 	        	      }, function(e, args){
-	        	    	  
+	        	    	  me.isEnterPressed = true;
+	        	    	  Event.preventDefault(e);
 	        	    	  Event.stopEvent(e);
+	        	    	  Event.stopPropagation(e);
+	        	    	  Event.removeListener(formEl, "submit");
 	        	      }, "keydown");
 	        	      enterListener.enable();
-	          */
+	        
 			
 			
 			
@@ -219,7 +222,7 @@ this.id + "protocol-create_my-upload-cntrl");
 	        	            fn: function(config, obj)
 	        	            {
 	        	                // Return false so the form isn't submitted
-	        	            	return false;
+	        	            	return this.isEnterPressed?  false : true;
 	        	             },
 	        	            obj: null,
 	        	            scope: this

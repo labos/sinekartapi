@@ -116,6 +116,8 @@
 					<show id="skpi:dataAnnullamento" />
 					<show id="skpi:utenteAnnullante" />
 					<show id="skpi:note" />
+					<show id="skpi:doc_hidden" />
+					<show id="skpi:protocollo_mittente" />			
 				</field-visibility>
 				<appearance>
 				<field id="skpi:mittente">
@@ -268,12 +270,18 @@
 				<evaluator negate="true">evaluator.doclib.action.protocollabile
 				</evaluator>
 			</action>
+
+			<action id="document-download" type="link" label="actions.document.download">
+            <param name="href">{downloadUrl}</param>
+            <evaluator>evaluator.doclib.action.notEmbargo</evaluator>
+         </action>
+			
 		<!-- LABOPENSOURCE -->
 			<action id="document-sinekartapi-printwithwatermark"
 				type="javascript"
 				label="actions.document.printProtocol">				
         		<param name="function">onActionPrintProtocol</param>	
-        		<evaluator>evaluator.doclib.action.protocollabile
+        		<evaluator>evaluator.doclib.action.isProtocolAndNotEmbargo
 				</evaluator>	
 			</action>
 		<!-- Assign workflow -->

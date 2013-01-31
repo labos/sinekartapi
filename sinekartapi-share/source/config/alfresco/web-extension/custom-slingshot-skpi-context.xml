@@ -47,7 +47,17 @@
 			</list>
 		</property>
 	</bean>
-<!--  bean for multiple evaluations -->
+		<bean id="evaluator.doclib.action.notEmbargo" class="org.alfresco.web.evaluator.ValueEvaluator">
+		<property name="accessor" value="node.properties.skpi:doc_hidden" />
+     	 <property name="comparator">
+         <bean class="org.alfresco.web.evaluator.StringEqualsComparator">
+            <property name="value" value="false" />
+         </bean>
+      </property>
+	</bean>
+	
+	
+<!--  beans for multiple evaluations -->
 <bean id="evaluator.doclib.action.isProtocolAndNulled" parent="evaluator.doclib.action.chainedMatchAll">
   <property name="evaluators">
     <list>
@@ -57,4 +67,12 @@
   </property>
 </bean>
 
+<bean id="evaluator.doclib.action.isProtocolAndNotEmbargo" parent="evaluator.doclib.action.chainedMatchAll">
+  <property name="evaluators">
+    <list>
+      <ref bean="evaluator.doclib.action.protocollabile" />
+      <ref bean="evaluator.doclib.action.notEmbargo" />
+    </list>
+  </property>
+</bean>
 </beans>

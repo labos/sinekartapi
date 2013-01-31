@@ -77,7 +77,7 @@
 					<show id="skpi:data_protocollo_emergenza" />
 					<show id="skpi:fascicolo" />
 					<show id="skpi:note" />
-
+					<show id="skpi:doc_hidden" />
 				</field-visibility>
 				<appearance>
 				
@@ -154,6 +154,7 @@
 					<field id="skpi:data_protocollo_emergenza" set="optional" />
 					<field id="skpi:fascicolo" set="optional" />
 					<field id="skpi:note" set="optional" />
+					<field id="skpi:doc_hidden" set="optional" label-id="label.doc_hidden"/>
 				</appearance>
 			</form>
 

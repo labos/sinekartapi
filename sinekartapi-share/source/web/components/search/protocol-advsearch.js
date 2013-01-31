@@ -199,7 +199,7 @@
          this.currentForm.repopulate = repopulate;
          
          var containerDiv = Dom.get(this.id + "-forms");
-         
+         var me = this;
          var visibleFormFn = function()
          {
             // hide visible form if any
@@ -217,6 +217,7 @@
             
             // reset focus to search input textbox
            Dom.get(this.id + "_0_prop_skpi_mittente").focus();
+
          };
          
          if (!form.htmlid)
@@ -386,6 +387,18 @@
          var form = (Dom.get(this.currentForm.runtime.formId));
          Event.removeListener(form, "submit");
          form.setAttribute("onsubmit", "return false;");
+         var me = this;
+         
+         this.widgets.enterListener = new YAHOO.util.KeyListener(form, 
+         {
+            keys: YAHOO.util.KeyListener.KEY.ENTER
+         }, 
+         {
+            fn: me._searchEnterHandler,
+            scope: this,
+            correctScope: true
+         }, "keydown").enable();
+         
       },
 
       /**

@@ -1,6 +1,7 @@
 <@markup id="css" >
    <#-- CSS Dependencies -->
    <@link href="${url.context}/res/components/search/search.css" group="search"/>
+      <@link href="${url.context}/res/components/search/protocol-search.css" group="search"/>
 </@>
 
 <@markup id="js">
@@ -28,6 +29,7 @@
          </#if>
        <#-- hide generic search form -->
          <div class="search-box">
+         <#if page.url.templateArgs.site != "protocollo">
             <div>
                <input type="text" class="terms" name="${el}-search-text" id="${el}-search-text" value="" maxlength="1024" />
             </div>
@@ -38,6 +40,7 @@
                   </span>
                </span>
             </div>
+            </#if>
          </div>
          <div class="yui-gc search-bar theme-bg-color-3">
             <div class="yui-u first">
@@ -49,6 +52,7 @@
                		<a href="#" id="lnk-download-schedule" target="_blank"><strong>${msg("search.info.download.schedule")}</strong><img src="/share/res/components/images/email_2.png"/></a>
                </div>-->
             <div class="yui-u align-left">
+            <!--
                <span class="yui-button yui-push-button" id="${el}-schedule-menubutton">
                   <span class="first-child"><button></button></span>
                </span>
@@ -57,6 +61,7 @@
                   <option value="schedule">${msg("search.info.download.schedule")}</option>
                   <option value="report">${msg("search.info.download.report")}</option>
                </select>
+               -->
             </div>
                
                   </#if>   
