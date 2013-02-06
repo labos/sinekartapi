@@ -181,7 +181,7 @@
 	    			//month = dateProtocolObj.getMonth() + 1,
 	    			// dateProtocolString = dateProtocolObj.getDate() + '/' + month + '/' + dateProtocolObj.getFullYear();
                 
-               desc += '<h3 class="filename simple-view"><a class="theme-color-1" href="' + docDetailsUrl + '">' + $html(record.displayName) +'</a>' +  ' ' + $html(dateProtocolString) + '</h3>';
+               desc += '<h3 class="filename simple-view"><a class="theme-color-1" href="' + docDetailsUrl + '">' + $html(record.displayName) +'</a><strong>' +  ' ' + $html(dateProtocolString) + '</strong></h3>';
                desc += '<div class="detail"><span class="item-simple">' + dateLine + '</span></div>';
             }
             else

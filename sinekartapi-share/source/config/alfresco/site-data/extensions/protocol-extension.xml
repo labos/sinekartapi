@@ -1,0 +1,15 @@
+<extension>
+	<modules>
+<module>        
+  <id>Download module - in Search</id>     
+  <auto-deploy>true</auto-deploy>   
+  <customizations>            
+    <customization>                
+          <targetPackageRoot>org.alfresco.components.search</targetPackageRoot>                
+          <sourcePackageRoot>org.alfresco.protocol.customization</sourcePackageRoot>          
+     </customization>       
+    </customizations>   
+</module>
+	</modules>
+
+</extension>

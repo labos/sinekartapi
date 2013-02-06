@@ -348,6 +348,14 @@
         	 formData.prop_skpi_oggetto = '*' +formData.prop_skpi_oggetto +'*';
          }
          
+         //add wildcard * for mittente
+         if (formData.prop_skpi_mittente){
+        	 formData.prop_skpi_mittente = '*' +formData.prop_skpi_mittente +'*';
+         }
+         //add wildcard * for destinatario
+         if (formData.prop_skpi_destinatario){
+        	 formData.prop_skpi_destinatario = '*' +formData.prop_skpi_destinatario +'*';
+         }     
          
          // build and execute url for search page
          var url = YAHOO.lang.substitute(Alfresco.constants.URL_PAGECONTEXT + "{site}search?t={terms}&q={query}&r={repo}",

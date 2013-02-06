@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<component>        
+   <region-id>search-protocol-download</region-id>        
+   <source-id>global</source-id>        
+   <scope>global</scope>        
+   <uri>/components/download/archive</uri>   
+</component>

@@ -851,7 +851,7 @@
             var menuItems = this.widgets.scheduleButton.getMenu().getItems();
             for (var m in menuItems)
             {
-               if (menuItems[m].value === "schedule")
+               if (menuItems[m].value === "zip")
                {
             	   this.widgets.scheduleButton.set("label", this.msg("label.schedule", menuItems[m].cfg.getProperty("text")));
                   break;
@@ -863,7 +863,38 @@
                var menuItem = p_aArgs[1];
                if (menuItem)
                {
-                if(menuItem.value === "schedule"){
+            	   
+            	     if(menuItem.value === "zip"){
+
+             
+                     	
+                        var downloadDialog = Alfresco.getArchiveAndDownloadInstance(),
+                        config = { nodesToArchive: [] };
+                    
+                    if (oResponse.results.length == 1)
+                    {
+                       config.nodesToArchive.push({"nodeRef": oResponse.results[0].nodeRef});
+                       config.archiveName = protocolsFound[0].fileName;
+                    }
+                    else(oResponse.results.length > 1)
+                    {
+   
+                       
+                   	for (var i = 0; i < oResponse.results.length; i++) { 
+                   		config.nodesToArchive.push({"nodeRef": oResponse.results[i].nodeRef})
+                     
+                     }
+                       
+                    }
+              
+                    if(config.nodesToArchive.length) {
+                    	downloadDialog.show(config);
+                    }
+                     	
+                     	
+            	     }
+            	   
+               else if(menuItem.value === "schedule"){
 
                 	for (var i = 0; i < oResponse.results.length; i++) {          	
                     	protocolsFound.push(oResponse.results[i].nodeRef);

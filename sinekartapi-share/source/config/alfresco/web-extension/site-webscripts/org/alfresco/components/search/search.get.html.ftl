@@ -29,7 +29,7 @@
          </#if>
        <#-- hide generic search form -->
          <div class="search-box">
-         <#if page.url.templateArgs.site != "protocollo">
+         <#if siteId?length != 0 && siteId != "protocollo">
             <div>
                <input type="text" class="terms" name="${el}-search-text" id="${el}-search-text" value="" maxlength="1024" />
             </div>
@@ -47,21 +47,24 @@
                <div id="${el}-search-info" class="search-info">${msg("search.info.searching")}</div>
                <div id="${el}-paginator-top" class="paginator hidden"></div>
                <!-- Download schedule button -->
-                  <#if isAuthorized>
+         <#if siteId?length == 0 || siteId == "protocollo">
               <!-- <div class="download-schedule" style="float:left;padding:0.5em 0 0.6em 1em;">
                		<a href="#" id="lnk-download-schedule" target="_blank"><strong>${msg("search.info.download.schedule")}</strong><img src="/share/res/components/images/email_2.png"/></a>
                </div>-->
             <div class="yui-u align-left">
-            <!--
+            
                <span class="yui-button yui-push-button" id="${el}-schedule-menubutton">
                   <span class="first-child"><button></button></span>
                </span>
                <select id="${el}-schedule-menu" class="yuimenu hidden">
+               <option value="zip">Scarica Zip</option>
+               <!--
                   <option value="daily">${msg("search.info.download.daily")}</option>
                   <option value="schedule">${msg("search.info.download.schedule")}</option>
                   <option value="report">${msg("search.info.download.report")}</option>
+                  -->
                </select>
-               -->
+               
             </div>
                
                   </#if>   

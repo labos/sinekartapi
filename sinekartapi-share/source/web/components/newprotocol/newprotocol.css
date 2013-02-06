@@ -94,3 +94,6 @@ font-weight:600 !important;
 .web-preview.real{
 	height:600px !important;
 }
+.sticky-wrapper strong {
+    color: green;
+}
