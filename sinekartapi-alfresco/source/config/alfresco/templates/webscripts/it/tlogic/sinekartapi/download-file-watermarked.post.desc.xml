@@ -1,0 +1,8 @@
+<webscript>
+   <shortname>Scarica Documento con Etichetta lato server</shortname>
+   <description>Scarica un documento protocollato con etichetta creata lato server</description>
+   <url>/it/tlogic/sinekartapi/download-file-watermarked</url>
+  <format default="json" />
+   <authentication>user</authentication>
+   <transaction>required</transaction>
+</webscript>

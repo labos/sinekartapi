@@ -211,6 +211,7 @@ this.id + "protocol-create_my-upload-cntrl");
 	        	    	  Event.stopEvent(e);
 	        	    	  Event.stopPropagation(e);
 	        	    	  Event.removeListener(formEl, "submit");
+	        	    	  return false;
 	        	      }, "keydown");
 	        	      enterListener.enable();
 	        
@@ -222,7 +223,8 @@ this.id + "protocol-create_my-upload-cntrl");
 	        	            fn: function(config, obj)
 	        	            {
 	        	                // Return false so the form isn't submitted
-	        	            	return this.isEnterPressed?  false : true;
+	        	            	//return this.isEnterPressed?  false : true;
+	        	            	return true;
 	        	             },
 	        	            obj: null,
 	        	            scope: this

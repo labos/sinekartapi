@@ -95,7 +95,7 @@
           * @type int
           * @default 50
           */
-         pageSize: 50,
+         pageSize: 25,
          
          /**
           * Search term to use for the initial search
@@ -339,7 +339,28 @@
             }
             return true;
          };
+         
+         // Hook action events
+         var fnActionHandlerProtocol = function Search_fnActionHandlerProtocol(layer, args)
+         {
+        	 var owner = YAHOO.Bubbling.getOwnerByTagName(args[1].anchor, "span");
+            var nodeDomProtocol = args[1].anchor;
+            if (owner !== null)
+            {
+               if (typeof me[owner.className] == "function")
+               {
+                  args[1].stop = true;
+                  YAHOO.util.Event.preventDefault(args[1].event);
+             
+                  var nodeRefId = nodeDomProtocol.href;
+                  me[owner.className].call(me, nodeRefId);
+               }
+            }
+            return false;
+         };
          YAHOO.Bubbling.addDefaultAction("search-tag", fnActionHandler);
+         //add an download protocol file action
+         YAHOO.Bubbling.addDefaultAction("print-protocol", fnActionHandlerProtocol);
          
          // Finally show the component body here to prevent UI artifacts on YUI button decoration
          Dom.setStyle(this.id + "-body", "visibility", "visible");
@@ -458,6 +479,19 @@
                    desc += '<span id="' + me.id + '-' + $html(tags[i]) + '" class="searchByTag"><a class="search-tag" href="#">' + $html(tags[i]) + '</a> </span>';
                }
                desc += '</span></div>';
+            }
+
+            if (oRecord.getData("skpi_oggetto") && !oRecord.getData("skpi_annullato"))
+            {
+            	var protocolIconType = ( oRecord.getData("skpi_tipo") ==  "Entrata" )? "protocol-incoming" : "protocol-exit";
+            	
+             
+               desc += '<div class="details">';
+               desc += '<span class="' + protocolIconType + '"></span>';
+               desc += '<span class="printProtocol"><a class="print-protocol"  href="' + oRecord.getData("nodeRef") +'">Stampa protocollato</a> </span>';
+
+               
+               desc += '</div>';
             }
             
             elCell.innerHTML = desc;
@@ -591,6 +625,60 @@
             searchTerm: "",
             searchQuery: ""
          });
+      },
+      
+      /**
+       * DEFAULT ACTION EVENT HANDLERS
+       * Handlers for standard events fired from YUI widgets, e.g. "click"
+       */
+
+      /**
+       * Perform a protocol download
+       * The tag is simply handled as search term
+       */
+      printProtocol: function Search_printProtocol(paramNodeRef)
+      {
+    	  
+    	  var nodeRefProtocol = new Alfresco.util.NodeRef(paramNodeRef);
+  		var protocolToPrintMap = {"message": this.msg("message.company"), "nodeRef":  nodeRefProtocol.nodeRef} ;
+
+      	Alfresco.util.Ajax.request(
+    			{
+    				url: Alfresco.constants.PROXY_URI + "it/tlogic/sinekartapi/download-file-watermarked",
+    				method: "post",
+    				requestContentType: Alfresco.util.Ajax.JSON,
+					dataObj : protocolToPrintMap,
+    				successCallback: {
+    	                   fn: function dlA_onActionDetails_success(obj) {
+
+    	      				 if(obj.json.result && obj.json.result!='' && obj.json.result!='0' && obj.json.response!=''){
+    	    					 
+    	      					window.open(Alfresco.constants.PROXY_URI + "api/node/content" + obj.json.response.replace("/d/a/", "/")  + '.pdf');}
+    	      					 else{  
+    	      						 Alfresco.util.PopupManager.displayMessage(
+    	      	                     {
+    	      	                        text: this.msg("message.printWithWatermark.failure")
+    	      	                     });
+
+    	      	} 
+    						},
+    	        			scope: this
+    				},
+    				
+    				failureCallback:
+    					{
+    						fn: function dlA_onActionDetails_failure(response) {
+    	                		var msgResult = response.json.message;
+    	                		Alfresco.util.PopupManager.displayMessage(
+    	                        	{
+    	                            	text: me.msg("message.scheduleError")
+    	                            });
+    	        		},
+    	        	scope: this
+    			}
+
+    		});
+    	  
       },
       
       /**
@@ -865,18 +953,63 @@
                {
             	   
             	     if(menuItem.value === "zip"){
+            	     //call massive download
+                         var start = (me.currentPage - 1) * me.options.pageSize;
+                         var end = me.currentPage * me.options.pageSize;
+                         end = (end <= me.resultsCount) ? end : me.resultsCount;
+                         protocolsFound = [];
+                       	for (var i = start; i < end; i++) {          	
+                        	protocolsFound.push(oResponse.results[i].nodeRef);
+                        }
 
-             
-                     	
+                     	Alfresco.util.Ajax.request(
+                    			{
+                    				url: Alfresco.constants.PROXY_URI + "/it/tlogic/sinekartapi/download-massive-files-watermarked",
+                    				method: "post",
+                    				requestContentType: Alfresco.util.Ajax.JSON,
+                					dataObj : {"protocolsFound" : protocolsFound },
+                    				successCallback: {
+                    	                   fn: function dlA_onActionDetails_success(response) {
+                    	                	   if(YAHOO.lang.isObject(response.json)  && response.json.response){
+                       	                	   
+                    	                        if(response.json.response.nodesToArchive) {
+                    	                        	var downloadDialog = Alfresco.getArchiveAndDownloadInstance();
+                    	                        	downloadDialog.show( response.json.response );
+                    	                        } 
+                    	                	   }
+            
+
+                    						},
+                    	        			scope: this
+                    				},
+                    				
+                    				failureCallback:
+                    					{
+                    						fn: function dlA_onActionDetails_failure(response) {
+                    	                		//var msgResult = response.json.message;
+                    	                		Alfresco.util.PopupManager.displayMessage(
+                    	                        	{
+                    	                            	text: me.msg("message.downloaMassiveError")
+                    	                            });
+                    	        		},
+                    	        	scope: this
+                    			}
+
+                    		});
+            	    	 
+            	    	 
+            	    	 
+            	    	 
+                   /*  	
                         var downloadDialog = Alfresco.getArchiveAndDownloadInstance(),
                         config = { nodesToArchive: [] };
                     
                     if (oResponse.results.length == 1)
                     {
                        config.nodesToArchive.push({"nodeRef": oResponse.results[0].nodeRef});
-                       config.archiveName = protocolsFound[0].fileName;
+                       config.archiveName = oResponse.results[0].name;
                     }
-                    else(oResponse.results.length > 1)
+                    else if(oResponse.results.length > 1)
                     {
    
                        
@@ -886,13 +1019,41 @@
                      }
                        
                     }
+                    else{
+                    	config.nodesToArchive = {};
+                    }
               
                     if(config.nodesToArchive.length) {
                     	downloadDialog.show(config);
                     }
-                     	
+                     */
                      	
             	     }
+            	     else if(menuItem.value === "send-results"){
+            	    	 var searchResultsUrl = window.location.href;
+            	    	 
+            	         Alfresco.util.PopupManager.getUserInput({
+            	              title: "Copia link di ricerca di protocollo",
+            	              text: "Ecco il link che devi copiare (copia con tasto desto o Ctrl+c):",
+            	              value: searchResultsUrl,
+            	              callback:
+            	              {
+            	                  fn: function onClickOK(value, obj) {
+            	   
+            	                  },
+            	                  scope: this
+            	              }
+            	          });
+
+            	    	 
+
+
+            	    	 
+            	    	 
+            	    	 
+            	    	window.location.href ='mailto:email@echoecho.com?body=' + 'Salve, vedi tutti i documenti del protocollo al seguente link:\n' +'&subject=Invio documenti protocollo';
+            	     }
+            	    	 
             	   
                else if(menuItem.value === "schedule"){
 
@@ -1058,6 +1219,52 @@
             failure: failureHandler,
             scope: this
          });
+      },
+      /**
+       * Return current search url
+       *
+       * @method getSearchLink
+       */
+      getSearchLink: function Search_getSearchLink()
+      {
+         var searchTerm = this.searchTerm;
+
+         var searchTag = this.searchTag;
+
+         var searchAllSites = this.searchAllSites;
+
+         var searchRepository = this.searchRepository;
+
+         var searchSort = this.searchSort;
+
+         var searchQuery = this.options.searchQuery;
+
+         
+         // redirect back to the search page - with appropriate site context
+         var url = Alfresco.constants.URL_PAGECONTEXT;
+         if (this.options.siteId.length !== 0)
+         {
+            url += "site/" + this.options.siteId + "/";
+         }
+         
+         // add search data webscript arguments
+         url += "search?t=" + encodeURIComponent(searchTerm);
+         if (searchSort.length !== 0)
+         {
+            url += "&s=" + searchSort;
+         }
+         if (searchQuery.length !== 0)
+         {
+            // if we have a query (already encoded), then apply it
+            // most other options such as tag, terms are trumped
+            url += "&q=" + searchQuery;
+         }
+         else if (searchTag.length !== 0)
+         {
+            url += "&tag=" + encodeURIComponent(searchTag);
+         }
+         url += "&a=" + searchAllSites + "&r=" + searchRepository;
+         return url;
       },
       
       /**

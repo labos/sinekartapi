@@ -14,12 +14,15 @@
 					<show id="skpi:destinatario" force="true" />
 					<show id="skpi:oggetto" force="true" />
 					<show id="skpi:data_protocollazione" force="true" />
-					 <show id="skpi:tipo" force="true"/>
+					<show id="skpi:tipo" force="true"/>
+					<show id="skpi:source" force="true" />
 					<show id="skpi:numero_protocollo" force="true" />
 					<show id="skpi:titolario" force="true" />
+					
 				</field-visibility>
 
 				<appearance>
+				<field id="skpi:mittente" description-id="search.help.mittente.tooltip" />
 					<field id="cm:content">
 						<control template="/org/alfresco/components/form/controls/hidden.ftl">
 						</control>

@@ -217,8 +217,31 @@
             
             // reset focus to search input textbox
            Dom.get(this.id + "_0_prop_skpi_mittente").focus();
+           //add help balloon tooltips to help users find protocols
+       	var balloon1 = Alfresco.util.createBalloon(this.id + "_0_prop_skpi_mittente",  {
+            text: this.msg("search.help.mittente.tooltip")
+         });   	
+       	Event.addListener(this.id + "_0_prop_skpi_mittente", "click", balloon1.show, balloon1, true);
+       	var balloon2 = Alfresco.util.createBalloon(this.id + "_0_prop_skpi_oggetto",  {
+            text: this.msg("search.help.oggetto.tooltip")
+         });   	
+       	Event.addListener(this.id + "_0_prop_skpi_oggetto", "click", balloon2.show, balloon2, true);
+       
+        var balloon3 = Alfresco.util.createBalloon(this.id + "_0_prop_skpi_data_protocollazione-cntrl-date-from",  {
+            text: this.msg("search.help.data-protocollazione.tooltip")
+             });   	
+        Event.addListener(this.id + "_0_prop_skpi_data_protocollazione-cntrl-date-from", "click", balloon3.show, balloon3, true);
+          //add option to search all protocol's types
+        var selectType = Dom.get(this.id + "_0_prop_skpi_tipo"),
+             opts = selectType.options,
+        	 newOption = document.createElement('option');
+        	 newOption.text = me.msg('search.option.typeAll');
+        	 newOption.value = '*';
+        	 opts[opts.length] = newOption; 
+         
+         };      
+             
 
-         };
          
          if (!form.htmlid)
          {
@@ -356,6 +379,9 @@
          if (formData.prop_skpi_destinatario){
         	 formData.prop_skpi_destinatario = '*' +formData.prop_skpi_destinatario +'*';
          }     
+         
+         //force advanced search to exclude repository searching
+         this.options.searchRepo = false;
          
          // build and execute url for search page
          var url = YAHOO.lang.substitute(Alfresco.constants.URL_PAGECONTEXT + "{site}search?t={terms}&q={query}&r={repo}",

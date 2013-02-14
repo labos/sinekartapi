@@ -6,7 +6,7 @@
 function main()
 {
    // fetch the request params required by the search component template
-   var siteId = (page.url.templateArgs["site"] != null) ? page.url.templateArgs["site"] : "";
+   var siteId = (page.url.templateArgs["site"] != null) ? page.url.templateArgs["site"] : "protocollo";
    var siteTitle = null;
    if (siteId.length != 0)
    {
@@ -96,7 +96,7 @@ function main()
    var isMember= false,
       isManager= false,
       role= "";
-
+/*
    var json = remote.call("/api/sites/" + encodeURIComponent(siteId) + "/memberships/" + encodeURIComponent(user.name));
    if (json.status == 200)
    {
@@ -119,6 +119,7 @@ function main()
 		   isAuthorized  = true;
 	   }   
    }
+   */
    model.userRole = userRole; 
    model.isAuthorized = isAuthorized;
 

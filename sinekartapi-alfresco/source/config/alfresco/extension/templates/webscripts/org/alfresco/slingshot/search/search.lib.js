@@ -183,7 +183,8 @@ function getDocumentItem(siteId, containerId, pathParts, node)
 	    postalCode: ((postal = node.properties["skpi:postalCode"]) !== null) ? postal : "",
 	    arrival_date: ((arr_date = node.properties["skpi:arrival_date"]) !== null) ? arr_date : null,
 	    arrival_hour: ((arr_hour = node.properties["skpi:arrival_hour"]) !== null) ? arr_hour : null,
-	    		
+	    tipo: ((type = node.properties["skpi:tipo"]) !== null) ? type : "",
+		
          };
          
          item.modifiedBy = getPersonDisplayName(item.modifiedByUser);

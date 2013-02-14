@@ -35,7 +35,7 @@
 		<flags>
 			<!-- Developer debugging setting to turn on DEBUG mode for client scripts 
 				in the browser -->
-			<client-debug>true</client-debug>
+			<client-debug>false</client-debug>
 
 			<!-- LOGGING can always be toggled at runtime when in DEBUG mode (Ctrl, 
 				Ctrl, Shift, Shift). This flag automatically activates logging on page load. -->
@@ -88,7 +88,13 @@
       </header>	
 		
 	</config>
-
+<!--
+   <config evaluator="string-compare" condition="Search"  replace="true">
+      <search>
+         <repository-search>none</repository-search>
+      </search>
+	</config>
+-->
 
 	<!-- Form customization settings -->
 	<config evaluator="aspect" condition="skpi:protocollabile">
@@ -154,6 +160,7 @@
 					<show id="skpi:destinatario" />
 					<show id="skpi:stato" />
 					<show id="skpi:tipo" />
+					<show id="skpi:source" />
 					<show id="skpi:motivo" />
 					<show id="skpi:dataAnnullamento" />
 					<show id="skpi:utenteAnnullante" />

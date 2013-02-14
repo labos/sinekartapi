@@ -1,0 +1,8 @@
+<webscript>
+   <shortname>Scarica elenco documenti con Etichetta lato server</shortname>
+   <description>Scarica un elenco di file protocollati come zip</description>
+   <url>/it/tlogic/sinekartapi/download-massive-files-watermarked</url>
+  <format default="json" />
+   <authentication>user</authentication>
+   <transaction>required</transaction>
+</webscript>

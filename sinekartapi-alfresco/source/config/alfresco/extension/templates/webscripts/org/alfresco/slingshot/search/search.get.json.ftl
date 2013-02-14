@@ -52,6 +52,9 @@
 			<#if item.arrival_date??>
 			"skpi_arrival_date": "${item.arrival_date?string("dd MMM yyyy")}",
 			</#if>
+			<#if item.tipo??>
+			"skpi_tipo": "${item.tipo}",
+			</#if>
 			"tags": [<#list item.tags as tag>"${tag}"<#if tag_has_next>,</#if></#list>]
 		}<#if item_has_next>,</#if>
 		</#list>

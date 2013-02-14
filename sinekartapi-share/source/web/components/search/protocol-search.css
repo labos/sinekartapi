@@ -8,3 +8,40 @@
 	font-size: 70%;
 	font-weight: normal !important;
 }
+
+a.print-protocol {
+	background-image:url(/share/res/components/images/rubberstampdownarrow-48.png);
+    background-position: 4px 1px;
+    background-repeat: no-repeat;
+    border: 1px solid transparent;
+    display: block;
+    min-height: 48px;
+    padding: 2px 0 2px 48px;
+}
+a.print-protocol:hover {
+	border: 1px solid #CCCCCC;
+
+	}
+	
+span.protocol-incoming {
+	background-image:url(/share/res/components/images/protocol-incoming.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 24px;
+    width:24px;
+}
+
+span.protocol-exit {
+	background-image:url(/share/res/components/images/protocol-exit.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 24px;
+    width:24px;
+}
+
+span.printProtocol {
+	vertical-align:top;
+    display: inline-block;
+    width:20%;
+}
+

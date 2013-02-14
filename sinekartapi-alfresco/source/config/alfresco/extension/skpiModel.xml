@@ -111,6 +111,7 @@
 						<constraint type="LIST">
 							<parameter name="allowedValues">
 								<list>
+									<value></value>
 								    <value>Raccomandata</value>
 									<value>Posta</value>
 									<value>Fax</value>
@@ -118,6 +119,7 @@
 									<value>Corriere</value>
 									<value>Email</value>									
 									<value>PEC</value>
+									<value>Telegramma</value>
 								</list>
 							</parameter>
 						</constraint>
