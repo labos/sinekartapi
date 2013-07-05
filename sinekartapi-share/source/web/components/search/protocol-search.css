@@ -44,4 +44,14 @@ span.printProtocol {
     display: inline-block;
     width:20%;
 }
-
+div.row-search-outcoming{
+	background-color:#DFF7DA;
+}
+#ajax-loader {
+	background-image:url(/share/res/components/images/ajax-loader.gif);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 32px;
+    width:32px;
+	visibility:hidden;
+}

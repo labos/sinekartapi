@@ -59,13 +59,14 @@
                <select id="${el}-schedule-menu" class="yuimenu hidden">
                <option value="send-results">${msg("search.info.sendEmail")}</option>
                <option value="zip">${msg("search.info.download.zip")}</option>
+               <option value="schedule">${msg("search.info.download.schedule")}</option>
                <!--
                   <option value="daily">${msg("search.info.download.daily")}</option>
                   <option value="schedule">${msg("search.info.download.schedule")}</option>
                   <option value="report">${msg("search.info.download.report")}</option>
                   -->
                </select>
-               
+               <span id="ajax-loader"></span>
             </div>
                
                   </#if>   

@@ -35,11 +35,11 @@
 		<flags>
 			<!-- Developer debugging setting to turn on DEBUG mode for client scripts 
 				in the browser -->
-			<client-debug>false</client-debug>
+			<client-debug>true</client-debug>
 
 			<!-- LOGGING can always be toggled at runtime when in DEBUG mode (Ctrl, 
 				Ctrl, Shift, Shift). This flag automatically activates logging on page load. -->
-			<client-debug-autologging>true</client-debug-autologging>
+			<client-debug-autologging>false</client-debug-autologging>
 		</flags>
 	<!-- disable more links for no-protocol users -->	
 	      <header>
@@ -103,6 +103,7 @@
 				<field-visibility>
 					<show id ="cm:creator" for-mode ="view" label="label.employee"/>
 					<show id="skpi:titolario" />
+					<show id="cm:categories" force="true" />
 					<show id="skpi:numero_protocollo" />
 					<show id="skpi:oggetto" />
 					<show id="skpi:data_protocollazione" />
@@ -144,6 +145,17 @@
 						<control-param name="forceEditable">true</control-param>
 					   </control>
 				</field>
+				<field id="skpi:titolario">
+				       <control template="/org/alfresco/components/form/controls/titolarioTreeAdmin.ftl">
+						<control-param name="forceEditable">true</control-param>
+					   </control>
+				</field>
+
+			<field id="cm:categories"  label-id="label.uo">
+			<control>
+				<control-param name="compactMode">false</control-param>
+			</control>
+		</field>	
 				</appearance>
 			</form>
 			

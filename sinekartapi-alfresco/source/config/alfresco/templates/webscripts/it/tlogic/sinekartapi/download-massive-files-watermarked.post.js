@@ -28,7 +28,7 @@ for (var index=0; index < protocolsFound.size(); index++) {
 	    try {
 
 	        var first_pdf = docNode,
-	        watermarkText = requestJsonContent.message + " ";
+	        watermarkText = "Sardegna Ricerche" + " ";
 	        //retrieve date and protocol number
 	        var dateProtocol = first_pdf.properties["skpi:data_protocollazione"],
 	        numberProtocol =first_pdf.properties["skpi:numero_protocollo"];

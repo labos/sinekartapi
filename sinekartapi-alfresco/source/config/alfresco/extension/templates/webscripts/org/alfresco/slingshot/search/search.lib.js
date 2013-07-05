@@ -118,7 +118,7 @@ function getRepositoryItem(folderPath, node)
             mimetype: node.mimetype,
             path: folderPath.join("/"),
     	    mittente: ((mitt = node.properties["skpi:mittente"]) !== null) ? mitt : "",
-    	    	    oggetto: ((ogg = node.properties["skpi:oggetto"]) !== null) ? ogg : ""
+    	    oggetto: ((ogg = node.properties["skpi:oggetto"]) !== null) ? ogg : ""
          };
          item.modifiedBy = getPersonDisplayName(item.modifiedByUser);
          item.createdBy = getPersonDisplayName(item.createdByUser);
@@ -158,13 +158,23 @@ function getDocumentItem(siteId, containerId, pathParts, node)
        !(node.qnamePath.match(DISCUSSION_QNAMEPATH+"$") == DISCUSSION_QNAMEPATH))
    {
       if (node.isContainer || node.isDocument)
-      {
+      {		
+    	  var cats = [];
+    	  if(node.properties["cm:categories"]) {
+    		  catsObj = node.properties["cm:categories"];
+    		  for(var i=0;i<catsObj.length;i++){
+    			  var nodeCat = search.findNode(String(catsObj[i].nodeRef));
+    			  cats[i]=nodeCat.properties["cm:name"];
+    		  }
+    	  }
+    	  
          item =
          {
             site: getSiteData(siteId),
             container: containerId,
             nodeRef: node.nodeRef.toString(),
             tags: ((t = node.tags) !== null) ? t : [],
+            categories: (cats.length > 0) ? cats : [],
             name: node.name,
             displayName: node.name,
             title: node.properties["cm:title"],

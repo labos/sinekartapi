@@ -88,7 +88,7 @@ try {
     		    		province = docNode.properties['skpi:province'],
     		    		entryNumber = index +1;
     		    	
-    		    		textLine = "<item><entryNumber>"+entryNumber+"</entryNumber><destinatario>"+destinatario+"</destinatario><address>"+address+"</address><city>"+city+"</city><postalCode>"+postalCode+"</postalCode><province>" + province + "</province></item>";	
+    		    		textLine = "<item><entryNumber><![CDATA["+entryNumber+"]]></entryNumber><destinatario><![CDATA["+destinatario+"]]></destinatario><address><![CDATA["+address+"]]></address><city><![CDATA["+city+"]]></city><postalCode><![CDATA["+postalCode+"]]></postalCode><province><![CDATA[" + province + "]]></province></item>";	
     		    }
     		
     		text+= textLine;

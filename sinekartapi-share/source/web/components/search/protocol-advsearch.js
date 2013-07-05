@@ -229,9 +229,11 @@
        
         var balloon3 = Alfresco.util.createBalloon(this.id + "_0_prop_skpi_data_protocollazione-cntrl-date-from",  {
             text: this.msg("search.help.data-protocollazione.tooltip")
-             });   	
+             });
         Event.addListener(this.id + "_0_prop_skpi_data_protocollazione-cntrl-date-from", "click", balloon3.show, balloon3, true);
-          //add option to search all protocol's types
+                      
+        
+        //add option to search all protocol's types
         var selectType = Dom.get(this.id + "_0_prop_skpi_tipo"),
              opts = selectType.options,
         	 newOption = document.createElement('option');

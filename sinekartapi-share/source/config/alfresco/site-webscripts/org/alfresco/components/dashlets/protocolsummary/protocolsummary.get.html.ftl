@@ -174,7 +174,7 @@
                /**
                 * Simple View
                 */
-                
+    
                 	var  dateProtocolString  =  Alfresco.util.formatDate(record.createdOn,"dd-mm-yyyy");
                   	//var  dateProtocolObj =  new Date(record.createdOn.iso8601), 
                   	//add 1 month due to 0 index

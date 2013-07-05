@@ -55,6 +55,9 @@
 			<#if item.tipo??>
 			"skpi_tipo": "${item.tipo}",
 			</#if>
+			<#if item.categories??>
+			"categories": [<#list item.categories as cat>"${cat}"<#if cat_has_next>,</#if></#list>],
+			</#if>
 			"tags": [<#list item.tags as tag>"${tag}"<#if tag_has_next>,</#if></#list>]
 		}<#if item_has_next>,</#if>
 		</#list>

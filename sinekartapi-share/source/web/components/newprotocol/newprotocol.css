@@ -71,6 +71,7 @@ padding: 5px 10px 6px;
 	color: #fff;
 	text-decoration: none;
 	font-weight: bold;
+	font-size:86%;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
@@ -96,3 +97,24 @@ font-weight:600 !important;
 .sticky-wrapper strong {
     color: green;
 }
+span.protocol-incoming {
+	background-image:url(/share/res/components/images/email-go-icon-16.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 16px;
+    width:16px;
+}
+
+span.protocol-exit {
+	background-image:url(/share/res/components/images/email-go-icon-16.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 16px;
+    width:16px;
+}
+
+
+.form-fields .set:nth-child(2) .yui-gb:nth-child(4) .skpi-cell:first-child {
+    width: 100% !important;
+}
+

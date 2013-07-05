@@ -10,15 +10,15 @@
 			<form id="search">
 			<create-form template="/org/alfresco/components/form/2-column-protocollo-set.ftl" />
 				<field-visibility>
+					<show id="cm:categories" force="true" />
+					<show id="skpi:titolario" force="true" />
 					<show id="skpi:mittente" force="true" />
 					<show id="skpi:destinatario" force="true" />
 					<show id="skpi:oggetto" force="true" />
 					<show id="skpi:data_protocollazione" force="true" />
 					<show id="skpi:tipo" force="true"/>
 					<show id="skpi:source" force="true" />
-					<show id="skpi:numero_protocollo" force="true" />
-					<show id="skpi:titolario" force="true" />
-					
+					<show id="skpi:numero_protocollo" force="true" />					
 				</field-visibility>
 
 				<appearance>
@@ -28,7 +28,7 @@
 						</control>
 					</field>
 
-					<field id="skpi:titolario">
+					<field id="skpi:titolario" label-id="label.search_titolario">
 						<control
 							template="/org/alfresco/components/form/controls/titolarioTree.ftl">
 						</control>
@@ -41,6 +41,7 @@
          						<control-param name="forceEditable">true</control-param>
       						</control>
   						 </field>
+  						 <field id="cm:categories"  label-id="label.uo" />
 
 				</appearance>
 			</form>
@@ -64,6 +65,7 @@
 					<show id="skpi:destinatario" />
 					<show id="skpi:oggetto" />
 					<show id="skpi:aoo" />
+					<show id="cm:categories" force="true" />
 					<show id="skpi:titolario" />
 					<show id="skpi:city" />
 					<show id="skpi:address" />
@@ -105,8 +107,13 @@
 							<control-param name="value">SR-AOO</control-param>						
 						</control>
 					</field>
+					<field id="cm:categories"  label-id="label.uo"  set="mandatory">
+						<control>
+							<control-param name="compactMode">false</control-param>
+						</control>
+					</field>
 
-					<field id="skpi:titolario" set="mandatory">
+					<field id="skpi:titolario"  set="mandatory">
 						<control template="/org/alfresco/components/form/controls/titolarioTree.ftl">
 						</control>
 					</field>

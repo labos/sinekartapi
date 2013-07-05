@@ -170,6 +170,8 @@ protocolForm.addValidation(this.id + "protocol-create_prop_skpi_mittente", Alfre
 null,"Devi aggiungere il mittente");
 protocolForm.addValidation(this.id + "protocol-create_prop_skpi_destinatario", Alfresco.forms.validation.mandatory, null,
 null,"Devi aggiungere il destinatario");
+protocolForm.addValidation(this.id + "protocol-create_prop_cm_categories", Alfresco.forms.validation.mandatory, null,
+		null,"Devi aggiungere il settore/ufficio!");
 
 
 //File Upload button: user needs  "create" access
@@ -201,7 +203,8 @@ this.id + "protocol-create_my-upload-cntrl");
 			 /*  Event.removeListener(formEl, "submit");
 	         formEl.setAttribute("onsubmit", "return false;");
 	         */
-		  var me = this;	
+		  var me = this;
+		  
 	      var enterListener = new YAHOO.util.KeyListener(formEl,
 	        	      {
 	        	         keys: YAHOO.util.KeyListener.KEY.ENTER
@@ -217,18 +220,21 @@ this.id + "protocol-create_my-upload-cntrl");
 	        
 			
 			
-			
+			/*
 	         protocolForm.doBeforeAjaxRequest =
 	        	         {
 	        	            fn: function(config, obj)
 	        	            {
 	        	                // Return false so the form isn't submitted
-	        	            	//return this.isEnterPressed?  false : true;
-	        	            	return true;
+	        	            	
+	        	            	var returnValue =  this.isEnterPressed?  false : true;
+	        	            	this.isEnterPressed = false;
+	        	            	return returnValue;
 	        	             },
 	        	            obj: null,
 	        	            scope: this
 	        	         }
+	         */
 	        
 			//add event listener for change of select protocol
 			Dom.get(this.id + "protocol-create_prop_skpi_" + "destinatario").value = this.msg("message.company");

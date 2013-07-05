@@ -13,7 +13,7 @@
       </div>
    <#else>
       <label for="${fieldHtmlId}">${field.label?html}:</label>
-      <input id="${fieldHtmlId}" type="text" value="${field.value?html}"
+      <input id="${fieldHtmlId}" type="text" value="${field.value?html}" name="${field.name}"
        <#if !(field.control.params.forceEditable?? && field.control.params.forceEditable == "true")>disabled="true"</#if>
              title="${msg("form.field.not.editable")}"
              <#if field.control.params.styleClass??>class="${field.control.params.styleClass}"</#if>

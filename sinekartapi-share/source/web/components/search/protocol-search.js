@@ -412,7 +412,11 @@
          {
             // apply class to the appropriate TD cell
             Dom.addClass(elCell.parentNode, "description");
-            
+            // set background color based on protocol type
+            if( oRecord.getData("skpi_tipo") ==  "Uscita" ){
+                Dom.addClass(elCell, "row-search-outcoming");	
+            }
+
             // site and repository items render with different information available
             var site = oRecord.getData("site");
             var url = me._getBrowseUrlForRecord(oRecord);
@@ -466,6 +470,20 @@
             }
             
             desc += '</div>';
+            
+            
+            // categories (if any)
+            var cats = oRecord.getData("categories");
+            if (cats.length !== 0)
+            {
+               var i, j;
+               desc += '<div class="details"><span class="tags">Ufficio: ';
+               for (i = 0, j = cats.length; i < j; i++)
+               {
+                   desc += '<span class="searchByTag">' + $html(cats[i]) + ' </span>';
+               }
+               desc += '</span></div>';
+            }
             
             
             // tags (if any)
@@ -953,6 +971,8 @@
                {
             	   
             	     if(menuItem.value === "zip"){
+            	    	 YAHOO.util.Dom.setStyle("ajax-loader","visibility",'visible');
+
             	     //call massive download
                          var start = (me.currentPage - 1) * me.options.pageSize;
                          var end = me.currentPage * me.options.pageSize;
@@ -974,7 +994,7 @@
                        	                	   
                     	                        if(response.json.response.nodesToArchive) {
                     	                        	var downloadDialog = Alfresco.getArchiveAndDownloadInstance();
-                    	                        	downloadDialog.show( response.json.response );
+                    	               	    	 YAHOO.util.Dom.setStyle("ajax-loader","visibility",'hidden');                    	                        	downloadDialog.show( response.json.response );
                     	                        } 
                     	                	   }
             
@@ -987,6 +1007,8 @@
                     					{
                     						fn: function dlA_onActionDetails_failure(response) {
                     	                		//var msgResult = response.json.message;
+                   	               	    	 YAHOO.util.Dom.setStyle("ajax-loader","visibility",'hidden');                    	                        	downloadDialog.show( response.json.response );
+
                     	                		Alfresco.util.PopupManager.displayMessage(
                     	                        	{
                     	                            	text: me.msg("message.downloaMassiveError")
@@ -1050,13 +1072,13 @@
 
             	    	 
             	    	 
-            	    	 
-            	    	window.location.href ='mailto:email@echoecho.com?body=' + 'Salve, vedi tutti i documenti del protocollo al seguente link:\n' +'&subject=Invio documenti protocollo';
+            	    	 // open email client
+            	    	//window.location.href ='mailto:email@echoecho.com?body=' + 'Salve, vedi tutti i documenti del protocollo al seguente link:\n' +'&subject=Invio documenti protocollo';
             	     }
             	    	 
             	   
                else if(menuItem.value === "schedule"){
-
+            	   protocolsFound = [];
                 	for (var i = 0; i < oResponse.results.length; i++) {          	
                     	protocolsFound.push(oResponse.results[i].nodeRef);
                     }
@@ -1095,6 +1117,8 @@
                 	        	    }).show();
    
                 	*/
+                	
+                	 YAHOO.util.Dom.setStyle("ajax-loader","visibility",'visible');
                 	Alfresco.util.Ajax.request(
                 			{
                 				url: Alfresco.constants.PROXY_URI + "it/tlogic/sinekartapi/schedule-journal",
@@ -1103,6 +1127,7 @@
             					dataObj : {"protocolsFound" : protocolsFound },
                 				successCallback: {
                 	                   fn: function dlA_onActionDetails_success(response) {
+                	                	   YAHOO.util.Dom.setStyle("ajax-loader","visibility",'hidden');
                 	       				window.open(Alfresco.constants.PROXY_URI + 'api/node/content/' + response.json.response.replace(":/", ""));
 	
                 	                	   		/*
@@ -1120,6 +1145,7 @@
                 					{
                 						fn: function dlA_onActionDetails_failure(response) {
                 	                		var msgResult = response.json.message;
+                	                		 YAHOO.util.Dom.setStyle("ajax-loader","visibility",'hidden');
                 	                		Alfresco.util.PopupManager.displayMessage(
                 	                        	{
                 	                            	text: me.msg("message.scheduleError")
