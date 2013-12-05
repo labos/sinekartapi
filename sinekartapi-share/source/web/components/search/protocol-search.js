@@ -423,7 +423,7 @@
             
             // displayname and link to details page
             var subjectName = oRecord.getData("skpi_oggetto");
-            var desc = '<h3 class="itemname"><a href="' + url + '" class="theme-color-1">' + $html(subjectName) + '';
+            var desc = '<h3 class="itemname"><a target="_blank" href="' + url + '" class="theme-color-1">' + $html(subjectName) + '';
    
             if (oRecord.getData("skpi_oggetto"))
             {

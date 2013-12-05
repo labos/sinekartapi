@@ -386,7 +386,7 @@
          this.options.searchRepo = false;
          
          // build and execute url for search page
-         var url = YAHOO.lang.substitute(Alfresco.constants.URL_PAGECONTEXT + "{site}search?t={terms}&q={query}&r={repo}",
+         var url = YAHOO.lang.substitute(Alfresco.constants.URL_PAGECONTEXT + "{site}search?t={terms}&s=cm:created|false&q={query}&r={repo}",
          {
             site: (this.options.siteId.length !== 0 ? ("site/" + this.options.siteId + "/") : ""),
             terms: "", //encodeURIComponent(Dom.get(this.id + "-search-text").value)

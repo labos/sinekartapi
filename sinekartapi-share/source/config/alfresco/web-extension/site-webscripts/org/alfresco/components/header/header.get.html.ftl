@@ -76,12 +76,22 @@
          </span>
          <label style="padding:4px;border-radius:0px 0px 5px 5px;background-color:#F2639D;-moz-box-shadow: 0px 5px 5px #3d3b3d;-webkit-box-shadow: 0px 5px 5px #3d3b3d;box-shadow: 0px 5px 5px #3d3b3d;">Cerca per Ufficio/Settore==></label>
          <select id="searchByUo">
-         	<option value="">Scegli Ufficio</option>
-         	<option value="workspace://SpacesStore/916b04c7-7dcf-44c7-ad89-9f07a5cd74da">SAG</option>
-          	<option value="workspace://SpacesStore/1dae198d-5965-4404-a6b8-caa1a78a719e">AGI</option>  
-          	<option value="app">APP</option>
-          	<option value="cds">CDS</option>
-          	<option value="dir">DIR</option>
+            	<option value="">Scegli Ufficio</option>
+          		<option value="workspace://SpacesStore/8e5ecb65-ae07-49d6-a5e4-68a5dbba38fc">AGI</option>  
+          		<option value="workspace://SpacesStore/54ba0b71-dce9-4d9b-b97b-ed3e27da311f">APP</option>
+          		<option value="workspace://SpacesStore/a448f5e6-0097-4768-bee5-10a40959bfe8">CDS</option>
+          		<option value="workspace://SpacesStore/4c1189ad-91b4-47a7-b2c0-bd2e35cd7bd0">CGE</option>
+				<option value="workspace://SpacesStore/a7316bd1-d2ae-453d-a612-55504e75c08f">DIR</option>
+				<option value="workspace://SpacesStore/5af2dd9b-8dee-4c3e-b554-6063241b0866">DOC</option>
+				<option value="workspace://SpacesStore/0d032a77-bcef-45cc-87d1-265d76d11ace">NET</option>
+				<option value="workspace://SpacesStore/4159b15a-cfbe-4150-a926-bb1f8d893c5f">PRE</option>
+				<option value="workspace://SpacesStore/9c3ba542-b6c0-43c2-aa00-e53bbd394f6e">PST</option>
+				<option value="workspace://SpacesStore/74fe329b-d712-4f4b-8e4a-a355814b7667">REA</option>
+				<option value="workspace://SpacesStore/ee95c832-8164-448d-a57c-540eeef43b78">RIC</option>
+				<option value="workspace://SpacesStore/ff63a834-9d82-40b2-b4fd-c422cac14552">SAG</option>
+				<option value="workspace://SpacesStore/cc02860f-4859-4ebb-b6cb-055256890d95">SIR</option>
+				<option value="workspace://SpacesStore/91d7bb35-1e87-4eac-86c5-4af9f257fe52">SPF</option>
+				<option value="workspace://SpacesStore/1dc0d123-cdc3-42f9-b4b1-003b3ece7e3b">STT</option>          	
          </select>    	
          <a style="float:right;padding:4px;border-radius:0px 0px 5px 5px;background-color:#F2639D;-moz-box-shadow: 0px 5px 5px #3d3b3d;-webkit-box-shadow: 0px 5px 5px #3d3b3d;box-shadow: 0px 5px 5px #3d3b3d;" href="${url.context}/page/advsearch">${msg("button.searchProtocol")}</a>
        
